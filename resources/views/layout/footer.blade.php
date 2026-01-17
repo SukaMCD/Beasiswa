@@ -8,9 +8,9 @@
         </div>
         <p class="text-secondary mb-3">Kuliner favorit, pengalaman modern. Simple, cepat, dan menyenangkan.</p>
         <div class="d-flex gap-3">
-          <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://www.instagram.com/cendana_pempekbakmi" target="_blank" class="text-secondary text-decoration-none"><i class="bi bi-instagram"></i> Instagram</a>
+          <!-- <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-facebook"></i></a> -->
+          <!-- <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-twitter-x"></i></a> -->
         </div>
       </div>
       <div class="col-6 col-lg-2">

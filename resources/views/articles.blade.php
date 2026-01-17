@@ -28,12 +28,17 @@
                 <article class="card h-100 border-0 shadow-sm">
                     <div class="ratio ratio-4x3">
                         @php
-                            $thumbPath = $article->thumbnail;
-                            if ($thumbPath && !Str::startsWith($thumbPath, ['http://', 'https://'])) {
-                                $thumbPath = '/'.ltrim($thumbPath, '/');
-                            }
+                        $thumbUrl = asset('images/image2.webp');
+
+                        if ($article->thumbnail) {
+                        if (Str::startsWith($article->thumbnail, ['http://', 'https://'])) {
+                        $thumbUrl = $article->thumbnail;
+                        } else {
+                        $thumbUrl = asset('storage/' . $article->thumbnail);
+                        }
+                        }
                         @endphp
-                        <img src="{{ $article->thumbnail ? asset($thumbPath) : asset('images/image2.webp') }}" class="card-img-top object-fit-cover" alt="{{ $article->judul }}">
+                        <img src="{{ $thumbUrl }}" class="card-img-top object-fit-cover" alt="{{ $article->judul }}">
                     </div>
                     <div class="card-body">
                         <h2 class="h6 mb-1">{{ $article->judul }}</h2>
