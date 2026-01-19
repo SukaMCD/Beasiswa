@@ -20,7 +20,7 @@
     <main>
 
         <!-- Menu Favorit (Produk) -->
-        <section class="container py-5">
+        <section class="container py-5" id="menu">
             <div class="text-center mb-4">
                 <h2 class="display-6 fw-bold mb-2">Menu Favorit</h2>
                 <hr class="mx-auto" style="width: 70px; height: 3px; background-color: var(--accent-color); border-radius: 3px;">
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Tentang Kami & Kontak (digabung) -->
-        <section class="container pb-5">
+        <section class="container pb-5" id="about">
             <div class="text-center mb-4">
                 <h2 class="display-6 fw-bold mb-2">Tentang Kami</h2>
                 <hr class="mx-auto" style="width: 70px; height: 3px; background-color: var(--accent-color); border-radius: 3px;">
