@@ -7,13 +7,13 @@
     </div>
     <div class="carousel-inner h-100">
         <div class="carousel-item active h-100">
-            <div class="hero-image h-100" style="background-image: url('{{ asset('images/image1.webp') }}');"></div>
+            <div class="hero-image h-100" style="background-image: url('<?php echo asset('images/hero1.webp'); ?>');"></div>
         </div>
         <div class="carousel-item h-100">
-            <div class="hero-image h-100" style="background-image: url('{{ asset('images/image2.webp') }}');"></div>
+            <div class="hero-image h-100" style="background-image: url('<?php echo asset('images/hero2.webp'); ?>');"></div>
         </div>
         <div class="carousel-item h-100">
-            <div class="hero-image h-100" style="background-image: url('{{ asset('images/image1.webp') }}');"></div>
+            <div class="hero-image h-100" style="background-image: url('<?php echo asset('images/hero1.webp'); ?>');"></div>
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">

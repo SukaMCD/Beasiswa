@@ -82,42 +82,89 @@
             </div>
         </section>
 
-        <!-- Tulis ulasan + Lihat ulasan -->
-        <section class="container pb-4">
-            <div class="p-4 p-lg-5 rounded-4 border">
-                <h3 class="h5 mb-3 text-center">Tulis Ulasanmu</h3>
-                <form method="post" action="#">
+        <!-- sec kontak cuyy -->
+        <section class="container pb-5" id="contact">
+            <div class="p-4 p-lg-5 rounded-4 border bg-white shadow-sm">
+                <div class="text-center mb-4">
+                    <h2 class="h3 fw-bold mb-2">Kontak Kami</h2>
+                    <p class="text-secondary">Punya pertanyaan? Kirim pesan kepada kami dan kami akan segera membalasnya.</p>
+                </div>
+                <form id="contact-form">
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
-                            <label class="form-label">Nama</label>
-                            <input type="text" class="form-control" placeholder="Nama kamu" />
+                            <label class="form-label fw-semibold">Nama</label>
+                            <input type="text" name="user_name" class="form-control py-2 px-3 rounded-3" placeholder="Nama lengkap Anda" required />
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="email@contoh.com" />
+                            <label class="form-label fw-semibold">Email</label>
+                            <input type="email" name="user_email" class="form-control py-2 px-3 rounded-3" placeholder="email@contoh.com" required />
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Ulasan</label>
-                            <textarea class="form-control" rows="4" placeholder="Ceritakan pengalamanmu..."></textarea>
+                            <label class="form-label fw-semibold">Pesan</label>
+                            <textarea name="message" class="form-control py-2 px-3 rounded-3" rows="4" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label">Rating</label>
-                            <select class="form-select">
-                                <option value="5">★★★★★ - Sangat Baik</option>
-                                <option value="4">★★★★☆ - Baik</option>
-                                <option value="3">★★★☆☆ - Cukup</option>
-                                <option value="2">★★☆☆☆ - Buruk</option>
-                                <option value="1">★☆☆☆☆ - Sangat Buruk</option>
-                            </select>
-                        </div>
-                        <div class="col-12 text-center">
-                            <button class="btn btn-primary rounded-pill px-4" type="submit">Kirim Ulasan</button>
-                            <a href="{{ route('reviews') }}" class="btn btn-outline-primary rounded-pill px-4 ms-2">Lihat Ulasan</a>
+                        <div class="col-12 text-center mt-4">
+                            <button class="btn btn-primary rounded-pill px-5 py-2 fw-bold" type="submit" id="submit-btn">
+                                <span id="btn-text">Kirim Pesan</span>
+                                <span id="btn-loader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </div>
                 </form>
+                <div id="form-feedback" class="mt-3 text-center d-none"></div>
             </div>
         </section>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function() {
+                emailjs.init("U85vb-TLi4QCplmwy");
+            })();
+
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const btn = document.getElementById('submit-btn');
+                const btnText = document.getElementById('btn-text');
+                const btnLoader = document.getElementById('btn-loader');
+                const feedback = document.getElementById('form-feedback');
+
+                btn.disabled = true;
+                btnText.classList.add('d-none');
+                btnLoader.classList.remove('d-none');
+
+                emailjs.sendForm('service_i0zo3zo', 'template_m8ajqzd', this)
+                setTimeout(() => {
+                    feedback.classList.remove('d-none', 'alert-danger');
+                    feedback.classList.add('alert', 'alert-success');
+                    feedback.innerHTML = '<i class="bi bi-check-circle me-2"></i>Pesan Anda telah terkirim! Terima kasih.';
+
+                    document.getElementById('contact-form').reset();
+
+                    btn.disabled = false;
+                    btnText.classList.remove('d-none');
+                    btnLoader.classList.add('d-none');
+                }, 1500);
+
+                emailjs.sendForm('service_i0zo3zo', 'template_m8ajqzd', this)
+                    .then(function() {
+                        feedback.classList.remove('d-none', 'alert-danger');
+                        feedback.classList.add('alert', 'alert-success');
+                        feedback.innerHTML = 'Pesan terkirim!';
+                        document.getElementById('contact-form').reset();
+                        btn.disabled = false;
+                        btnText.classList.remove('d-none');
+                        btnLoader.classList.add('d-none');
+                    }, function(error) {
+                        feedback.classList.remove('d-none', 'alert-success');
+                        feedback.classList.add('alert', 'alert-danger');
+                        feedback.innerHTML = 'Gagal mengirim pesan. Silakan coba lagi.';
+                        btn.disabled = false;
+                        btnText.classList.remove('d-none');
+                        btnLoader.classList.add('d-none');
+                    });
+            });
+        </script>
     </main>
 
     @include('layout.footer')
