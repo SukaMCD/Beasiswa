@@ -27,7 +27,7 @@
 
                     <!-- Logo -->
                     <a class="d-flex justify-content-center mb-4">
-                        <img src="{{ asset('images/logo_cendana.png') }}" alt="Kedai Cendana" width="80" draggable="false">
+                        <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" width="80" draggable="false">
                     </a>
                     <!-- Logo -->
 
@@ -42,9 +42,9 @@
                             <label for="email" class="form-label">Alamat Email</label>
                             <input type="email" class="form-control form-control-lg fs-6 @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $request->email) }}" required autofocus readonly>
                             @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
@@ -52,9 +52,9 @@
                             <label for="password" class="form-label">Password Baru</label>
                             <input type="password" class="form-control form-control-lg fs-6 @error('password') is-invalid @enderror" id="password" name="password" required>
                             @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
@@ -62,7 +62,7 @@
                             <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                             <input type="password" class="form-control form-control-lg fs-6" id="password_confirmation" name="password_confirmation" required>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary btn-cendana btn-lg w-100">Reset Password</button>
                     </form>
                 </div>

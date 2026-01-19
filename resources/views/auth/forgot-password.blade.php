@@ -27,34 +27,34 @@
 
                     <!-- Logo -->
                     <a class="d-flex justify-content-center mb-4">
-                        <img src="{{ asset('images/logo_cendana.png') }}" alt="Kedai Cendana" width="80" draggable="false">
+                        <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" width="80" draggable="false">
                     </a>
                     <!-- Logo -->
 
                     @if (session('status'))
-                        <!-- Tampilan ini akan muncul jika email berhasil dikirim -->
-                        <h3 class="card-title text-center">Cek Email Anda</h3>
-                        <p class="text-center text-secondary mb-4">
-                            Kami telah mengirimkan tautan reset password ke email Anda. Silakan cek kotak masuk Anda.
-                        </p>
+                    <!-- Tampilan ini akan muncul jika email berhasil dikirim -->
+                    <h3 class="card-title text-center">Cek Email Anda</h3>
+                    <p class="text-center text-secondary mb-4">
+                        Kami telah mengirimkan tautan reset password ke email Anda. Silakan cek kotak masuk Anda.
+                    </p>
                     @else
-                        <!-- Tampilan default (form) akan muncul jika email belum dikirim -->
-                        <h3 class="card-title text-center">Lupa Password?</h3>
-                        <p class="text-center text-secondary mb-4">Masukkan email Anda untuk menerima tautan reset password.</p>
+                    <!-- Tampilan default (form) akan muncul jika email belum dikirim -->
+                    <h3 class="card-title text-center">Lupa Password?</h3>
+                    <p class="text-center text-secondary mb-4">Masukkan email Anda untuk menerima tautan reset password.</p>
 
-                        <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Alamat Email</label>
-                                <input type="email" class="form-control form-control-lg fs-6 @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autofocus>
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Alamat Email</label>
+                            <input type="email" class="form-control form-control-lg fs-6 @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                            @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
                             </div>
-                            <button type="submit" class="btn btn-primary btn-cendana btn-lg w-100">Kirim Tautan Reset Password</button>
-                        </form>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-cendana btn-lg w-100">Kirim Tautan Reset Password</button>
+                    </form>
                     @endif
                 </div>
             </div>
@@ -62,4 +62,5 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
 </html>

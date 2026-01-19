@@ -15,37 +15,9 @@
 
 <body>
     @include('layout.header')
+    @include('layout.hero')
 
     <main>
-        <!-- Carousel besar full-width -->
-        <section class="container-fluid px-0 hero-offset">
-            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner" style="height: clamp(280px, 55vh, 640px);">
-                    <div class="carousel-item active">
-                        <img src="{{ asset('images/image1.webp') }}" class="d-block w-100 h-100 object-fit-cover" alt="Slide 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/image2.webp') }}" class="d-block w-100 h-100 object-fit-cover" alt="Slide 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/image1.webp') }}" class="d-block w-100 h-100 object-fit-cover" alt="Slide 3">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark bg-opacity-50 rounded-circle p-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark bg-opacity-50 rounded-circle p-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </section>
 
         <!-- Menu Favorit (Produk) -->
         <section class="container py-5">
@@ -59,10 +31,10 @@
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="ratio ratio-4x3">
                             @php
-                                $imgPath = $product->gambar;
-                                if ($imgPath && !Str::startsWith($imgPath, ['http://', 'https://'])) {
-                                    $imgPath = '/'.ltrim($imgPath, '/');
-                                }
+                            $imgPath = $product->gambar;
+                            if ($imgPath && !Str::startsWith($imgPath, ['http://', 'https://'])) {
+                            $imgPath = '/'.ltrim($imgPath, '/');
+                            }
                             @endphp
                             <img src="{{ $product->gambar ? asset($imgPath) : asset('images/image2.webp') }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
                         </div>
@@ -94,7 +66,7 @@
             </div>
             <div class="row align-items-center g-4 text-center text-lg-start">
                 <div class="col-12 col-lg-6">
-                    <img src="{{ asset('images/logo_cendana.png') }}" alt="Logo Kedai Cendana" class="img-fluid rounded shadow-sm" style="max-width: 60%; height: auto;">
+                    <img src="{{ asset('images/logo_cendana.webp') }}" alt="Logo Kedai Cendana" class="img-fluid rounded shadow-sm" style="max-width: 60%; height: auto;">
                 </div>
                 <div class="col-12 col-lg-6">
                     <h3 class="h4 fw-bold mb-3">Kedai Cendana</h3>

@@ -27,7 +27,7 @@
 
                     <!-- Logo -->
                     <a class="d-flex justify-content-center mb-4">
-                        <img src="{{ asset('images/logo_cendana.png') }}" alt="Kedai Cendana" width="80" draggable="false">
+                        <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" width="80" draggable="false">
                     </a>
                     <!-- Logo -->
 
@@ -38,7 +38,7 @@
 
                     <!-- Daftar Google -->
                     <a href="{{ url('auth/redirect') }}" class="btn btn-lg btn-outline-custom w-100 d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('images/google_logo.png') }}" alt="Google" width="20" class="me-2" draggable="false">
+                        <img src="{{ asset('images/google_logo.webp') }}" alt="Google" width="20" class="me-2" draggable="false">
                         Daftar dengan Google
                     </a>
 
