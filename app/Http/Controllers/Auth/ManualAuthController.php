@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class ManualAuthController extends Controller
 {
     /**
-     * Tampilkan form login.
+     * porm loginnn
      *
      * @return \Illuminate\View\View
      */
@@ -21,7 +21,7 @@ class ManualAuthController extends Controller
     }
 
     /**
-     * Proses otentikasi pengguna secara manual.
+     * user manualll
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -45,15 +45,13 @@ class ManualAuthController extends Controller
             return redirect()->route('homepage');
         }
 
-        // Jika otentikasi gagal, kembalikan ke form login
-        // dengan input sebelumnya dan pesan error.
         return back()->withInput()->withErrors([
             'email' => 'Email atau password salah.',
         ]);
     }
 
     /**
-     * Tampilkan form registrasi.
+     * form registrasi.
      *
      * @return \Illuminate\View\View
      */
@@ -63,15 +61,13 @@ class ManualAuthController extends Controller
     }
 
     /**
-     * Proses registrasi pengguna baru.
+     * regis user baru
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function register(Request $request)
     {
-        // Metode validate() akan otomatis mengalihkan kembali dengan error
-        // jika validasi gagal, jadi tidak perlu tambahan withInput() atau withErrors().
         $request->validate([
             'nama_user' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

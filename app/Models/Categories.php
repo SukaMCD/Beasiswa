@@ -9,7 +9,6 @@ class Categories extends Model
 {
     use HasFactory;
 
-    // PENTING: Beri tahu Laravel primary key Anda bukan 'id'
     protected $primaryKey = 'id_kategori';
     protected $table = 'categories';
 

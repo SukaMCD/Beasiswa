@@ -22,7 +22,6 @@ class User extends Authenticatable implements FilamentUser, HasName
         'google_token',
         'google_refresh_token',
         'role',
-        // Tambahkan kolom auth_provider di sini
         'auth_provider',
     ];
 
@@ -36,17 +35,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         'password' => 'hashed',
     ];
 
-    /**
-     * Tentukan apakah user bisa akses panel Filament.
-     */
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
         return $this->role === 'admin';
     }
 
-    /**
-     * Method dari HasName → ini yang dipanggil Filament v4.
-     */
     public function getFilamentName(): string
     {
         return (string) ($this->nama_user ?? $this->email ?? 'User');
