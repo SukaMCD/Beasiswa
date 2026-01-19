@@ -1,44 +1,67 @@
-<footer class="bg-dark text-light mt-5">
-  <div class="container py-4 py-lg-5">
-    <div class="row gy-4 align-items-start">
-      <div class="col-12 col-lg-4">
-        <div class="d-flex align-items-center mb-3">
-          <img src="{{ asset('images/logo_cendana.png') }}" alt="Cendana Logo" style="height: 32px; width: auto;" />
-          <span class="ms-2 fw-semibold">Kedai Cendana</span>
-        </div>
-        <p class="text-secondary mb-3">Kuliner favorit, pengalaman modern. Simple, cepat, dan menyenangkan.</p>
-        <div class="d-flex gap-3">
-          <a href="https://www.instagram.com/cendana_pempekbakmi" target="_blank" class="text-secondary text-decoration-none"><i class="bi bi-instagram"></i> Instagram</a>
-          <!-- <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-facebook"></i></a> -->
-          <!-- <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-twitter-x"></i></a> -->
+<footer class="main-footer">
+  <div class="container footer-content">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <a href="/" class="footer-logo">
+          <img src="{{ asset('images/kedai-cendana-rounded.webp') }}" alt="Logo Kedai Cendana">
+          <span>Kedai Cendana</span>
+        </a>
+        <p class="footer-description">
+          Menghadirkan cita rasa autentik dengan sentuhan modern. Kami berkomitmen menyajikan hidangan berkualitas tinggi untuk pengalaman kuliner terbaik Anda.
+        </p>
+        <div class="footer-social-links">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
         </div>
       </div>
-      <div class="col-6 col-lg-2">
-        <h6 class="text-uppercase text-secondary">Menu</h6>
-        <ul class="list-unstyled small">
-          <li><a href="/" class="link-light link-underline-opacity-0 link-underline-opacity-50-hover">Beranda</a></li>
-          <li><a href="{{ route('articles') }}" class="link-light link-underline-opacity-0 link-underline-opacity-50-hover">Artikel</a></li>
-          <li><a href="{{ route('reviews') }}" class="link-light link-underline-opacity-0 link-underline-opacity-50-hover">Reviews</a></li>
+
+      <div class="footer-links-col">
+        <h4 class="footer-heading">Menu Cepat</h4>
+        <ul class="footer-link-list">
+          <li><a href="/">Beranda</a></li>
+          <li><a href="{{ route('products') }}">Menu Kami</a></li>
+          <li><a href="{{ route('reviews') }}">Ulasan</a></li>
+          <li><a href="{{ route('articles') }}">Artikel</a></li>
         </ul>
       </div>
-      <div class="col-6 col-lg-3">
-        <h6 class="text-uppercase text-secondary">Kontak</h6>
-        <ul class="list-unstyled small mb-0">
-          <li>Email: hello@kedai-cendana.test</li>
-          <li>Telp: +62 812-1234-5678</li>
-          <li>Alamat: Bandung, Indonesia</li>
+
+      <div class="footer-links-col">
+        <h4 class="footer-heading">Kontak</h4>
+        <ul class="footer-link-list">
+          <li><a href="#">cendana@gmail.com</a></li>
+          <li><a href="#">08123456789</a></li>
+          <li><a href="#">www.kedaicendana.com</a></li>
         </ul>
       </div>
-      
+
+      <div class="footer-links-col">
+        <h4 class="footer-heading">Lokasi</h4>
+        <div class="footer-map-container mt-3">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d731.8602353753331!2d106.69589340188884!3d-6.206972301661459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f993922a73ff%3A0x4f7de683e865ee2e!2sJl.%20Cendana%20II%20Blok%20S%20No.27%2C%20RT.006%2FRW.006%2C%20Pd.%20Bahar%2C%20Kec.%20Karang%20Tengah%2C%20Kota%20Tangerang%2C%20Banten%2015159!5e0!3m2!1sid!2sid!4v1768810188040!5m2!1sid!2sid"
+            width="100%"
+            height="150"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="rounded-3 shadow-sm border border-light border-opacity-10">
+          </iframe>
+        </div>
+      </div>
     </div>
-    <hr class="border-secondary-subtle my-4" />
-    <div class="d-flex flex-column flex-sm-row justify-content-between small text-secondary">
-      <span>© {{ date('Y') }} Kedai Cendana. All rights reserved.</span>
-      <div class="d-flex gap-3">
-        <a href="#" class="link-secondary link-underline-opacity-0 link-underline-opacity-50-hover">Privasi</a>
-        <a href="#" class="link-secondary link-underline-opacity-0 link-underline-opacity-50-hover">Syarat</a>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-bottom-flex">
+        <p class="copyright">&copy; {{ date('Y') }} Kedai Cendana. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
       </div>
     </div>
   </div>
 </footer>
-
