@@ -21,7 +21,7 @@ class Product extends Model
         'gambar',
     ];
 
-    public function categories(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Categories::class, 'id_kategori', 'id_kategori');
     }

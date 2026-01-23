@@ -24,21 +24,38 @@
 
         <div class="row g-3 g-lg-4">
             @forelse($products as $product)
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="ratio ratio-4x3">
+            <div class="col-6 col-md-3">
+                <div class="card product-card h-100 border-0 shadow-sm position-relative">
+                    <!-- Stock Badge -->
+                    @if($product->stok > 10)
+                    <span class="stock-badge stock-available"><i class="bi bi-check2-circle me-1"></i>Tersedia</span>
+                    @elseif($product->stok > 0)
+                    <span class="stock-badge stock-limited"><i class="bi bi-exclamation-triangle me-1"></i>Terbatas ({{ $product->stok }})</span>
+                    @else
+                    <span class="stock-badge stock-out"><i class="bi bi-x-circle me-1"></i>Habis</span>
+                    @endif
+
+                    <div class="ratio ratio-4x3 overflow-hidden">
                         @php
-                            $imgPath = $product->gambar;
-                            if ($imgPath && !Str::startsWith($imgPath, ['http://', 'https://'])) {
-                                $imgPath = '/'.ltrim($imgPath, '/');
-                            }
+                        $imgPath = $product->gambar;
+                        if ($imgPath) {
+                        if (Str::startsWith($imgPath, ['http://', 'https://'])) {
+                        $finalImg = $imgPath;
+                        } else {
+                        $finalImg = asset('storage/' . $imgPath);
+                        }
+                        } else {
+                        $finalImg = asset('images/image2.webp');
+                        }
                         @endphp
-                        <img src="{{ $product->gambar ? asset($imgPath) : asset('images/image2.webp') }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
+                        <img src="{{ $finalImg }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
                     </div>
                     <div class="card-body">
-                        <h2 class="h6 mb-1">{{ $product->nama_produk }}</h2>
-                        <div class="text-secondary small mb-2">{{ Str::limit($product->deskripsi, 60) }}</div>
-                        <strong>Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>
+                        <h2 class="h6 product-title mb-1">{{ $product->nama_produk }}</h2>
+                        <div class="text-secondary small mb-2" style="height: 2.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                            {{ $product->deskripsi }}
+                        </div>
+                        <strong class="product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>
                     </div>
                 </div>
             </div>
@@ -61,4 +78,3 @@
 </body>
 
 </html>
-

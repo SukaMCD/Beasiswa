@@ -28,20 +28,44 @@
             <div class="row g-3 g-lg-4">
                 @forelse($products as $product)
                 <div class="col-6 col-md-3">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="ratio ratio-4x3">
+                    <div class="card product-card h-100 border-0 shadow-sm position-relative">
+                        <!-- Stock Badge -->
+                        @if($product->stok > 10)
+                        <span class="stock-badge stock-available"><i class="bi bi-check2-circle me-1"></i>Tersedia</span>
+                        @elseif($product->stok > 0)
+                        <span class="stock-badge stock-limited"><i class="bi bi-exclamation-triangle me-1"></i>Stok Terbatas ({{ $product->stok }})</span>
+                        @else
+                        <span class="stock-badge stock-out"><i class="bi bi-x-circle me-1"></i>Habis</span>
+                        @endif
+
+                        <div class="ratio ratio-4x3 overflow-hidden">
                             @php
                             $imgPath = $product->gambar;
-                            if ($imgPath && !Str::startsWith($imgPath, ['http://', 'https://'])) {
-                            $imgPath = '/'.ltrim($imgPath, '/');
+                            if ($imgPath) {
+                            if (Str::startsWith($imgPath, ['http://', 'https://'])) {
+                            $finalImg = $imgPath;
+                            } else {
+                            // Handle Filament storage path
+                            $finalImg = Storage::url($imgPath);
+                            }
+                            } else {
+                            $finalImg = asset('images/image2.webp');
                             }
                             @endphp
-                            <img src="{{ $product->gambar ? asset($imgPath) : asset('images/image2.webp') }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
+                            <img src="{{ $finalImg }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
                         </div>
                         <div class="card-body">
-                            <h3 class="h6 mb-1">{{ $product->nama_produk }}</h3>
-                            <div class="text-secondary small mb-2">{{ \Illuminate\Support\Str::limit($product->deskripsi, 60) }}</div>
-                            <strong>Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>
+                            <h3 class="h6 product-title mb-1">{{ $product->nama_produk }}</h3>
+                            <div class="text-secondary small mb-2" style="height: 2.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                {{ $product->deskripsi }}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <strong class="product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>
+                                <div class="d-flex align-items-center bg-light px-2 py-1 rounded-pill border">
+                                    <i class="bi bi-box-seam text-secondary me-1" style="font-size: 0.8rem;"></i>
+                                    <span class="text-secondary fw-semibold" style="font-size: 0.8rem;">{{ $product->stok }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,6 +81,14 @@
         <div class="container pb-5 text-center">
             <a href="{{ route('products') }}" class="btn btn-primary btn-lg rounded-pill px-4">Menu lainnya</a>
         </div>
+
+        <!-- pocer -->
+        <section class="container pb-5" id="voucher">
+            <div class="text-center mb-4">
+                <h2 class="display-6 fw-bold mb-2">Voucher</h2>
+                <hr class="mx-auto" style="width: 70px; height: 3px; background-color: var(--accent-color); border-radius: 3px;">
+            </div>
+        </section>
 
         <!-- Tentang Kami & Kontak (digabung) -->
         <section class="container pb-5" id="about">

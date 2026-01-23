@@ -26,9 +26,11 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('nama_produk')
                     ->required()
                     ->maxLength(200),
-                Forms\Components\TextInput::make('id_kategori')
+                Forms\Components\Select::make('id_kategori')
+                    ->relationship('category', 'nama_kategori')
                     ->required()
-                    ->numeric(),
+                    ->searchable()
+                    ->preload(),
                 Forms\Components\Textarea::make('deskripsi')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('harga')
@@ -50,11 +52,12 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('gambar')
-                    ->disk('public'),
+                    ->disk('public')
+                    ->visibility('public'),
                 Tables\Columns\TextColumn::make('nama_produk')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('id_kategori')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('category.nama_kategori')
+                    ->label('Kategori')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('harga')
                     ->numeric()

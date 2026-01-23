@@ -18,7 +18,7 @@
             <a class="nav-link mx-lg-2" href="#menu">Menu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="#about">Tentang</a>
+            <a class="nav-link mx-lg-2" href="#voucher">Voucher</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-lg-2" href="#contact">Kontak</a>
