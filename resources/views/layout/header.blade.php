@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
     <a class="navbar-brand me-auto" href="/">
-      <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" class="header-logo">
+      <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" class="header-logo" draggable="false">
     </a>
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -12,14 +12,14 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link nav-anchor mx-lg-2" aria-current="page" href="/#home">Home</a>
+            <a class="nav-link nav-anchor mx-lg-2" aria-current="page" href="/#home">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link nav-anchor mx-lg-2" href="/#menu">Menu</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link nav-anchor mx-lg-2" href="/#voucher">Voucher</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link nav-anchor mx-lg-2" href="/#contact">Kontak</a>
           </li>

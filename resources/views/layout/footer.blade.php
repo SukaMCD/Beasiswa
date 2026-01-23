@@ -3,7 +3,7 @@
     <div class="footer-grid">
       <div class="footer-brand-col">
         <a href="/" class="footer-logo">
-          <img src="{{ asset('images/kedai-cendana-rounded.webp') }}" alt="Logo Kedai Cendana">
+          <img src="{{ asset('images/kedai-cendana-rounded.webp') }}" alt="Logo Kedai Cendana" draggable="false">
           <span>Kedai Cendana</span>
         </a>
         <p class="footer-description">
@@ -19,10 +19,10 @@
       <div class="footer-links-col">
         <h4 class="footer-heading">Menu Cepat</h4>
         <ul class="footer-link-list">
-          <li><a href="/">Beranda</a></li>
-          <li><a href="{{ route('products') }}">Menu Kami</a></li>
-          <li><a href="{{ route('reviews') }}">Ulasan</a></li>
-          <li><a href="{{ route('articles') }}">Artikel</a></li>
+          <li><a href="/#home" class="nav-anchor">Beranda</a></li>
+          <li><a href="{{ route('products') }}">Menu</a></li>
+          <li><a href="/#contact" class="nav-anchor">Kontak</a></li>
+          <!-- <li><a href="#">Artikel</a></li> -->
         </ul>
       </div>
 

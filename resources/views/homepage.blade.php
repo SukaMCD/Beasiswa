@@ -79,24 +79,28 @@
 
         <!-- Tombol Menu lainnya -->
         <div class="container pb-5 text-center">
-            <a href="{{ route('products') }}" class="btn btn-primary btn-lg rounded-pill px-4">Menu lainnya</a>
+            <a href="{{ route('products') }}" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">Menu Lainnya <i class="bi bi-arrow-right ms-2"></i></a>
         </div>
 
-        <!-- pocer -->
+        <!-- pocer
         <section class="container pb-5" id="voucher">
             <div class="text-center mb-4">
                 <h2 class="display-6 fw-bold mb-2">Voucher</h2>
                 <hr class="mx-auto" style="width: 70px; height: 3px; background-color: var(--accent-color); border-radius: 3px;">
             </div>
-        </section>
+        </section> -->
 
-        <!-- Tentang Kami & Kontak (digabung) -->
+        <!-- abot as -->
         <section class="container py-5" id="about">
+            <div class="text-center mb-4">
+                <h2 class="display-6 fw-bold mb-2">Tentang Kami</h2>
+                <hr class="mx-auto" style="width: 70px; height: 3px; background-color: var(--accent-color); border-radius: 3px;">
+            </div>
             <div class="row align-items-center g-5">
                 <div class="col-12 col-lg-6">
                     <div class="about-image-wrapper position-relative">
                         <div class="about-image-shape"></div>
-                        <img src="{{ asset('images/logo_cendana.webp') }}" alt="Logo Kedai Cendana" class="img-fluid rounded-4 shadow-lg position-relative z-1" style="max-width: 80%; height: auto;">
+                        <img src="{{ asset('images/logo_cendana.webp') }}" alt="Logo Kedai Cendana" class="img-fluid rounded-4 shadow-lg position-relative z-1" style="max-width: 80%; height: auto;" draggable="false">
                         <div class="about-experience-badge">
                             <span class="fs-3 fw-bold">125</span>
                             <span class="small d-block">Porsi Tersaji</span>
@@ -123,11 +127,11 @@
                             <div class="col-6">
                                 <div class="d-flex align-items-center">
                                     <div class="about-icon-box me-3">
-                                        <i class="bi bi-heart"></i>
+                                        <i class="bi bi-stopwatch"></i>
                                     </div>
                                     <div>
-                                        <h4 class="h6 fw-bold mb-0">Autentik</h4>
-                                        <small class="text-muted">Resep Klasik</small>
+                                        <h4 class="h6 fw-bold mb-0">Tanpa Pengawet</h4>
+                                        <small class="text-muted">Bahan alami</small>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +145,6 @@
             </div>
         </section>
 
-        <!-- Modal Tentang Kami -->
         <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
@@ -152,7 +155,7 @@
                     <div class="modal-body p-4 p-lg-5">
                         <div class="row g-4">
                             <div class="col-md-4">
-                                <img src="{{ asset('images/kedai-cendana-rounded.webp') }}" class="img-fluid rounded-4 mb-3" alt="Kedai Cendana">
+                                <img src="{{ asset('images/kedai-cendana-rounded.webp') }}" class="img-fluid rounded-4 mb-3" alt="Kedai Cendana" draggable="false">
                                 <div class="bg-light p-3 rounded-3">
                                     <h6 class="fw-bold mb-2">Kontak Kami</h6>
                                     <ul class="list-unstyled small mb-0 text-secondary">
@@ -204,11 +207,11 @@
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
                             <label class="form-label fw-semibold">Nama</label>
-                            <input type="text" name="user_name" class="form-control py-2 px-3 rounded-3" placeholder="Nama lengkap Anda" required />
+                            <input type="text" name="user_name" class="form-control py-2 px-3 rounded-3" placeholder="Nama lengkap" required />
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label fw-semibold">Email</label>
-                            <input type="email" name="user_email" class="form-control py-2 px-3 rounded-3" placeholder="email@contoh.com" required />
+                            <input type="email" name="user_email" class="form-control py-2 px-3 rounded-3" placeholder="Alamat email" required />
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold">Pesan</label>
