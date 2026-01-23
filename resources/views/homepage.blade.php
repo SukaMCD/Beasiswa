@@ -56,7 +56,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="h6 product-title mb-1">{{ $product->nama_produk }}</h3>
-                            <div class="text-secondary small mb-2" style="height: 2.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                            <div class="text-secondary small mb-2" style="height: 2.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">
                                 {{ $product->deskripsi }}
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
@@ -91,28 +91,107 @@
         </section>
 
         <!-- Tentang Kami & Kontak (digabung) -->
-        <section class="container pb-5" id="about">
-            <div class="text-center mb-4">
-                <h2 class="display-6 fw-bold mb-2">Tentang Kami</h2>
-                <hr class="mx-auto" style="width: 70px; height: 3px; background-color: var(--accent-color); border-radius: 3px;">
-            </div>
-            <div class="row align-items-center g-4 text-center text-lg-start">
+        <section class="container py-5" id="about">
+            <div class="row align-items-center g-5">
                 <div class="col-12 col-lg-6">
-                    <img src="{{ asset('images/logo_cendana.webp') }}" alt="Logo Kedai Cendana" class="img-fluid rounded shadow-sm" style="max-width: 60%; height: auto;">
+                    <div class="about-image-wrapper position-relative">
+                        <div class="about-image-shape"></div>
+                        <img src="{{ asset('images/logo_cendana.webp') }}" alt="Logo Kedai Cendana" class="img-fluid rounded-4 shadow-lg position-relative z-1" style="max-width: 80%; height: auto;">
+                        <div class="about-experience-badge">
+                            <span class="fs-3 fw-bold">125</span>
+                            <span class="small d-block">Porsi Tersaji</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <h3 class="h4 fw-bold mb-3">Kedai Cendana</h3>
-                    <p class="lead text-secondary">Kedai Cendana adalah kedai kontemporer yang menghadirkan cita rasa autentik dengan sentuhan modern. Kami berkomitmen menyajikan hidangan berkualitas tinggi dari bahan-bahan pilihan.</p>
-                    <p class="text-secondary">Dengan semangat inovasi, kami menghadirkan menu favorit untuk menemani momen spesial Anda. Bagi kami, makanan bukan sekadar santapan—tetapi pengalaman.</p>
-                    <ul class="list-unstyled mb-3 text-secondary">
-                        <li class="mb-1"><i class="bi bi-envelope me-2"></i>hello@kedai-cendana.test</li>
-                        <li class="mb-1"><i class="bi bi-telephone me-2"></i>+62 812-1234-5678</li>
-                        <li><i class="bi bi-geo-alt me-2"></i>Bandung, Indonesia</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary rounded-pill px-4">Selengkapnya</a>
+                    <div class="ps-lg-4">
+                        <h2 class="display-5 fw-bold mb-4">Kedai Cendana: <span class="text-primary">Pempek & Bakmi Ayam</span></h2>
+                        <p class="lead text-secondary mb-4">Kedai Cendana adalah kedai kontemporer yang menghadirkan cita rasa autentik dengan sentuhan modern. Kami berkomitmen menyajikan hidangan berkualitas tinggi dari bahan-bahan pilihan.</p>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="about-icon-box me-3">
+                                        <i class="bi bi-award"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="h6 fw-bold mb-0">Kualitas</h4>
+                                        <small class="text-muted">Bahan Premium</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="about-icon-box me-3">
+                                        <i class="bi bi-heart"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="h6 fw-bold mb-0">Autentik</h4>
+                                        <small class="text-muted">Resep Klasik</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm" data-bs-toggle="modal" data-bs-target="#aboutModal">
+                            Selengkapnya <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Modal Tentang Kami -->
+        <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="modal-header border-0 bg-light p-4">
+                        <h5 class="modal-title fw-bold" id="aboutModalLabel">Kisah Kedai Cendana</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4 p-lg-5">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <img src="{{ asset('images/kedai-cendana-rounded.webp') }}" class="img-fluid rounded-4 mb-3" alt="Kedai Cendana">
+                                <div class="bg-light p-3 rounded-3">
+                                    <h6 class="fw-bold mb-2">Kontak Kami</h6>
+                                    <ul class="list-unstyled small mb-0 text-secondary">
+                                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>hello@kedai-cendana.test</li>
+                                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>+62 812-1234-5678</li>
+                                        <li><i class="bi bi-geo-alt me-2"></i>Bandung, Indonesia</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="fw-bold mb-3">Visi & Misi Kami</h3>
+                                <p class="text-secondary">Dengan semangat inovasi, kami menghadirkan menu favorit untuk menemani momen spesial Anda. Bagi kami, makanan bukan sekadar santapan—tetapi pengalaman yang menghubungkan orang.</p>
+                                <p class="text-secondary">Kedai kami bermula dari sebuah garasi kecil di tahun 2014, dengan semangat untuk melestarikan kuliner tradisional dalam balutan gaya hidup masa kini. Kini, kami bangga menjadi bagian dari keseharian ribuan pelanggan setia kami.</p>
+
+                                <div class="mt-4">
+                                    <h6 class="fw-bold mb-3">Kenapa Memilih Kami?</h6>
+                                    <div class="d-flex mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <span class="text-secondary">Bahan selalu segar setiap hari</span>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <span class="text-secondary">Tanpa bahan pengawet buatan</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <span class="text-secondary">Layanan yang hangat dan kekeluargaan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4">
+                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Tutup</button>
+                        <a href="#menu" class="btn btn-primary rounded-pill px-4" data-bs-dismiss="modal">Lihat Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- sec kontak cuyy -->
         <section class="container pb-5" id="contact">

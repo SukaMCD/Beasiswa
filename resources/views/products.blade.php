@@ -52,7 +52,7 @@
                     </div>
                     <div class="card-body">
                         <h2 class="h6 product-title mb-1">{{ $product->nama_produk }}</h2>
-                        <div class="text-secondary small mb-2" style="height: 2.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                        <div class="text-secondary small mb-2" style="height: 2.5rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">
                             {{ $product->deskripsi }}
                         </div>
                         <strong class="product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>

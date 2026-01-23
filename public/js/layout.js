@@ -1,36 +1,62 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    const navLinks = document.querySelectorAll(".nav-anchor");
+
+    function scrollToSection(targetId, smooth = true) {
+        const id = targetId.startsWith("/#")
+            ? targetId.substring(1)
+            : targetId.startsWith("#")
+              ? targetId
+              : null;
+
+        if (!id || id === "#") return false;
+
+        const targetElement = document.querySelector(id);
+
+        if (targetElement) {
+            const navbarHeight = document.querySelector(".navbar").offsetHeight;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition =
+                elementPosition + window.pageYOffset - (navbarHeight + 20);
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: smooth ? "smooth" : "auto",
+            });
+
+            if (window.location.hash || targetId.includes("#")) {
+                history.replaceState(null, null, window.location.pathname);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    if (window.location.hash) {
+        setTimeout(() => {
+            scrollToSection(window.location.hash, false);
+        }, 100);
+    }
 
     navLinks.forEach((link) => {
         link.addEventListener("click", function (e) {
-            const targetId = this.getAttribute("href");
+            const href = this.getAttribute("href");
 
-            if (targetId === "#") return;
+            if (
+                window.location.pathname === "/" ||
+                window.location.pathname === ""
+            ) {
+                const id = href.includes("#") ? "#" + href.split("#")[1] : null;
 
-            const targetElement = document.querySelector(targetId);
+                if (id && scrollToSection(id)) {
+                    e.preventDefault();
 
-            if (targetElement) {
-                e.preventDefault();
-
-                const navbarHeight =
-                    document.querySelector(".navbar").offsetHeight;
-
-                const elementPosition =
-                    targetElement.getBoundingClientRect().top;
-                const offsetPosition =
-                    elementPosition + window.pageYOffset - (navbarHeight + 20);
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth",
-                });
-
-                const offcanvasElement =
-                    document.getElementById("offcanvasNavbar");
-                const offcanvas =
-                    bootstrap.Offcanvas.getInstance(offcanvasElement);
-                if (offcanvas) {
-                    offcanvas.hide();
+                    const offcanvasElement =
+                        document.getElementById("offcanvasNavbar");
+                    const offcanvas =
+                        bootstrap.Offcanvas.getInstance(offcanvasElement);
+                    if (offcanvas) {
+                        offcanvas.hide();
+                    }
                 }
             }
         });
@@ -50,7 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         navLinks.forEach((link) => {
             link.classList.remove("active");
-            if (link.getAttribute("href") === `#${current}`) {
+            const href = link.getAttribute("href");
+            if (href.endsWith(`#${current}`)) {
                 link.classList.add("active");
             }
         });

@@ -12,16 +12,16 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" aria-current="page" href="#home">Home</a>
+            <a class="nav-link nav-anchor mx-lg-2" aria-current="page" href="/#home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="#menu">Menu</a>
+            <a class="nav-link nav-anchor mx-lg-2" href="/#menu">Menu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="#voucher">Voucher</a>
+            <a class="nav-link nav-anchor mx-lg-2" href="/#voucher">Voucher</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="#contact">Kontak</a>
+            <a class="nav-link nav-anchor mx-lg-2" href="/#contact">Kontak</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-lg-2" href="#">QR Code</a>
