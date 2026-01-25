@@ -62,8 +62,7 @@
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <strong class="product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>
                                 <div class="d-flex align-items-center bg-light px-2 py-1 rounded-pill border">
-                                    <i class="bi bi-box-seam text-secondary me-1" style="font-size: 0.8rem;"></i>
-                                    <span class="text-secondary fw-semibold" style="font-size: 0.8rem;">{{ $product->stok }}</span>
+                                    <span class="text-secondary fw-semibold" style="font-size: 0.8rem;">Stok: {{ $product->stok }}</span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +81,7 @@
             <a href="{{ route('products') }}" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">Menu Lainnya <i class="bi bi-arrow-right ms-2"></i></a>
         </div>
 
-        <!-- pocer
+        <!-- voucher nunggu ada ide implementasiinya
         <section class="container pb-5" id="voucher">
             <div class="text-center mb-4">
                 <h2 class="display-6 fw-bold mb-2">Voucher</h2>
@@ -159,9 +158,9 @@
                                 <div class="bg-light p-3 rounded-3">
                                     <h6 class="fw-bold mb-2">Kontak Kami</h6>
                                     <ul class="list-unstyled small mb-0 text-secondary">
-                                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>hello@kedai-cendana.test</li>
-                                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>+62 812-1234-5678</li>
-                                        <li><i class="bi bi-geo-alt me-2"></i>Bandung, Indonesia</li>
+                                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>cendana@gmail.com</li>
+                                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>+62 857-7033-3245</li>
+                                        <li><i class="bi bi-geo-alt me-2"></i>Tangerang, Indonesia</li>
                                     </ul>
                                 </div>
                             </div>

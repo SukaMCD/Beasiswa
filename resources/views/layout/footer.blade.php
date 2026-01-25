@@ -10,9 +10,9 @@
           Menghadirkan cita rasa autentik dengan sentuhan modern. Kami berkomitmen menyajikan hidangan berkualitas tinggi untuk pengalaman kuliner terbaik Anda.
         </p>
         <div class="footer-social-links">
-          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          <a href="mailto:cendana@gmail.com" aria-label="Gmail" target="_blank"><i class="bi bi-envelope"></i></a>
+          <a href="https://www.instagram.com/cendana_pempekbakmi" aria-label="Instagram" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://wa.me/6285770333245" aria-label="WhatsApp" target="_blank"><i class="bi bi-whatsapp"></i></a>
         </div>
       </div>
 
@@ -20,18 +20,17 @@
         <h4 class="footer-heading">Menu Cepat</h4>
         <ul class="footer-link-list">
           <li><a href="/#home" class="nav-anchor">Beranda</a></li>
-          <li><a href="{{ route('products') }}">Menu</a></li>
+          <li><a href="/#menu" class="nav-anchor">Menu</a></li>
           <li><a href="/#contact" class="nav-anchor">Kontak</a></li>
-          <!-- <li><a href="#">Artikel</a></li> -->
         </ul>
       </div>
 
       <div class="footer-links-col">
-        <h4 class="footer-heading">Kontak</h4>
+        <h4 class="footer-heading">Jam Operasional</h4>
         <ul class="footer-link-list">
-          <li><a href="#">cendana@gmail.com</a></li>
-          <li><a href="#">08123456789</a></li>
-          <li><a href="#">www.kedaicendana.com</a></li>
+          <li><a href="#">Senin - Jumat: 17:00 - 00:00</a></li>
+          <li><a href="#">Sabtu - Minggu: 17:00 - 01:00</a></li>
+          <li><a href="#">Melayani Delivery & Pick Up</a></li>
         </ul>
       </div>
 
