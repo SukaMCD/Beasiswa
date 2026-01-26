@@ -1,4 +1,16 @@
 <nav class="navbar navbar-expand-lg fixed-top">
+  <style>
+    @media (max-width: 576px) {
+      .header-logo { max-width: 90px; }
+      .header-actions { flex-wrap: wrap; gap: 0.5rem; }
+      .header-actions .text-secondary, .header-actions .login-button { display: none !important; }
+      .header-actions .cart-button { margin-right: 0.5rem !important; }
+      .header-actions .dropdown-toggle { padding: 0.25rem 0.5rem !important; font-size: 0.95rem; }
+      .header-actions .btn-link { font-size: 1.2rem; }
+      .header-actions .cart-badge { font-size: 0.8rem; }
+    }
+    .header-actions { display: flex; align-items: center; }
+  </style>
   <div class="container">
     <a class="navbar-brand me-auto" href="/">
       <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" class="header-logo" draggable="false">
@@ -10,6 +22,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
+        @auth
+        <div class="mb-3 text-left">
+          <span class="badge bg-warning text-dark fw-bold" style="font-size:1rem;">{{ number_format(Auth::user()->points ?? 0, 0, ',', '.') }} Poin</span>
+        </div>
+        @endauth
         <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
           <li class="nav-item">
             <a class="nav-link nav-anchor mx-lg-2" aria-current="page" href="/#home">Beranda</a>
@@ -27,7 +44,7 @@
             <a class="nav-link nav-anchor mx-lg-2" href="/#contact">Kontak</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="#" data-bs-toggle="modal" data-bs-target="#qrModal">QR Code</a>
+            <a class="nav-link nav-anchor mx-lg-2" href="#qr" data-bs-toggle="modal" data-bs-target="#qrModal">QR Code</a>
           </li>
         </ul>
       </div>

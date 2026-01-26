@@ -1,6 +1,6 @@
 <!-- QR Member Modal -->
 <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
         <div class="modal-content border-0 shadow rounded-4 text-center overflow-hidden">
             <div class="modal-header border-0 pb-0 justify-content-end">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -18,6 +18,18 @@
 
                 <p class="text-secondary small mb-1">Tunjukkan ke kasir untuk scan.</p>
                 <div class="badge bg-warning text-dark mb-3" id="qrTimer">04:00</div>
+                <div class="d-flex gap-2 mt-2">
+                    <button class="btn fw-bold py-2 flex-fill" id="redeemPointBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
+                        onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
+                        onmouseout="this.style.background='#fff';this.style.color='#ffd67c'">
+                        Reedem
+                    </button>
+                    <button class="btn fw-bold py-2 flex-fill" id="redeemPointBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
+                        onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
+                        onmouseout="this.style.background='#fff';this.style.color='#ffd67c'">
+                        Riwayat
+                    </button>
+                </div>
             </div>
         </div>
     </div>
