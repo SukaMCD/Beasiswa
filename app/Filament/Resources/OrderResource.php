@@ -28,7 +28,7 @@ class OrderResource extends Resource
                     ->label('ID Pesanan')
                     ->readOnly(),
                 Forms\Components\Select::make('id_user')
-                    ->relationship('user', 'nama_user') // Assuming 'nama_user' is the column to display
+                    ->relationship('user', 'nama_user')
                     ->label('Customer')
                     ->readOnly(),
                 Forms\Components\TextInput::make('total_amount')
@@ -123,5 +123,9 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+    public static function getNavigationGroup(): string
+    {
+        return 'Shop';
     }
 }

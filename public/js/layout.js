@@ -86,107 +86,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // Product Modal Logic
     const productModal = document.getElementById("productModal");
     if (productModal) {
-        productModal.addEventListener("show.bs.modal", function (event) {
-            const button = event.relatedTarget;
+        const modalTitle = productModal.querySelector("#modalProductTitle");
+        const modalImage = productModal.querySelector("#modalProductImage");
+        const modalPrice = productModal.querySelector("#modalProductPrice");
+        const modalDesc = productModal.querySelector(
+            "#modalProductDescription",
+        );
+        const modalStockBadge = productModal.querySelector(
+            "#modalProductStockBadge",
+        );
+        const modalStockCount = productModal.querySelector(
+            "#modalProductStockCount",
+        );
+        const btnBuyNowXendit = productModal.querySelector("#btnBuyNowXendit");
+        const btnAddToCart = productModal.querySelector("#btnAddToCart");
+        const modalQtyInput = productModal.querySelector("#modalQty");
+        const modalTotalPrice = productModal.querySelector("#modalTotalPrice");
 
-            // Extract info from data-* attributes
-            const id = button.getAttribute("data-id");
-            const nama = button.getAttribute("data-nama");
-            const deskripsi = button.getAttribute("data-deskripsi");
-            const harga = button.getAttribute("data-harga");
-            const stok = button.getAttribute("data-stok");
-            const gambar = button.getAttribute("data-gambar");
-
-            // Update modal content
-            const modalTitle = productModal.querySelector("#modalProductTitle");
-            const modalImage = productModal.querySelector("#modalProductImage");
-            const modalPrice = productModal.querySelector("#modalProductPrice");
-            const modalDesc = productModal.querySelector(
-                "#modalProductDescription",
-            );
-            const modalStockBadge = productModal.querySelector(
-                "#modalProductStockBadge",
-            );
-            const modalStockCount = productModal.querySelector(
-                "#modalProductStockCount",
-            );
-            const btnBuyNow = productModal.querySelector("#btnBuyNow");
-            const btnAddToCart = productModal.querySelector("#btnAddToCart");
-            const modalQtyInput = productModal.querySelector("#modalQty");
-            const modalTotalPrice =
-                productModal.querySelector("#modalTotalPrice");
-
-            btnAddToCart.setAttribute("data-id", id);
-            modalTitle.textContent = nama;
-            modalImage.src = gambar;
-            modalImage.alt = nama;
-            modalPrice.textContent = `Rp ${new Intl.NumberFormat("id-ID").format(harga)}`;
-            modalDesc.textContent = deskripsi;
-            modalStockCount.textContent = `${stok} Porsi`;
-            modalQtyInput.value = 1;
-
-            const updateTotalPrice = () => {
-                const qty = parseInt(modalQtyInput.value);
-                const total = qty * harga;
-                modalTotalPrice.textContent = `Rp ${new Intl.NumberFormat("id-ID").format(total)}`;
-            };
-            updateTotalPrice();
-
-            // Modal Qty Logic
-            const btnIncrease = productModal.querySelector("#btnIncreaseModal");
-            const btnDecrease = productModal.querySelector("#btnDecreaseModal");
-
-            btnIncrease.onclick = () => {
-                if (parseInt(modalQtyInput.value) < parseInt(stok)) {
-                    modalQtyInput.value = parseInt(modalQtyInput.value) + 1;
-                    updateTotalPrice();
-                }
-            };
-            btnDecrease.onclick = () => {
-                if (parseInt(modalQtyInput.value) > 1) {
-                    modalQtyInput.value = parseInt(modalQtyInput.value) - 1;
-                    updateTotalPrice();
-                }
-            };
-
-            // Handle Stock Badge
-            modalStockBadge.className = "stock-badge";
-            if (parseInt(stok) > 10) {
-                modalStockBadge.classList.add("stock-available");
-                modalStockBadge.innerHTML =
-                    '<i class="bi bi-check2-circle me-1"></i>Tersedia';
-            } else if (parseInt(stok) > 0) {
-                modalStockBadge.classList.add("stock-limited");
-                modalStockBadge.innerHTML = `<i class="bi bi-exclamation-triangle me-1"></i>Stok Terbatas (${stok})`;
-            } else {
-                modalStockBadge.classList.add("stock-out");
-                modalStockBadge.innerHTML =
-                    '<i class="bi bi-x-circle me-1"></i>Habis';
-            }
-
-            // WhatsApp link
-            const waNumber = "6285770333245";
-            const waMessage = `Halo Kedai Cendana, saya ingin memesan *${nama}*.\n\nHarga: Rp ${new Intl.NumberFormat("id-ID").format(harga)}\nStok: ${stok}\n\nTerima kasih.`;
-            btnBuyNow.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
-
-            if (parseInt(stok) <= 0) {
-                btnBuyNow.classList.add("disabled");
-                btnBuyNow.style.pointerEvents = "none";
-                btnAddToCart.disabled = true;
-            } else {
-                btnBuyNow.classList.remove("disabled");
-                btnBuyNow.style.pointerEvents = "auto";
-                btnAddToCart.disabled = false;
-            }
-        });
-
-        // Auth Check for Buttons
-        const productModalEl = document.getElementById("productModal");
-        const btnAddToCart = productModalEl.querySelector("#btnAddToCart");
-        const btnBuyNow = productModalEl.querySelector("#btnBuyNow");
-
+        // Auth Check
         const checkAuth = (e) => {
-            const isAuth = productModalEl.getAttribute("data-auth") === "true";
+            const isAuth = productModal.getAttribute("data-auth") === "true";
             if (!isAuth) {
                 e.preventDefault();
                 Swal.fire({
@@ -213,11 +132,85 @@ document.addEventListener("DOMContentLoaded", function () {
             return true;
         };
 
+        // Open Modal Handler
+        productModal.addEventListener("show.bs.modal", function (event) {
+            const button = event.relatedTarget;
+
+            // Extract info
+            const id = button.getAttribute("data-id");
+            const nama = button.getAttribute("data-nama");
+            const deskripsi = button.getAttribute("data-deskripsi");
+            const harga = button.getAttribute("data-harga");
+            const stok = button.getAttribute("data-stok");
+            const gambar = button.getAttribute("data-gambar");
+
+            // Update UI
+            btnAddToCart.setAttribute("data-id", id);
+            btnBuyNowXendit.setAttribute("data-id", id);
+
+            modalTitle.textContent = nama;
+            modalImage.src = gambar;
+            modalImage.alt = nama;
+            modalPrice.textContent = `Rp ${new Intl.NumberFormat("id-ID").format(harga)}`;
+            modalDesc.textContent = deskripsi;
+            modalStockCount.textContent = `${stok} Porsi`;
+            modalQtyInput.value = 1;
+
+            const updateTotalPrice = () => {
+                const qty = parseInt(modalQtyInput.value);
+                const total = qty * harga;
+                modalTotalPrice.textContent = `Rp ${new Intl.NumberFormat("id-ID").format(total)}`;
+            };
+            updateTotalPrice();
+
+            // Qty Logic
+            const btnIncrease = productModal.querySelector("#btnIncreaseModal");
+            const btnDecrease = productModal.querySelector("#btnDecreaseModal");
+
+            btnIncrease.onclick = () => {
+                if (parseInt(modalQtyInput.value) < parseInt(stok)) {
+                    modalQtyInput.value = parseInt(modalQtyInput.value) + 1;
+                    updateTotalPrice();
+                }
+            };
+            btnDecrease.onclick = () => {
+                if (parseInt(modalQtyInput.value) > 1) {
+                    modalQtyInput.value = parseInt(modalQtyInput.value) - 1;
+                    updateTotalPrice();
+                }
+            };
+
+            // Stock Badge
+            modalStockBadge.className = "stock-badge";
+            if (parseInt(stok) > 10) {
+                modalStockBadge.classList.add("stock-available");
+                modalStockBadge.innerHTML =
+                    '<i class="bi bi-check2-circle me-1"></i>Tersedia';
+            } else if (parseInt(stok) > 0) {
+                modalStockBadge.classList.add("stock-limited");
+                modalStockBadge.innerHTML = `<i class="bi bi-exclamation-triangle me-1"></i>Terbatas (${stok})`;
+            } else {
+                modalStockBadge.classList.add("stock-out");
+                modalStockBadge.innerHTML =
+                    '<i class="bi bi-x-circle me-1"></i>Habis';
+            }
+
+            // Disable buttons if no stock
+            if (parseInt(stok) <= 0) {
+                btnBuyNowXendit.disabled = true;
+                btnAddToCart.disabled = true;
+            } else {
+                btnBuyNowXendit.disabled = false;
+                btnAddToCart.disabled = false;
+            }
+        });
+
+        // Add To Cart Listener
         btnAddToCart.addEventListener("click", function (e) {
             if (!checkAuth(e)) return;
 
             const idProduk = this.getAttribute("data-id");
-            const jumlah = document.getElementById("modalQty").value;
+            const jumlah = modalQtyInput.value;
 
             fetch("/cart/add", {
                 method: "POST",
@@ -240,7 +233,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         position: "top-end",
                         toast: true,
                     });
-
                     const badge = document.querySelector(".cart-badge");
                     if (badge) {
                         badge.textContent = parseInt(badge.textContent) + 1;
@@ -253,7 +245,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         });
 
-        btnBuyNow.addEventListener("click", checkAuth);
+        // Buy Now Listener
+        btnBuyNowXendit.addEventListener("click", function (e) {
+            if (!checkAuth(e)) return;
+
+            const idProduk = this.getAttribute("data-id");
+            const jumlah = modalQtyInput.value;
+
+            // Loading state
+            const originalText = this.innerHTML;
+            this.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-2"></span>Loading...';
+            this.disabled = true;
+
+            fetch("/cart/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+                body: JSON.stringify({ id_produk: idProduk, jumlah: jumlah }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.href = "/cart";
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                });
+        });
     }
 
     // Cart Page logic (AJAX Updates)

@@ -17,6 +17,9 @@
           <li class="nav-item">
             <a class="nav-link nav-anchor mx-lg-2" href="/#menu">Menu</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link nav-anchor mx-lg-2" href="/#about">Tentang</a>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link nav-anchor mx-lg-2" href="/#voucher">Voucher</a>
           </li> -->

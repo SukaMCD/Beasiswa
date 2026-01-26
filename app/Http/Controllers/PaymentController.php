@@ -63,17 +63,27 @@ class PaymentController extends Controller
             // But strict Xendit flow sends callback. For simplicity in this demo,
             // we will create the Order record IMMEDIATELY before redirecting.
 
+            // 0. Validate Stock First
+            foreach ($cartItems as $item) {
+                if ($item->product->stok < $item->jumlah) {
+                    return response()->json(['message' => 'Stok tidak cukup untuk produk: ' . $item->product->nama_produk], 400);
+                }
+            }
+
             // 1. Create Order
             $order = \App\Models\Order::create([
                 'id_user' => $user->id_user,
                 'external_id' => $externalId,
                 'total_amount' => $total,
-                'payment_status' => 'PENDING', // In real app, update this via Webhook
-                'payment_url' => null // filled below
+                'payment_status' => 'PENDING',
+                'payment_url' => null
             ]);
 
-            // 2. Move Cart Items to Order Items
+            // 2. Move Cart Items to Order Items & Decrement Stock
             foreach ($cartItems as $item) {
+                // Decrement Stock
+                $item->product->decrement('stok', $item->jumlah);
+
                 \App\Models\OrderItem::create([
                     'id_order' => $order->id_order,
                     'id_produk' => $item->id_produk,

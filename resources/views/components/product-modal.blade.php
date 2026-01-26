@@ -50,9 +50,9 @@
                                 <button type="button" class="btn btn-outline-primary rounded-pill px-4 flex-grow-1" id="btnAddToCart" data-id="">
                                     <i class="bi bi-cart-plus me-2"></i>Keranjang
                                 </button>
-                                <a href="" target="_blank" class="btn btn-primary rounded-pill px-4 flex-grow-1" id="btnBuyNow">
-                                    <i class="bi bi-whatsapp me-2"></i>Beli Sekarang
-                                </a>
+                                <button type="button" class="btn btn-primary rounded-pill px-4 flex-grow-1" id="btnBuyNowXendit">
+                                    <i class="bi bi-lightning-charge-fill me-2"></i>Beli Sekarang
+                                </button>
                             </div>
                         </div>
                     </div>
