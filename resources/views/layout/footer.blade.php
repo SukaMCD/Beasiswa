@@ -66,3 +66,4 @@
 </footer>
 
 @include('components.product-modal')
+@include('components.qr-modal')

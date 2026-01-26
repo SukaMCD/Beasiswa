@@ -71,13 +71,18 @@ class PaymentController extends Controller
             }
 
             // 1. Create Order
+            // FOR DEMO/TESTING ONLY: Setting status to PAID immediately so points are added.
+            // In production, should keep PENDING and wait for Webhook.
             $order = \App\Models\Order::create([
                 'id_user' => $user->id_user,
                 'external_id' => $externalId,
                 'total_amount' => $total,
-                'payment_status' => 'PENDING',
+                'payment_status' => 'PAID', // Changed from PENDING for testing
                 'payment_url' => null
             ]);
+
+            // Add Points Immediately (1 Point = Rp 1)
+            $user->increment('points', $total);
 
             // 2. Move Cart Items to Order Items & Decrement Stock
             foreach ($cartItems as $item) {

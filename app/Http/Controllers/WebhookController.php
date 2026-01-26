@@ -38,8 +38,15 @@ class WebhookController extends Controller
                     'payment_status' => 'PAID',
                     'admin_fee' => $fees,
                     'payment_channel' => $request->bank_code ?? $request->payment_method ?? 'Xendit',
-                    'paid_at' => now() // or $request->paid_at
+                    'paid_at' => now()
                 ]);
+
+                // Add Points (1 Point = Rp 1)
+                $user = \App\Models\User::where('id_user', $order->id_user)->first();
+                if ($user) {
+                    $user->increment('points', $order->total_amount);
+                    Log::info("Added {$order->total_amount} points to user {$user->id_user}");
+                }
 
                 Log::info("Order {$externalId} updated to PAID. Fee: {$fees}");
             } else {

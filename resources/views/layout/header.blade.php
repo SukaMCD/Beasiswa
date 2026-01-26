@@ -27,7 +27,7 @@
             <a class="nav-link nav-anchor mx-lg-2" href="/#contact">Kontak</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2" href="#">QR Code</a>
+            <a class="nav-link mx-lg-2" href="#" data-bs-toggle="modal" data-bs-target="#qrModal">QR Code</a>
           </li>
         </ul>
       </div>
@@ -35,6 +35,13 @@
 
     <div class="header-actions">
       @auth
+      <div class="d-inline-flex align-items-center me-3">
+        <span class="text-secondary me-2 small fw-bold">{{ number_format(Auth::user()->points ?? 0, 0, ',', '.') }} Poin</span>
+        <button type="button" class="btn btn-link p-0 text-dark" data-bs-toggle="modal" data-bs-target="#qrModal">
+          <i class="bi bi-qr-code-scan fs-5"></i>
+        </button>
+      </div>
+
       <a href="{{ route('cart.index') }}" class="cart-button me-3">
         <i class="bi bi-cart"></i>
         <span class="cart-badge">0</span>
