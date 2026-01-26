@@ -110,8 +110,11 @@ class ScanQR extends Page
             // Add points (1 point = Rp 1)
             $pointsToAdd = (int) $this->amount;
 
-            $this->scannedUser->points = ($this->scannedUser->points ?? 0) + $pointsToAdd;
-            $this->scannedUser->save();
+            // Refresh user data from database
+            $user = User::find($this->scannedUser->id_user);
+            $newPoints = ($user->points ?? 0) + $pointsToAdd;
+            $user->points = $newPoints;
+            $user->save();
 
             Notification::make()
                 ->title('Berhasil menambahkan ' . number_format($pointsToAdd, 0, ',', '.') . ' poin!')

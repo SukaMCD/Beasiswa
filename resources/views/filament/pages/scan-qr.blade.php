@@ -8,21 +8,6 @@
             <div class="mb-4">
                 <div id="qr-reader" style="width: 100%; max-width: 500px; margin: 0 auto;"></div>
             </div>
-
-            <!-- Manual Input (fallback) -->
-            <div class="mt-4">
-                <label class="block text-sm font-medium mb-2">Atau Masukkan Data QR Manual:</label>
-                <textarea
-                    wire:model="qrData"
-                    class="w-full border rounded p-2 dark:bg-gray-700 dark:border-gray-600"
-                    rows="3"
-                    placeholder='{"id": 1, "exp": 1234567890}'></textarea>
-                <button
-                    wire:click="processQR"
-                    class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                    Proses QR
-                </button>
-            </div>
         </div>
 
         <!-- Scanned User Info -->
@@ -31,6 +16,11 @@
             <h3 class="text-lg font-semibold text-green-800 dark:text-green-200 mb-4">
                 <i class="fas fa-check-circle mr-2"></i>Member Terdeteksi
             </h3>
+            
+            <!-- QR Code Scanner showing again after scan -->
+            <div class="mb-6">
+                <div id="qr-reader-after" style="width: 100%; max-width: 500px; margin: 0 auto;"></div>
+            </div>
 
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
@@ -57,7 +47,7 @@
                     placeholder="50000">
                 <button
                     wire:click="addPoints"
-                    class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded font-semibold">
+                    class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded font-semibold border-2 border-green-700">
                     Tambahkan Poin (1 Poin = Rp 1)
                 </button>
             </div>
@@ -68,8 +58,14 @@
     <!-- Include QR Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const html5QrCode = new Html5Qrcode("qr-reader");
+        let html5QrCode = null;
+        
+        function startQRScanner(containerId = "qr-reader") {
+            if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop();
+            }
+            
+            html5QrCode = new Html5Qrcode(containerId);
 
             html5QrCode.start({
                     facingMode: "environment"
@@ -86,7 +82,9 @@
                     @this.call('processQR');
 
                     // Stop scanning after successful scan
-                    html5QrCode.stop();
+                    if (html5QrCode) {
+                        html5QrCode.stop();
+                    }
                 },
                 (errorMessage) => {
                     // Ignore scan errors (happens continuously while scanning)
@@ -94,6 +92,20 @@
             ).catch((err) => {
                 console.error('Unable to start scanning', err);
             });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            startQRScanner();
+        });
+        
+        // Listen for addPoints completion
+        window.addEventListener('livewire:updated', function(event) {
+            setTimeout(() => {
+                const qrReaderAfter = document.getElementById('qr-reader-after');
+                if (qrReaderAfter && qrReaderAfter.children.length === 0) {
+                    startQRScanner('qr-reader-after');
+                }
+            }, 300);
         });
     </script>
 </x-filament-panels::page>
