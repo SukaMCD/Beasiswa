@@ -11,6 +11,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/filament/filament/app.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -28,7 +29,26 @@
             <div class="row g-3 g-lg-4">
                 @forelse($products as $product)
                 <div class="col-6 col-md-3">
-                    <div class="card product-card h-100 border-0 shadow-sm position-relative">
+                    <div class="card product-card h-100 border-0 shadow-sm position-relative cursor-pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#productModal"
+                        data-nama="{{ $product->nama_produk }}"
+                        data-deskripsi="{{ $product->deskripsi }}"
+                        data-harga="{{ $product->harga }}"
+                        data-stok="{{ $product->stok }}"
+                        @php
+                        $imgPath=$product->gambar;
+                        if ($imgPath) {
+                        if (Str::startsWith($imgPath, ['http://', 'https://'])) {
+                        $finalImg = $imgPath;
+                        } else {
+                        $finalImg = Storage::url($imgPath);
+                        }
+                        } else {
+                        $finalImg = asset('images/image2.webp');
+                        }
+                        @endphp
+                        data-gambar="{{ $finalImg }}">
                         <!-- Stock Badge -->
                         @if($product->stok > 10)
                         <span class="stock-badge stock-available"><i class="bi bi-check2-circle me-1"></i>Tersedia</span>
@@ -39,19 +59,6 @@
                         @endif
 
                         <div class="ratio ratio-4x3 overflow-hidden">
-                            @php
-                            $imgPath = $product->gambar;
-                            if ($imgPath) {
-                            if (Str::startsWith($imgPath, ['http://', 'https://'])) {
-                            $finalImg = $imgPath;
-                            } else {
-                            // Handle Filament storage path
-                            $finalImg = Storage::url($imgPath);
-                            }
-                            } else {
-                            $finalImg = asset('images/image2.webp');
-                            }
-                            @endphp
                             <img src="{{ $finalImg }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
                         </div>
                         <div class="card-body">
@@ -158,7 +165,7 @@
                                 <div class="bg-light p-3 rounded-3">
                                     <h6 class="fw-bold mb-2">Kontak Kami</h6>
                                     <ul class="list-unstyled small mb-0 text-secondary">
-                                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>cendana@gmail.com</li>
+                                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>support@kedaicendana.my.id</li>
                                         <li class="mb-2"><i class="bi bi-telephone me-2"></i>+62 857-7033-3245</li>
                                         <li><i class="bi bi-geo-alt me-2"></i>Tangerang, Indonesia</li>
                                     </ul>

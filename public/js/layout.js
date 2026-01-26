@@ -82,4 +82,106 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    // Product Modal Logic
+    const productModal = document.getElementById("productModal");
+    if (productModal) {
+        productModal.addEventListener("show.bs.modal", function (event) {
+            const button = event.relatedTarget;
+
+            // Extract info from data-* attributes
+            const nama = button.getAttribute("data-nama");
+            const deskripsi = button.getAttribute("data-deskripsi");
+            const harga = button.getAttribute("data-harga");
+            const stok = button.getAttribute("data-stok");
+            const gambar = button.getAttribute("data-gambar");
+
+            // Update modal content
+            const modalTitle = productModal.querySelector("#modalProductTitle");
+            const modalImage = productModal.querySelector("#modalProductImage");
+            const modalPrice = productModal.querySelector("#modalProductPrice");
+            const modalDesc = productModal.querySelector(
+                "#modalProductDescription",
+            );
+            const modalStockBadge = productModal.querySelector(
+                "#modalProductStockBadge",
+            );
+            const modalStockCount = productModal.querySelector(
+                "#modalProductStockCount",
+            );
+            const btnBuyNow = productModal.querySelector("#btnBuyNow");
+
+            modalTitle.textContent = nama;
+            modalImage.src = gambar;
+            modalImage.alt = nama;
+            modalPrice.textContent = `Rp ${new Intl.NumberFormat("id-ID").format(harga)}`;
+            modalDesc.textContent = deskripsi;
+            modalStockCount.textContent = `${stok} Porsi`;
+
+            // Handle Stock Badge
+            modalStockBadge.className = "stock-badge";
+            if (parseInt(stok) > 10) {
+                modalStockBadge.classList.add("stock-available");
+                modalStockBadge.innerHTML =
+                    '<i class="bi bi-check2-circle me-1"></i>Tersedia';
+            } else if (parseInt(stok) > 0) {
+                modalStockBadge.classList.add("stock-limited");
+                modalStockBadge.innerHTML = `<i class="bi bi-exclamation-triangle me-1"></i>Stok Terbatas (${stok})`;
+            } else {
+                modalStockBadge.classList.add("stock-out");
+                modalStockBadge.innerHTML =
+                    '<i class="bi bi-x-circle me-1"></i>Habis';
+            }
+
+            // WhatsApp link
+            const waNumber = "6285770333245";
+            const waMessage = `Halo Kedai Cendana, saya ingin memesan *${nama}*.\n\nHarga: Rp ${new Intl.NumberFormat("id-ID").format(harga)}\nStok: ${stok}\n\nTerima kasih.`;
+            btnBuyNow.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+
+            if (parseInt(stok) <= 0) {
+                btnBuyNow.classList.add("disabled");
+                btnBuyNow.style.pointerEvents = "none";
+            } else {
+                btnBuyNow.classList.remove("disabled");
+                btnBuyNow.style.pointerEvents = "auto";
+            }
+        });
+
+        // Auth Check for Buttons
+        const productModalEl = document.getElementById("productModal");
+        const btnAddToCart = productModalEl.querySelector("#btnAddToCart");
+        const btnBuyNow = productModalEl.querySelector("#btnBuyNow");
+
+        const checkAuth = (e) => {
+            const isAuth = productModalEl.getAttribute("data-auth") === "true";
+            if (!isAuth) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Wajib Login!",
+                    text: "Silakan login terlebih dahulu untuk melakukan pemesanan.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ffd67c",
+                    cancelButtonColor: "#6c757d",
+                    confirmButtonText: "Login Sekarang",
+                    cancelButtonText: "Nanti Saja",
+                    confirmButtonTextColor: "#000",
+                    customClass: {
+                        confirmButton: "btn btn-primary rounded-pill px-4",
+                        cancelButton: "btn btn-light rounded-pill px-4",
+                    },
+                    buttonsStyling: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/auth/login";
+                    }
+                });
+                return false;
+            }
+            return true;
+        };
+
+        btnAddToCart.addEventListener("click", checkAuth);
+        btnBuyNow.addEventListener("click", checkAuth);
+    }
 });

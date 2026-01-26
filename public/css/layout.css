@@ -600,3 +600,42 @@
 .modal-header .btn-close:focus {
     box-shadow: none;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-orange {
+    color: #e67e22 !important;
+}
+
+/* Modal Refinement */
+.modal-description-scroll {
+    height: 120px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.modal-description-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal-description-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-description-scroll::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+}
+
+.modal-description-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+@media (min-width: 768px) {
+    #productModal .modal-body {
+        min-height: 400px;
+    }
+}

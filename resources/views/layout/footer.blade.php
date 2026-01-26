@@ -10,7 +10,7 @@
           Menghadirkan cita rasa autentik dengan sentuhan modern. Kami berkomitmen menyajikan hidangan berkualitas tinggi untuk pengalaman kuliner terbaik Anda.
         </p>
         <div class="footer-social-links">
-          <a href="mailto:cendana@gmail.com" aria-label="Gmail" target="_blank"><i class="bi bi-envelope"></i></a>
+          <a href="mailto:support@kedaicendana.my.id" aria-label="Gmail" target="_blank"><i class="bi bi-envelope"></i></a>
           <a href="https://www.instagram.com/cendana_pempekbakmi" aria-label="Instagram" target="_blank"><i class="bi bi-instagram"></i></a>
           <a href="https://wa.me/6285770333245" aria-label="WhatsApp" target="_blank"><i class="bi bi-whatsapp"></i></a>
         </div>
@@ -64,3 +64,5 @@
     </div>
   </div>
 </footer>
+
+@include('components.product-modal')

@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -25,7 +26,26 @@
         <div class="row g-3 g-lg-4">
             @forelse($products as $product)
             <div class="col-6 col-md-3">
-                <div class="card product-card h-100 border-0 shadow-sm position-relative">
+                <div class="card product-card h-100 border-0 shadow-sm position-relative cursor-pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productModal"
+                    data-nama="{{ $product->nama_produk }}"
+                    data-deskripsi="{{ $product->deskripsi }}"
+                    data-harga="{{ $product->harga }}"
+                    data-stok="{{ $product->stok }}"
+                    @php
+                    $imgPath=$product->gambar;
+                    if ($imgPath) {
+                    if (Str::startsWith($imgPath, ['http://', 'https://'])) {
+                    $finalImg = $imgPath;
+                    } else {
+                    $finalImg = asset('storage/' . $imgPath);
+                    }
+                    } else {
+                    $finalImg = asset('images/image2.webp');
+                    }
+                    @endphp
+                    data-gambar="{{ $finalImg }}">
                     <!-- Stock Badge -->
                     @if($product->stok > 10)
                     <span class="stock-badge stock-available"><i class="bi bi-check2-circle me-1"></i>Tersedia</span>
@@ -36,18 +56,6 @@
                     @endif
 
                     <div class="ratio ratio-4x3 overflow-hidden">
-                        @php
-                        $imgPath = $product->gambar;
-                        if ($imgPath) {
-                        if (Str::startsWith($imgPath, ['http://', 'https://'])) {
-                        $finalImg = $imgPath;
-                        } else {
-                        $finalImg = asset('storage/' . $imgPath);
-                        }
-                        } else {
-                        $finalImg = asset('images/image2.webp');
-                        }
-                        @endphp
                         <img src="{{ $finalImg }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
                     </div>
                     <div class="card-body">
