@@ -23,7 +23,7 @@
       </div>
       <div class="offcanvas-body">
         @auth
-        <div class="mb-3 text-left">
+        <div class="mb-3 text-left d-lg-none">
           <span class="badge bg-warning text-dark fw-bold" style="font-size:1rem;">{{ number_format(Auth::user()->points ?? 0, 0, ',', '.') }} Poin</span>
         </div>
         @endauth

@@ -70,9 +70,9 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <strong class="product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</strong>
-                                <div class="d-flex align-items-center bg-light px-2 py-1 rounded-pill border">
+                                {{-- <div class="d-flex align-items-center bg-light px-2 py-1 rounded-pill border">
                                     <span class="text-secondary fw-semibold" style="font-size: 0.8rem;">Stok: {{ $product->stok }}</span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
