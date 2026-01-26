@@ -78,4 +78,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/payment/checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
+
+    // History & Invoice
+    Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
+    Route::get('/history/{id}', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
+    Route::get('/history/{id}/download', [App\Http\Controllers\HistoryController::class, 'download'])->name('history.download');
 });

@@ -42,7 +42,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 rounded-4 animate slideIn">
           <li><a class="dropdown-item py-2 px-4" href="#"><i class="bi bi-person me-2"></i>Akun Saya</a></li>
-          <li><a class="dropdown-item py-2 px-4" href="#"><i class="bi bi-bag-check me-2"></i>Pesanan</a></li>
+          <li><a class="dropdown-item py-2 px-4" href="{{ route('history.index') }}"><i class="bi bi-bag-check me-2"></i>Pesanan</a></li>
           <li>
             <hr class="dropdown-divider mx-3">
           </li>

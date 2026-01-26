@@ -104,7 +104,7 @@
         }
 
         .breadcrumb-item+.breadcrumb-item::before {
-            content: "→";
+            content: "\2192";
             color: #94a3b8;
         }
 
@@ -232,9 +232,9 @@
                         </div>
 
                         <div class="d-grid gap-3">
-                            <a href="#" id="whatsapp-order-btn" target="_blank" class="btn whatsapp-btn btn-lg rounded-pill py-3 fw-bold">
-                                <i class="bi bi-whatsapp me-2 fs-5"></i>Pesan Sekarang
-                            </a>
+                            <button type="button" id="btn-process-payment" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold">
+                                <i class="bi bi-credit-card-2-front me-2 fs-5"></i>Bayar Sekarang
+                            </button>
                             <a href="{{ route('homepage') }}#menu" class="btn btn-light rounded-pill py-3 text-secondary fw-semibold border">
                                 <i class="bi bi-plus-circle me-2"></i>Tambah Menu Lain
                             </a>
@@ -243,7 +243,7 @@
                         <div class="mt-5 p-3 rounded-4 bg-light border border-opacity-10 text-center">
                             <p class="small text-secondary mb-0">
                                 <i class="bi bi-info-circle-fill me-1 text-primary"></i>
-                                Pesanan akan langsung kami proses setelah Anda konfirmasi via WhatsApp.
+                                Pesanan akan langsung kami proses setelah pembayaran berhasil.
                             </p>
                         </div>
                     </div>
@@ -274,35 +274,63 @@
     <script src="{{ asset('js/layout.js') }}"></script>
     <script>
         // Formatted WhatsApp message generator
-        function updateWhatsAppLink() {
-            const btn = document.getElementById('whatsapp-order-btn');
-            if (!btn) return;
+        // Payment Process
+        document.getElementById('btn-process-payment').addEventListener('click', function() {
+            const btn = this;
+            const originalContent = btn.innerHTML;
 
-            const items = [];
-            document.querySelectorAll('.cart-item-card').forEach(card => {
-                const name = card.querySelector('h6').textContent;
-                const qty = card.querySelector('.qty-input-val').value;
-                const price = card.querySelector('.text-secondary small span')?.textContent || "";
-                items.push(`🍜 *${name}* (${qty}x)`);
-            });
+            // Loading State
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
+            btn.disabled = true;
 
-            const subtotal = document.getElementById('subtotal-amount').textContent;
-            const ppn = document.getElementById('ppn-amount').textContent;
-            const total = document.getElementById('total-amount').textContent;
-
-            let msg = "Halo Kedai Cendana, saya ingin memesan:\n\n";
-            msg += items.join("\n");
-            msg += "\n\n━━━━━━━━━━━━━━━\n";
-            msg += `*Subtotal:* ${subtotal}\n`;
-            msg += `*PPN (11%):* ${ppn}\n`;
-            msg += `*TOTAL:* ${total}\n`;
-            msg += "━━━━━━━━━━━━━━━\n\n_Mohon konfirmasi pesanan saya._";
-
-            btn.href = `https://wa.me/6285770333245?text=${encodeURIComponent(msg)}`;
-        }
+            fetch('{{ route("payment.checkout") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(async response => {
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.indexOf("application/json") !== -1) {
+                        const data = await response.json();
+                        if (!response.ok) {
+                            throw new Error(data.message || 'Server returned error ' + response.status);
+                        }
+                        return data;
+                    } else {
+                        const text = await response.text();
+                        console.error("Non-JSON Response:", text);
+                        // Extract title from HTML if possible
+                        const match = text.match(/<title>(.*?)<\/title>/i);
+                        const title = match ? match[1] : 'Unknown Server Error (' + response.status + ')';
+                        throw new Error('Server Error: ' + title);
+                    }
+                })
+                .then(data => {
+                    if (data.invoice_url) {
+                        window.location.href = data.invoice_url;
+                    } else {
+                        throw new Error(data.message || 'Terjadi kesalahan tanpa pesan');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Memproses Pembayaran',
+                        text: error.message,
+                        confirmButtonColor: '#2c3e50'
+                    });
+                    // Reset Button
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                });
+        });
 
         // Initial call
-        window.addEventListener('load', updateWhatsAppLink);
+        // Initialize tooltips/popovers if any
     </script>
 </body>
 

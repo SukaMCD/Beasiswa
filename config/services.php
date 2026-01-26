@@ -39,6 +39,8 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URL'),
     ],
-
+    'xendit' => [
+        'key' => env('XENDIT_SECRET_KEY'),
+    ],
 
 ];
