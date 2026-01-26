@@ -32,7 +32,7 @@
 
     <div class="header-actions">
       @auth
-      <a href="#" class="cart-button me-3">
+      <a href="{{ route('cart.index') }}" class="cart-button me-3">
         <i class="bi bi-cart"></i>
         <span class="cart-badge">0</span>
       </a>

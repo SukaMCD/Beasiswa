@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -29,6 +30,7 @@
                 <div class="card product-card h-100 border-0 shadow-sm position-relative cursor-pointer"
                     data-bs-toggle="modal"
                     data-bs-target="#productModal"
+                    data-id="{{ $product->id_produk }}"
                     data-nama="{{ $product->nama_produk }}"
                     data-deskripsi="{{ $product->deskripsi }}"
                     data-harga="{{ $product->harga }}"

@@ -36,7 +36,7 @@ Route::get('/reviews', function () {
 
 // Rute untuk otentikasi
 Route::prefix('auth')->group(function () {
-    
+
     // Rute Login Manual
     Route::get('login', [ManualAuthController::class, 'showLogin'])->name('login');
     Route::post('login', [ManualAuthController::class, 'login']);
@@ -44,7 +44,7 @@ Route::prefix('auth')->group(function () {
     // Rute Registrasi Manual
     Route::get('register', [ManualAuthController::class, 'showRegister'])->name('register');
     Route::post('register', [ManualAuthController::class, 'register']);
-    
+
     // Rute Login Google
     Route::get('redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
     Route::get('google/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
@@ -53,13 +53,13 @@ Route::prefix('auth')->group(function () {
 Route::prefix('password')->group(function () {
     // Tampilkan form permintaan reset password
     Route::get('request', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->name('password.request');
-    
+
     // Proses pengiriman email reset password
     Route::post('email', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])->name('password.email');
-    
+
     // Tampilkan form untuk mereset password baru
     Route::get('reset/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->name('password.reset');
-    
+
     // Proses reset password baru
     Route::post('reset', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->name('password.store');
 });
@@ -71,3 +71,11 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+// Cart Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+});
