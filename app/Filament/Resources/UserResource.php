@@ -53,25 +53,6 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('add_points')
-                    ->label('Input Transaksi Offline')
-                    ->icon('heroicon-m-qr-code')
-                    ->color('success')
-                    ->form([
-                        Forms\Components\TextInput::make('amount')
-                            ->label('Total Belanja (Rp)')
-                            ->required()
-                            ->numeric()
-                            ->helperText('Otomatis konversi 1 Poin = Rp 1'),
-                    ])
-                    ->action(function (User $record, array $data): void {
-                        $record->increment('points', $data['amount']);
-
-                        \Filament\Notifications\Notification::make()
-                            ->title('Poin Berhasil Ditambahkan')
-                            ->success()
-                            ->send();
-                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -18,10 +18,6 @@
 
                 <p class="text-secondary small mb-1">Tunjukkan ke kasir untuk scan.</p>
                 <div class="badge bg-warning text-dark mb-3" id="qrTimer">04:00</div>
-
-                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" onclick="refreshQr()">
-                    <i class="bi bi-arrow-clockwise me-1"></i>Refresh QR
-                </button>
             </div>
         </div>
     </div>
