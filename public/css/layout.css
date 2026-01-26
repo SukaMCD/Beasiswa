@@ -5,6 +5,11 @@
     --border-light: #ecf0f1;
 }
 
+body {
+    background-color: #f8fafc;
+    color: #334155;
+}
+
 /* HEAAADDDEERRRR CUUYYYY */
 .navbar {
     background-color: #fff;

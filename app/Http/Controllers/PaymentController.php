@@ -90,7 +90,7 @@ class PaymentController extends Controller
                 $total,
                 $payerEmail,
                 $description,
-                route('history.index') . '?status=success' // Redirect to History
+                route('history.show', $order->id_order) . '?status=success' // Redirect to Specific Order Invoice
             );
 
             // Update Payment URL

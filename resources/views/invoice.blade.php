@@ -123,6 +123,8 @@
             <button onclick="window.print()" class="btn btn-print" style="border:none; cursor:pointer;">Cetak Nota</button>
             <a href="{{ route('history.download', $order->id_order) }}" class="btn">Download PDF</a>
             <br><br>
+            <br><br>
+            <a href="{{ route('homepage') }}" class="btn" style="background: #3498db; margin-right: 10px;">Kembali ke Beranda</a>
             <a href="{{ route('history.index') }}" style="color: #666; text-decoration: none;">Kembali ke Riwayat</a>
         </div>
     </div>
