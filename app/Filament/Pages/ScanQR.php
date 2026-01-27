@@ -18,6 +18,8 @@ class ScanQR extends Page
 
     protected static ?string $title = 'Scan QR Member';
 
+    protected static ?string $navigationGroup = 'Membership';
+
     // Livewire properties
     public $qrData = '';
     public $scannedUser = null;
@@ -107,8 +109,7 @@ class ScanQR extends Page
         }
 
         try {
-            // Add points (1 point = Rp 1)
-            $pointsToAdd = (int) $this->amount;
+            $pointsToAdd = intdiv((int) $this->amount, 100);
 
             // Refresh user data from database
             $user = User::find($this->scannedUser->id_user);

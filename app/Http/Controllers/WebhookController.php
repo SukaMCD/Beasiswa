@@ -41,11 +41,12 @@ class WebhookController extends Controller
                     'paid_at' => now()
                 ]);
 
-                // Add Points (1 Point = Rp 1)
+                // Add Points: 10 points per Rp 1,000 (1 point per Rp 100)
                 $user = \App\Models\User::where('id_user', $order->id_user)->first();
                 if ($user) {
-                    $user->increment('points', $order->total_amount);
-                    Log::info("Added {$order->total_amount} points to user {$user->id_user}");
+                    $pointsToAdd = (int) floor(((float) $order->total_amount) / 100);
+                    $user->increment('points', $pointsToAdd);
+                    Log::info("Added {$pointsToAdd} points to user {$user->id_user}");
                 }
 
                 Log::info("Order {$externalId} updated to PAID. Fee: {$fees}");

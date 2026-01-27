@@ -6,12 +6,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4 pt-0">
-                <h5 class="fw-bold mb-3">Member QR</h5>
+                <h5 class="fw-bold mb-3" id="qrTitle">Member QR</h5>
 
-                <div class="position-relative d-inline-block p-2 bg-white rounded-3 border mb-3">
+                <div id="qrBox" class="position-relative d-inline-block p-2 bg-white rounded-3 border mb-3">
                     <img id="memberQrImage" src="" alt="QR Code" class="img-fluid" style="width: 200px; height: 200px;">
                     <!-- Logo Overlay -->
-                    <div class="position-absolute top-50 start-50 translate-middle bg-white p-1 rounded-circle shadow-sm" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                    <div id="qrOverlay" class="position-absolute top-50 start-50 translate-middle bg-white p-1 rounded-circle shadow-sm" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
                         <img src="{{ asset('images/logo_cendana.webp') }}" class="img-fluid rounded-circle" alt="Logo">
                     </div>
                 </div>
@@ -19,12 +19,12 @@
                 <p class="text-secondary small mb-1">Tunjukkan ke kasir untuk scan.</p>
                 <div class="badge bg-warning text-dark mb-3" id="qrTimer">04:00</div>
                 <div class="d-flex gap-2 mt-2">
-                    <button class="btn fw-bold py-2 flex-fill" id="redeemPointBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
+                    <button class="btn fw-bold py-2 flex-fill" id="rewardQrBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
                         onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
                         onmouseout="this.style.background='#fff';this.style.color='#ffd67c'">
-                        Reedem
+                        Reward
                     </button>
-                    <button class="btn fw-bold py-2 flex-fill" id="redeemPointBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
+                    <button class="btn fw-bold py-2 flex-fill" id="historyBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
                         onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
                         onmouseout="this.style.background='#fff';this.style.color='#ffd67c'">
                         Riwayat
@@ -38,15 +38,29 @@
 <script>
     let qrInterval;
 
-    document.getElementById('qrModal').addEventListener('show.bs.modal', function() {
-        refreshQr();
-    });
+    const qrModal = document.getElementById('qrModal');
+    const rewardQrBtn = document.getElementById('rewardQrBtn');
+    const qrTitle = document.getElementById('qrTitle');
+    const qrBox = document.getElementById('qrBox');
+    const qrOverlay = document.getElementById('qrOverlay');
 
-    document.getElementById('qrModal').addEventListener('hidden.bs.modal', function() {
-        clearInterval(qrInterval);
-    });
+    if (qrModal) {
+        qrModal.addEventListener('show.bs.modal', function() {
+            refreshQr('member');
+        });
 
-    function refreshQr() {
+        qrModal.addEventListener('hidden.bs.modal', function() {
+            clearInterval(qrInterval);
+        });
+    }
+
+    if (rewardQrBtn) {
+        rewardQrBtn.addEventListener('click', function() {
+            refreshQr('reward');
+        });
+    }
+
+    function refreshQr(mode = 'member') {
         const qrImg = document.getElementById('memberQrImage');
         const timerBadge = document.getElementById('qrTimer');
 
@@ -68,11 +82,39 @@
         const expTime = Date.now() + (4 * 60 * 1000);
         const qrData = JSON.stringify({
             id: userId,
-            exp: expTime
+            exp: expTime,
+            type: mode
         });
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`;
 
         qrImg.src = qrUrl;
+        qrImg.style.opacity = '1';
+
+        if (qrTitle) {
+            qrTitle.textContent = mode === 'reward' ? 'Claim Reward' : 'Member QR';
+        }
+
+        timerBadge.classList.remove('bg-danger');
+        timerBadge.classList.add('bg-warning');
+
+        if (qrBox) {
+            if (mode === 'reward') {
+                qrBox.style.background = '#fffbe6';
+                qrBox.style.borderColor = '#ffd67c';
+                qrBox.style.boxShadow = '0 0 0 3px rgba(255, 214, 124, 0.35)';
+            } else {
+                qrBox.style.background = '#ffffff';
+                qrBox.style.borderColor = 'rgba(0,0,0,.125)';
+                qrBox.style.boxShadow = 'none';
+            }
+        }
+        if (qrOverlay) {
+            if (mode === 'reward') {
+                qrOverlay.style.background = '#fff3cd';
+            } else {
+                qrOverlay.style.background = '#ffffff';
+            }
+        }
 
         // Timer Logic
         let timeLeft = 4 * 60; // 4 minutes
