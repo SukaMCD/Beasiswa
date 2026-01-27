@@ -1,16 +1,4 @@
 <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
-  {{-- <style>
-    @media (max-width: 576px) {
-      .header-logo { max-width: 90px; }
-      .header-actions { flex-wrap: wrap; gap: 0.5rem; }
-      .header-actions .text-secondary, .header-actions .login-button { display: none !important; }
-      .header-actions .cart-button { margin-right: 0.5rem !important; }
-      .header-actions .dropdown-toggle { padding: 0.25rem 0.5rem !important; font-size: 0.95rem; }
-      .header-actions .btn-link { font-size: 1.2rem; }
-      .header-actions .cart-badge { font-size: 0.8rem; }
-    }
-    .header-actions { display: flex; align-items: center; }
-  </style> --}}
   <div class="container">
     <a class="navbar-brand me-auto" href="/">
       <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" class="header-logo" draggable="false">
@@ -47,6 +35,28 @@
             <a class="nav-link nav-anchor mx-lg-2" href="#qr" data-bs-toggle="modal" data-bs-target="#qrModal">QR Code</a>
           </li>
         </ul>
+        
+        @auth
+        <!-- Mobile Profile Dropdown -->
+        <div class="d-lg-none border-top pt-3 mt-3">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link py-2 px-0" href="#"><i class="bi bi-person me-2"></i>Akun Saya</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-2 px-0" href="{{ route('history.index') }}"><i class="bi bi-bag-check me-2"></i>Pesanan</a>
+            </li>
+            <li class="nav-item">
+              <form action="{{ route('logout') }}" method="POST" class="w-100">
+                @csrf
+                <button type="submit" class="nav-link py-2 px-0 text-danger w-100 text-start border-0 bg-transparent">
+                  <i class="bi bi-box-arrow-right me-2"></i>Keluar
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
+        @endauth
       </div>
     </div>
 
