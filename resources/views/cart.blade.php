@@ -133,7 +133,7 @@
     <main class="container py-5 mt-5">
         <div class="row g-4 mb-4">
             <div class="col-12">
-                <nav aria-label="breadcrumb" class="mb-3">
+                <nav aria-label="breadcrumb" class="py-4">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('homepage') }}" class="text-decoration-none text-secondary small">Beranda</a></li>
                         <li class="breadcrumb-item active small" aria-current="page">Keranjang Belanja</li>
@@ -145,7 +145,7 @@
                         <p class="text-secondary mb-0">Kelola pesanan Anda sebelum lanjut ke pembayaran.</p>
                     </div>
                     <div class="text-end d-none d-md-block">
-                        <span class="badge bg-primary-soft text-primary px-4 py-2 rounded-pill border border-primary border-opacity-10 fw-bold">
+                        <span class="badge bg-primary-soft text-dark px-4 py-2 rounded-pill border border-primary border-opacity-10 fw-bold">
                             <i class="bi bi-cart3 me-2"></i><span id="cart-count-badge">{{ count($cartItems) }}</span> Menu Terpilih
                         </span>
                     </div>
@@ -179,7 +179,7 @@
                             <div class="col-8 col-md-4">
                                 <span class="badge bg-light text-secondary mb-2 border">Food & Beverage</span>
                                 <h6 class="fw-bold mb-1 fs-5">{{ $item->product->nama_produk }}</h6>
-                                <p class="text-secondary small mb-3">Rp {{ number_format($item->harga_satuan, 0, ',', '.') }} <span class="text-muted">/ Porsi</span></p>
+                                <p class="text-secondary small mb-3">Rp {{ number_format($item->harga_satuan, 0, ',', '.') }} <span class="text-muted">/ Pcs</span></p>
                                 <button class="btn btn-sm btn-link text-danger p-0 text-decoration-none fw-semibold btn-remove" data-id="{{ $item->id_item }}">
                                     <i class="bi bi-trash-fill me-1"></i>Hapus Menu
                                 </button>
@@ -200,7 +200,7 @@
                             </div>
                             <div class="col-6 col-md-3 text-end">
                                 <span class="text-secondary small d-block mb-1">Total Harga</span>
-                                <span class="fw-bold fs-4 text-primary animate-price" id="item-subtotal-{{ $item->id_item }}">Rp {{ number_format($item->jumlah * $item->harga_satuan, 0, ',', '.') }}</span>
+                                <span class="fw-bold fs-4 text-dark animate-price" id="item-subtotal-{{ $item->id_item }}">Rp {{ number_format($item->jumlah * $item->harga_satuan, 0, ',', '.') }}</span>
                             </div>
                         </div>
                     </div>
@@ -220,20 +220,20 @@
 
                         <div class="summary-item d-flex justify-content-between">
                             <span class="text-secondary">Pajak (PPN 11%)</span>
-                            <span class="fw-bold text-orange fs-5" id="ppn-amount">Rp {{ number_format($ppn, 0, ',', '.') }}</span>
+                            <span class="fw-bold text-dark fs-5" id="ppn-amount">Rp {{ number_format($ppn, 0, ',', '.') }}</span>
                         </div>
 
                         <div class="pt-4 mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <span class="h5 fw-bold mb-0">Total Akhir</span>
-                                <span class="h3 fw-bold mb-0 text-primary animate-price" id="total-amount">Rp {{ number_format($total, 0, ',', '.') }}</span>
+                                <span class="h3 fw-bold mb-0 text-dark animate-price" id="total-amount">Rp {{ number_format($total, 0, ',', '.') }}</span>
                             </div>
                             <p class="text-muted small mb-0 font-italic">*Sudah termasuk pajak restoran.</p>
                         </div>
 
                         <div class="d-grid gap-3">
                             <button type="button" id="btn-process-payment" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold">
-                                <i class="bi bi-credit-card-2-front me-2 fs-5"></i>Bayar Sekarang
+                                Bayar Sekarang
                             </button>
                             <a href="{{ route('homepage') }}#menu" class="btn btn-light rounded-pill py-3 text-secondary fw-semibold border">
                                 <i class="bi bi-plus-circle me-2"></i>Tambah Menu Lain
@@ -242,7 +242,7 @@
 
                         <div class="mt-5 p-3 rounded-4 bg-light border border-opacity-10 text-center">
                             <p class="small text-secondary mb-0">
-                                <i class="bi bi-info-circle-fill me-1 text-primary"></i>
+                                <i class="bi bi-info-circle-fill me-1 text-orange"></i>
                                 Pesanan akan langsung kami proses setelah pembayaran berhasil.
                             </p>
                         </div>

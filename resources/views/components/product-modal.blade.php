@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="text-end">
                                     <small class="text-secondary d-block">Subtotal</small>
-                                    <span id="modalTotalPrice" class="fw-bold text-primary"></span>
+                                    <span id="modalTotalPrice" class="fw-bold text-dark"></span>
                                 </div>
                             </div>
 
@@ -48,10 +48,10 @@
 
                             <div class="d-grid gap-2 d-md-flex">
                                 <button type="button" class="btn btn-outline-primary rounded-pill px-4 flex-grow-1" id="btnAddToCart" data-id="">
-                                    <i class="bi bi-cart-plus me-2"></i>Keranjang
+                                    <span class="text-dark">Keranjang</span>
                                 </button>
                                 <button type="button" class="btn btn-primary rounded-pill px-4 flex-grow-1" id="btnBuyNowXendit">
-                                    <i class="bi bi-lightning-charge-fill me-2"></i>Beli Sekarang
+                                    <span class="text-dark">Beli Sekarang</span>
                                 </button>
                             </div>
                         </div>

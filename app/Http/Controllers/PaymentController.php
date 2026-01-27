@@ -81,7 +81,7 @@ class PaymentController extends Controller
                 'payment_url' => null
             ]);
 
-            // Add Points Immediately (1 Point = Rp 1)
+            // Add Points Immediately (100 Point = Rp 1000)
             $user->increment('points', $total);
 
             // 2. Move Cart Items to Order Items & Decrement Stock
@@ -105,7 +105,7 @@ class PaymentController extends Controller
                 $total,
                 $payerEmail,
                 $description,
-                route('history.show', $order->id_order) . '?status=success' // Redirect to Specific Order Invoice
+                route('homepage') . '?status=success'
             );
 
             // Update Payment URL
