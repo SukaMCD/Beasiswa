@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg fixed-top">
-  <style>
+<nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
+  {{-- <style>
     @media (max-width: 576px) {
       .header-logo { max-width: 90px; }
       .header-actions { flex-wrap: wrap; gap: 0.5rem; }
@@ -10,7 +10,7 @@
       .header-actions .cart-badge { font-size: 0.8rem; }
     }
     .header-actions { display: flex; align-items: center; }
-  </style>
+  </style> --}}
   <div class="container">
     <a class="navbar-brand me-auto" href="/">
       <img src="{{ asset('images/logo_cendana.webp') }}" alt="Kedai Cendana" class="header-logo" draggable="false">
