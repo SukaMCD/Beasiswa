@@ -19,7 +19,7 @@ class ScanReward extends Page
 
     protected static ?string $title = 'Scan QR Reward';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Membership';
 
     public $qrData = '';
 
@@ -130,7 +130,7 @@ class ScanReward extends Page
             return;
         }
 
-        $pointsPerItem = 1000;
+        $pointsPerItem = (int) ($product->point_price ?? 1000);
         $pointsSubtotal = $pointsPerItem * (int) $this->quantity;
 
         $this->rewardItems[] = [

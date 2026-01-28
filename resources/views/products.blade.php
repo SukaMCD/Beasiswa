@@ -41,7 +41,7 @@
                     if (Str::startsWith($imgPath, ['http://', 'https://'])) {
                     $finalImg = $imgPath;
                     } else {
-                    $finalImg = asset('storage/' . $imgPath);
+                    $finalImg = Storage::url($imgPath);
                     }
                     } else {
                     $finalImg = asset('images/image2.webp');

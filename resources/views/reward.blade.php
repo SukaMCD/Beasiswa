@@ -43,7 +43,7 @@
                     data-nama="{{ $product->nama_produk }}"
                     data-deskripsi="{{ $product->deskripsi }}"
                     data-stok="{{ $product->stok }}"
-                    data-poin="1000"
+                    data-poin="{{ (int)($product->point_price ?? 1000) }}"
                     <!-- Stock Badge -->
                     @if($product->stok > 10)
                     <span class="stock-badge stock-available"><i class="bi bi-check2-circle me-1"></i>Tersedia</span>
@@ -109,10 +109,9 @@
                                 </div>
                                 <hr class="my-3 opacity-10">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="qty-selector d-flex align-items-center bg-light rounded-pill p-1 border">
-                                        <button type="button" class="btn btn-sm btn-light rounded-circle border-0" id="btnDecreaseReward" style="width: 32px; height: 32px;">-</button>
+                                    <div class="qty-selector d-flex align-items-center bg-light rounded-pill p-2 border">
+                                        <span class="small text-secondary me-2">Jumlah</span>
                                         <input type="text" id="rewardModalQty" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold" value="1" readonly style="width: 40px;">
-                                        <button type="button" class="btn btn-sm btn-light rounded-circle border-0" id="btnIncreaseReward" style="width: 32px; height: 32px;">+</button>
                                     </div>
                                     <div class="text-end">
                                         <small class="text-secondary d-block">Subtotal</small>
@@ -165,7 +164,8 @@
                 const nama = card.getAttribute('data-nama');
                 const deskripsi = card.getAttribute('data-deskripsi');
                 const stok = card.getAttribute('data-stok');
-                const poin = parseInt(card.getAttribute('data-poin'));
+                // Use product point price from server if available
+                const poin = parseInt(card.getAttribute('data-poin')) || 1000;
                 const gambar = card.querySelector('img').getAttribute('data-gambar');
 
                 btnBuyNow.setAttribute('data-id', id);
@@ -177,24 +177,12 @@
                 stockCount.textContent = `${stok} Porsi`;
                 qtyInput.value = 1;
                 const updateTotal = () => {
-                    const qty = parseInt(qtyInput.value);
+                    const qty = 1;
+                    qtyInput.value = 1;
                     totalEl.textContent = `${(qty * poin).toLocaleString('id-ID')} Poin`;
                 };
                 updateTotal();
-                const btnIncrease = rewardModal.querySelector('#btnIncreaseReward');
-                const btnDecrease = rewardModal.querySelector('#btnDecreaseReward');
-                btnIncrease.onclick = () => {
-                    if (parseInt(qtyInput.value) < parseInt(stok)) {
-                        qtyInput.value = parseInt(qtyInput.value) + 1;
-                        updateTotal();
-                    }
-                };
-                btnDecrease.onclick = () => {
-                    if (parseInt(qtyInput.value) > 1) {
-                        qtyInput.value = parseInt(qtyInput.value) - 1;
-                        updateTotal();
-                    }
-                };
+                // Qty fixed to 1: no plus/minus handlers
                 stockBadge.className = 'stock-badge';
                 if (parseInt(stok) > 10) {
                     stockBadge.classList.add('stock-available');
@@ -224,7 +212,7 @@
                         });
                         return;
                     }
-                    const qty = qtyInput.value;
+                    const qty = 1;
                     window.location.href = `{{ route('reward.claim') }}?id=${encodeURIComponent(id)}&qty=${encodeURIComponent(qty)}`;
                 };
             });

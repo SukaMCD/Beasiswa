@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\PointsTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -17,7 +18,11 @@ class HistoryController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('history', compact('orders'));
+        $pointTransactions = PointsTransaction::where('id_user', $user->id_user)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('history', compact('orders', 'pointTransactions'));
     }
 
     public function show($id)

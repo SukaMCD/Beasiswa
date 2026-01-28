@@ -30,7 +30,11 @@
           <li class="nav-item"><a class="nav-link mx-lg-2" href="/#menu">Menu</a></li>
           <li class="nav-item"><a class="nav-link mx-lg-2" href="/#about">Tentang Kami</a></li>
           <li class="nav-item"><a class="nav-link mx-lg-2" href="/#contact">Kontak</a></li>
+          @auth
           <li class="nav-item"><a class="nav-link mx-lg-2" href="/#qr" data-bs-toggle="modal" data-bs-target="#qrModal">QR Code</a></li>
+          @else
+          <li class="nav-item"><a class="nav-link mx-lg-2 btn-scan-qr-guest" href="#" style="cursor: pointer;">QR Code</a></li>
+          @endauth
 
           @auth
           <!-- Menu Akun Khusus Sidebar Mobile -->

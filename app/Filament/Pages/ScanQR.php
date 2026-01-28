@@ -18,7 +18,7 @@ class ScanQR extends Page
 
     protected static ?string $title = 'Scan QR Member';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Membership';
 
     // Livewire properties
     public $qrData = '';
@@ -116,6 +116,14 @@ class ScanQR extends Page
             $newPoints = ($user->points ?? 0) + $pointsToAdd;
             $user->points = $newPoints;
             $user->save();
+
+            // Log points IN transaction
+            \App\Models\PointsTransaction::create([
+                'id_user' => $user->id_user,
+                'type' => 'IN',
+                'points' => $pointsToAdd,
+                'description' => 'Tambah poin dari belanja Rp ' . number_format((int) $this->amount, 0, ',', '.'),
+            ]);
 
             Notification::make()
                 ->title('Berhasil menambahkan ' . number_format($pointsToAdd, 0, ',', '.') . ' poin!')

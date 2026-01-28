@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PointsTransaction;
 
 class MemberController extends Controller
 {
@@ -56,7 +57,12 @@ class MemberController extends Controller
         $user = Auth::user();
         $product = Product::findOrFail($request->id_produk);
         $qty = (int) $request->qty;
-        $pointsPerItem = 1000;
+        // Use configurable point price per product (default handled at DB)
+        $pointsPerItem = (int) ($product->point_price ?? 1000);
+        // Validate stock availability
+        if (($product->stok ?? 0) < $qty) {
+            return back()->withErrors(['points' => 'Stok produk tidak mencukupi'])->withInput();
+        }
         $totalPoints = $pointsPerItem * $qty;
         $currentPoints = $user->points ?? 0;
         if ($currentPoints < $totalPoints) {
@@ -65,6 +71,10 @@ class MemberController extends Controller
         // Deduct points
         $user->points = $currentPoints - $totalPoints;
         $user->save();
+
+        // Decrement product stock
+        $product->stok = max(0, ($product->stok ?? 0) - $qty);
+        $product->save();
 
         // Create order record (marked as PAID, total_amount 0 for reward claims)
         $order = Order::create([
@@ -83,6 +93,14 @@ class MemberController extends Controller
             'harga_satuan' => 0,
             'jumlah' => $qty,
             'subtotal' => 0,
+        ]);
+
+        // Log points OUT transaction
+        PointsTransaction::create([
+            'id_user' => $user->id_user,
+            'type' => 'OUT',
+            'points' => $totalPoints,
+            'description' => 'Klaim reward: ' . $product->nama_produk . ' x ' . $qty,
         ]);
 
         return redirect()->route('history.index')->with('status', 'Reward berhasil diklaim dan masuk Riwayat.');
