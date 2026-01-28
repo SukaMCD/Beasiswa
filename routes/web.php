@@ -87,4 +87,6 @@ Route::middleware('auth')->group(function () {
 
     // Reward
     Route::get('/reward', [App\Http\Controllers\MemberController::class, 'reward'])->name('reward.index');
+    Route::get('/reward/claim', [App\Http\Controllers\MemberController::class, 'claimReward'])->name('reward.claim');
+    Route::post('/reward/checkout', [App\Http\Controllers\MemberController::class, 'checkoutReward'])->name('reward.checkout');
 });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class MemberController extends Controller
 {
@@ -28,5 +30,61 @@ class MemberController extends Controller
     {
         $products = Product::orderByDesc('created_at')->get();
         return view('reward', compact('products'));
+    }
+
+    public function claimReward(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:products,id_produk',
+            'qty' => 'nullable|integer|min:1',
+        ]);
+        $product = Product::findOrFail($request->id);
+        $qty = max(1, (int) ($request->qty ?? 1));
+        $pointsPerItem = 1000;
+        $pointsRequired = $pointsPerItem * $qty;
+        $user = Auth::user();
+        $userPoints = $user->points ?? 0;
+        return view('claimreward', compact('product', 'qty', 'pointsPerItem', 'pointsRequired', 'userPoints'));
+    }
+
+    public function checkoutReward(Request $request)
+    {
+        $request->validate([
+            'id_produk' => 'required|exists:products,id_produk',
+            'qty' => 'required|integer|min:1',
+        ]);
+        $user = Auth::user();
+        $product = Product::findOrFail($request->id_produk);
+        $qty = (int) $request->qty;
+        $pointsPerItem = 1000;
+        $totalPoints = $pointsPerItem * $qty;
+        $currentPoints = $user->points ?? 0;
+        if ($currentPoints < $totalPoints) {
+            return back()->withErrors(['points' => 'Poin tidak mencukupi untuk klaim reward ini'])->withInput();
+        }
+        // Deduct points
+        $user->points = $currentPoints - $totalPoints;
+        $user->save();
+
+        // Create order record (marked as PAID, total_amount 0 for reward claims)
+        $order = Order::create([
+            'id_user' => $user->id_user,
+            'external_id' => 'RW-' . strtoupper(uniqid()),
+            'total_amount' => 0,
+            'payment_status' => 'PAID',
+            'payment_url' => null,
+        ]);
+
+        // Create item
+        OrderItem::create([
+            'id_order' => $order->id_order,
+            'id_produk' => $product->id_produk,
+            'nama_produk' => $product->nama_produk . ' (Reward)',
+            'harga_satuan' => 0,
+            'jumlah' => $qty,
+            'subtotal' => 0,
+        ]);
+
+        return redirect()->route('history.index')->with('status', 'Reward berhasil diklaim dan masuk Riwayat.');
     }
 }

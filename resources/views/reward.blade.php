@@ -7,6 +7,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     @include('layout.header')
@@ -34,7 +36,14 @@
         <div class="row g-3 g-lg-4">
             @forelse($products as $product)
             <div class="col-6 col-md-3">
-                <div class="card product-card h-100 border-0 shadow-sm position-relative">
+                <div class="card product-card h-100 border-0 shadow-sm position-relative cursor-pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rewardProductModal"
+                    data-id="{{ $product->id_produk }}"
+                    data-nama="{{ $product->nama_produk }}"
+                    data-deskripsi="{{ $product->deskripsi }}"
+                    data-stok="{{ $product->stok }}"
+                    data-poin="1000"
                     <!-- Stock Badge -->
                     @if($product->stok > 10)
                     <span class="stock-badge stock-available"><i class="bi bi-check2-circle me-1"></i>Tersedia</span>
@@ -57,7 +66,7 @@
                             $finalImg = asset('images/image2.webp');
                         }
                         @endphp
-                        <img src="{{ $finalImg }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}">
+                        <img src="{{ $finalImg }}" class="card-img-top object-fit-cover" alt="{{ $product->nama_produk }}" data-gambar="{{ $finalImg }}">
                     </div>
                     <div class="card-body">
                         <h2 class="h6 product-title mb-1">{{ $product->nama_produk }}</h2>
@@ -76,9 +85,150 @@
         </div>
     </main>
 
+    <!-- Reward Product Modal -->
+    <div class="modal fade" id="rewardProductModal" tabindex="-1" aria-labelledby="rewardProductModalLabel" aria-hidden="true" data-auth="{{ Auth::check() ? 'true' : 'false' }}">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header border-0 bg-light p-4">
+                    <h5 class="modal-title fw-bold" id="rewardProductModalLabel">Detail Reward</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-lg-5">
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <div class="ratio ratio-1x1 rounded-4 overflow-hidden shadow-sm">
+                                <img id="rewardModalImage" src="" class="object-fit-cover w-100 h-100" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="ps-md-3">
+                                <h2 id="rewardModalTitle" class="h3 fw-bold mb-2"></h2>
+                                <div class="d-flex align-items-center mb-3">
+                                    <span id="rewardModalPrice" class="h4 fw-bold text-warning mb-0 me-3">1.000 Poin</span>
+                                    <span id="rewardModalStockBadge" class="stock-badge"></span>
+                                </div>
+                                <hr class="my-3 opacity-10">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="qty-selector d-flex align-items-center bg-light rounded-pill p-1 border">
+                                        <button type="button" class="btn btn-sm btn-light rounded-circle border-0" id="btnDecreaseReward" style="width: 32px; height: 32px;">-</button>
+                                        <input type="text" id="rewardModalQty" class="form-control form-control-sm border-0 bg-transparent text-center fw-bold" value="1" readonly style="width: 40px;">
+                                        <button type="button" class="btn btn-sm btn-light rounded-circle border-0" id="btnIncreaseReward" style="width: 32px; height: 32px;">+</button>
+                                    </div>
+                                    <div class="text-end">
+                                        <small class="text-secondary d-block">Subtotal</small>
+                                        <span id="rewardModalTotal" class="fw-bold text-dark">1.000 Poin</span>
+                                    </div>
+                                </div>
+                                <h6 class="fw-bold mb-2">Deskripsi</h6>
+                                <div class="modal-description-scroll mb-4">
+                                    <p id="rewardModalDesc" class="text-secondary mb-0"></p>
+                                </div>
+                                <div class="bg-light p-3 rounded-3 mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="text-secondary small">Status Stok</span>
+                                        <span id="rewardModalStockCount" class="fw-bold small"></span>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex">
+                                    <button type="button" class="btn btn-primary rounded-pill px-4 flex-grow-1" id="btnRewardBuyNow">
+                                        <span class="text-dark">Beli Sekarang</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('layout.footer')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/layout.js') }}"></script>
+    <script>
+        const rewardModal = document.getElementById('rewardProductModal');
+        if (rewardModal) {
+            const title = rewardModal.querySelector('#rewardModalTitle');
+            const image = rewardModal.querySelector('#rewardModalImage');
+            const price = rewardModal.querySelector('#rewardModalPrice');
+            const desc = rewardModal.querySelector('#rewardModalDesc');
+            const stockBadge = rewardModal.querySelector('#rewardModalStockBadge');
+            const stockCount = rewardModal.querySelector('#rewardModalStockCount');
+            const qtyInput = rewardModal.querySelector('#rewardModalQty');
+            const totalEl = rewardModal.querySelector('#rewardModalTotal');
+            const btnBuyNow = rewardModal.querySelector('#btnRewardBuyNow');
+
+            rewardModal.addEventListener('show.bs.modal', function (event) {
+                const card = event.relatedTarget;
+                const id = card.getAttribute('data-id');
+                const nama = card.getAttribute('data-nama');
+                const deskripsi = card.getAttribute('data-deskripsi');
+                const stok = card.getAttribute('data-stok');
+                const poin = parseInt(card.getAttribute('data-poin'));
+                const gambar = card.querySelector('img').getAttribute('data-gambar');
+
+                btnBuyNow.setAttribute('data-id', id);
+                title.textContent = nama;
+                image.src = gambar;
+                image.alt = nama;
+                price.textContent = `${poin.toLocaleString('id-ID')} Poin`;
+                desc.textContent = deskripsi;
+                stockCount.textContent = `${stok} Porsi`;
+                qtyInput.value = 1;
+                const updateTotal = () => {
+                    const qty = parseInt(qtyInput.value);
+                    totalEl.textContent = `${(qty * poin).toLocaleString('id-ID')} Poin`;
+                };
+                updateTotal();
+                const btnIncrease = rewardModal.querySelector('#btnIncreaseReward');
+                const btnDecrease = rewardModal.querySelector('#btnDecreaseReward');
+                btnIncrease.onclick = () => {
+                    if (parseInt(qtyInput.value) < parseInt(stok)) {
+                        qtyInput.value = parseInt(qtyInput.value) + 1;
+                        updateTotal();
+                    }
+                };
+                btnDecrease.onclick = () => {
+                    if (parseInt(qtyInput.value) > 1) {
+                        qtyInput.value = parseInt(qtyInput.value) - 1;
+                        updateTotal();
+                    }
+                };
+                stockBadge.className = 'stock-badge';
+                if (parseInt(stok) > 10) {
+                    stockBadge.classList.add('stock-available');
+                    stockBadge.innerHTML = '<i class="bi bi-check2-circle me-1"></i>Tersedia';
+                } else if (parseInt(stok) > 0) {
+                    stockBadge.classList.add('stock-limited');
+                    stockBadge.innerHTML = `<i class="bi bi-exclamation-triangle me-1"></i>Terbatas (${stok})`;
+                } else {
+                    stockBadge.classList.add('stock-out');
+                    stockBadge.innerHTML = '<i class="bi bi-x-circle me-1"></i>Habis';
+                }
+                btnBuyNow.disabled = parseInt(stok) <= 0;
+                btnBuyNow.onclick = (e) => {
+                    const isAuth = rewardModal.getAttribute('data-auth') === 'true';
+                    if (!isAuth) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: 'Wajib Login!',
+                            text: 'Silakan login terlebih dahulu untuk klaim reward.',
+                            icon: 'warning',
+                            confirmButtonColor: '#ffd67c',
+                            confirmButtonText: 'Login Sekarang',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/auth/login';
+                            }
+                        });
+                        return;
+                    }
+                    const qty = qtyInput.value;
+                    window.location.href = `{{ route('reward.claim') }}?id=${encodeURIComponent(id)}&qty=${encodeURIComponent(qty)}`;
+                };
+            });
+        }
+    </script>
 </body>
 </html>

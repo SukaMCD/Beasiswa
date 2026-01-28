@@ -18,6 +18,7 @@
 
                 <p class="text-secondary small mb-1">Tunjukkan ke kasir untuk scan.</p>
                 <div class="badge bg-warning text-dark mb-3" id="qrTimer">04:00</div>
+                @unless(request()->routeIs('reward.index'))
                 <div class="d-flex gap-2 mt-2">
                     <a href="{{ route('reward.index') }}" class="btn fw-bold py-2 flex-fill" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s; text-decoration: none; display: flex; align-items: center; justify-content: center;"
                         onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
@@ -30,6 +31,7 @@
                         Riwayat
                     </button>
                 </div>
+                @endunless
             </div>
         </div>
     </div>
