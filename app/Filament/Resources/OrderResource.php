@@ -128,6 +128,27 @@ class OrderResource extends Resource
                     ]),
             ])
             ->actions([
+                Tables\Actions\Action::make('updateStatus')
+                    ->label('Ubah Status')
+                    ->icon('heroicon-o-truck')
+                    ->color('info')
+                    ->form([
+                        Forms\Components\Select::make('shipping_status')
+                            ->label('Status Pengiriman')
+                            ->options([
+                                'PENDING' => 'Pending',
+                                'PROCESSING' => 'Diproses',
+                                'SHIPPED' => 'Dikirim',
+                                'DELIVERED' => 'Sampai',
+                                'CANCELLED' => 'Dibatalkan',
+                            ])
+                            ->required(),
+                    ])
+                    ->action(function (Order $record, array $data): void {
+                        $record->update([
+                            'shipping_status' => $data['shipping_status'],
+                        ]);
+                    }),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

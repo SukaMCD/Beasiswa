@@ -8,6 +8,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
+    protected static ?int $sort = 1;
+
     protected function getStats(): array
     {
         $paidOrders = Order::where('payment_status', 'PAID')->get();
@@ -29,23 +31,25 @@ class StatsOverview extends BaseWidget
         $netProfit = $subtotal - $totalFees;
 
         return [
-            Stat::make('Total Pendapatan (Kotor)', 'Rp ' . number_format($totalGross, 0, ',', '.'))
-                ->description('Total masuk (Termasuk PPN)')
-                ->color('primary'),
-
-            Stat::make('Estimasi Keuntungan Bersih', 'Rp ' . number_format($netProfit, 0, ',', '.'))
-                ->description('Total - PPN - Biaya Admin')
+            Stat::make('Total Pendapatan', 'Rp ' . number_format($totalGross, 0, ',', '.'))
+                ->description('Total dari semua pesanan Lunas')
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
 
-            Stat::make('Total Potongan', 'Rp ' . number_format($ppn + $totalFees, 0, ',', '.'))
-                ->description('PPN (11%) + Fee Xendit')
-                ->descriptionIcon('heroicon-m-scissors')
-                ->color('danger'),
-
-            Stat::make('Total Penjualan', Order::count())
-                ->description('Semua pesanan masuk')
+            Stat::make('Total Pesanan', Order::count())
+                ->description('Semua pesanan yang masuk')
+                ->descriptionIcon('heroicon-m-shopping-cart')
                 ->color('info'),
+
+            Stat::make('Total Produk', \App\Models\Product::count())
+                ->description('Produk aktif yang tersedia')
+                ->descriptionIcon('heroicon-m-rectangle-stack')
+                ->color('primary'),
+
+            Stat::make('Total Customer', \App\Models\User::count())
+                ->description('User yang terdaftar')
+                ->descriptionIcon('heroicon-m-users')
+                ->color('warning'),
         ];
     }
 }

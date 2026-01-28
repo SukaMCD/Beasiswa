@@ -76,7 +76,6 @@
             @auth
                 <a href="{{ route('cart.index') }}" class="cart-button me-3">
                     <i class="bi bi-cart"></i>
-                    <span class="cart-badge">0</span>
                 </a>
 
                 <!-- Dropdown Profil Desktop -->

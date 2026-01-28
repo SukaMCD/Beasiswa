@@ -17,7 +17,9 @@ class ArticlesResource extends Resource
 {
     protected static ?string $model = Articles::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationLabel = 'Kategori';
+    protected static ?string $pluralModelLabel = 'Kategori';
 
     public static function form(Form $form): Form
     {
