@@ -12,7 +12,6 @@
     <link href="{{ asset('css/filament/filament/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>

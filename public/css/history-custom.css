@@ -1,0 +1,47 @@
+:root {
+    --primary-soft: rgba(44, 62, 80, 0.05);
+    --accent-soft: rgba(255, 214, 124, 0.15);
+}
+
+body {
+    background-color: #f8fafc;
+    color: #334155;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #334155;
+}
+
+.history-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.02) !important;
+}
+
+.history-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+.nav-pills .nav-link {
+    color: #64748b;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: none !important;
+    text-decoration: none !important;
+}
+
+.nav-pills .nav-link::before {
+    display: none !important;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+}
+
+.badge-modern {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    font-size: 0.75rem;
+}

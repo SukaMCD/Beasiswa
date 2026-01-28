@@ -26,10 +26,10 @@
                 @endauth
 
                 <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                    <li class="nav-item"><a class="nav-link mx-lg-2" href="/#home">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link mx-lg-2" href="/#menu">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link mx-lg-2" href="/#about">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link mx-lg-2" href="/#contact">Kontak</a></li>
+                    <li class="nav-item"><a class="nav-link mx-lg-2" href="{{ url('/') }}">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link mx-lg-2" href="{{ url('/#menu') }}">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link mx-lg-2" href="{{ url('/#about') }}">Tentang Kami</a></li>
+                    <li class="nav-item"><a class="nav-link mx-lg-2" href="{{ url('/#contact') }}">Kontak</a></li>
                     @auth
                         <li class="nav-item"><a class="nav-link mx-lg-2" href="/#qr" data-bs-toggle="modal"
                                 data-bs-target="#qrModal">QR Code</a></li>
@@ -88,7 +88,8 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 rounded-4 animate slideIn">
                         <li class="px-4 py-2 bg-light rounded-top-4">
                             <small class="text-muted d-block">Poin:</small>
-                            <div class="fw-bold text-dark">{{ number_format(Auth::user()->points ?? 0, 0, ',', '.') }}</div>
+                            <div class="fw-bold text-dark">{{ number_format(Auth::user()->points ?? 0, 0, ',', '.') }}
+                            </div>
                         </li>
                         <li>
                             <hr class="dropdown-divider m-0">

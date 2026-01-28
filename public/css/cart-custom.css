@@ -1,0 +1,113 @@
+:root {
+    --primary-soft: rgba(44, 62, 80, 0.05);
+    --accent-soft: rgba(255, 214, 124, 0.15);
+}
+
+body {
+    background-color: #f8fafc;
+    color: #334155;
+}
+
+.cart-item-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.02) !important;
+}
+
+.cart-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+.qty-controls {
+    background: #f1f5f9;
+    border-radius: 50px;
+    padding: 2px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-qty-cart {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    border: none;
+    color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.btn-qty-cart:hover:not(:disabled) {
+    background: var(--accent-color);
+    color: #000;
+    transform: scale(1.1);
+}
+
+.btn-qty-cart:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btn-qty-cart:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.summary-card {
+    border: none;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04) !important;
+}
+
+.summary-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.summary-item:last-of-type {
+    border-bottom: none;
+}
+
+.whatsapp-btn {
+    background: #25d366;
+    color: #fff;
+    border: none;
+    transition: all 0.3s;
+}
+
+.whatsapp-btn:hover {
+    background: #128c7e;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+}
+
+.empty-state-container {
+    padding: 4rem 1rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "\2192";
+    color: #94a3b8;
+}
+
+.product-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.product-img-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.05), transparent);
+}
+
+.animate-price {
+    transition: all 0.3s ease;
+}

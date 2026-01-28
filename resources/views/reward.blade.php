@@ -17,9 +17,29 @@
 <body>
     @include('layout.header')
 
-    <main class="container py-5">
+    <main class="container py-5 mt-5">
+        <nav aria-label="breadcrumb" class="py-4">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('homepage') }}"
+                        class="text-decoration-none text-secondary small">Beranda</a></li>
+                <li class="breadcrumb-item active small" aria-current="page">Reward Member</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between border-bottom pb-4 mb-5">
+            <div>
+                <h1 class="h2 fw-bold mb-1">Reward Member</h1>
+                <p class="text-secondary mb-0">Tukarkan poin Anda dengan berbagai penawaran menarik.</p>
+            </div>
+            <div class="text-end mt-3 mt-md-0">
+                <span class="badge bg-light text-dark px-4 py-2 rounded-pill border fw-bold">
+                    Poin Kamu: {{ Auth::check() ? number_format(Auth::user()->points, 0, ',', '.') : 0 }}
+                </span>
+            </div>
+        </div>
+
         <div class="d-flex flex-column align-items-center mb-5">
-            <h1 class="h3 mb-4 fw-bold">Reward Member</h1>
+            {{-- <h1 class="h3 mb-4 fw-bold">Reward Member</h1> --}}
 
             <div class="d-flex gap-3 w-100 justify-content-center" style="max-width: 500px;">
                 <button class="btn btn-warning fw-bold py-3 flex-fill shadow-sm" data-bs-toggle="modal"

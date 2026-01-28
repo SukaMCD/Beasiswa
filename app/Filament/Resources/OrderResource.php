@@ -46,6 +46,17 @@ class OrderResource extends Resource
                     ])
                     ->native(false)
                     ->required(),
+                Forms\Components\Select::make('shipping_status')
+                    ->label('Status Pengiriman')
+                    ->options([
+                        'PENDING' => 'Pending',
+                        'PROCESSING' => 'Diproses',
+                        'SHIPPED' => 'Dikirim',
+                        'DELIVERED' => 'Sampai',
+                        'CANCELLED' => 'Dibatalkan',
+                    ])
+                    ->native(false)
+                    ->required(),
                 Forms\Components\Repeater::make('items')
                     ->relationship()
                     ->schema([
@@ -90,6 +101,17 @@ class OrderResource extends Resource
                         'PENDING' => 'warning',
                         'PAID' => 'success',
                         'EXPIRED', 'CANCELLED' => 'danger',
+                        default => 'gray',
+                    }),
+                Tables\Columns\TextColumn::make('shipping_status')
+                    ->label('Pengiriman')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'PENDING' => 'gray',
+                        'PROCESSING' => 'info',
+                        'SHIPPED' => 'warning',
+                        'DELIVERED' => 'success',
+                        'CANCELLED' => 'danger',
                         default => 'gray',
                     }),
                 Tables\Columns\TextColumn::make('created_at')

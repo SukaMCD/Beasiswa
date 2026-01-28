@@ -15,12 +15,27 @@
 <body>
     @include('layout.header')
 
-    <main class="container py-5">
-        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
-            <h1 class="h3 mb-2 mb-md-0">Artikel</h1>
-            <div class="input-group" style="max-width: 360px;">
-                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                <input type="text" class="form-control" placeholder="Cari artikel...">
+    <main class="container py-5 mt-5">
+        <nav aria-label="breadcrumb" class="py-4">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('homepage') }}"
+                        class="text-decoration-none text-secondary small">Beranda</a></li>
+                <li class="breadcrumb-item active small" aria-current="page">Artikel</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between border-bottom pb-4 mb-5">
+            <div>
+                <h1 class="h2 fw-bold mb-1">Artikel Terbaru</h1>
+                <p class="text-secondary mb-0">Berita dan informasi terbaru seputar Kedai Cendana.</p>
+            </div>
+            <div class="mt-3 mt-md-0">
+                <div class="input-group" style="max-width: 360px;">
+                    <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3"><i
+                            class="bi bi-search text-secondary"></i></span>
+                    <input type="text" class="form-control border-start-0 rounded-end-pill py-2"
+                        placeholder="Cari artikel...">
+                </div>
             </div>
         </div>
 

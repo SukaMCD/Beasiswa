@@ -9,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
+    <link href="{{ asset('css/history-custom.css?v=1.0') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
 </head>
 
@@ -16,7 +17,20 @@
     @include('layout.header')
 
     <main class="container py-5 mt-5">
-        <h2 class="fw-bold mb-4">Riwayat Aktivitas</h2>
+        <nav aria-label="breadcrumb" class="py-4">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('homepage') }}"
+                        class="text-decoration-none text-secondary small">Beranda</a></li>
+                <li class="breadcrumb-item active small" aria-current="page">Riwayat Aktivitas</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex align-items-end justify-content-between border-bottom pb-4 mb-5">
+            <div>
+                <h1 class="h2 fw-bold mb-1">Riwayat Aktivitas</h1>
+                <p class="text-secondary mb-0">Pantau pesanan dan riwayat poin Kedai Cendana Anda.</p>
+            </div>
+        </div>
 
         <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -44,7 +58,8 @@
                                         <th class="p-4 border-0 rounded-top-start">ID Pesanan</th>
                                         <th class="p-4 border-0">Tanggal</th>
                                         <th class="p-4 border-0">Total</th>
-                                        <th class="p-4 border-0">Status</th>
+                                        <th class="p-4 border-0 text-center">Status Pembayaran</th>
+                                        <th class="p-4 border-0 text-center">Status Pengiriman</th>
                                         <th class="p-4 border-0 text-end rounded-top-end">Aksi</th>
                                     </tr>
                                 </thead>
@@ -56,18 +71,42 @@
                                             </td>
                                             <td class="p-4 fw-bold">Rp
                                                 {{ number_format($order->total_amount, 0, ',', '.') }}</td>
-                                            <td class="p-4">
+                                            <td class="p-4 text-center">
                                                 @if ($order->payment_status == 'PAID')
                                                     <span
-                                                        class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">Lunas</span>
+                                                        class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill badge-modern">Lunas</span>
                                                 @elseif($order->payment_status == 'PENDING')
                                                     <span
-                                                        class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">Menunggu
-                                                        Pembayaran</span>
+                                                        class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill badge-modern">Menunggu</span>
                                                 @else
                                                     <span
-                                                        class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill">{{ $order->payment_status }}</span>
+                                                        class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill badge-modern">{{ $order->payment_status }}</span>
                                                 @endif
+                                            </td>
+                                            <td class="p-4 text-center">
+                                                @php
+                                                    $shipStatus = $order->shipping_status ?? 'PENDING';
+                                                    $shipBadgeClass = match ($shipStatus) {
+                                                        'PENDING' => 'bg-secondary',
+                                                        'PROCESSING' => 'bg-info',
+                                                        'SHIPPED' => 'bg-warning',
+                                                        'DELIVERED' => 'bg-success',
+                                                        'CANCELLED' => 'bg-danger',
+                                                        default => 'bg-secondary',
+                                                    };
+                                                    $shipLabel = match ($shipStatus) {
+                                                        'PENDING' => 'Menunggu',
+                                                        'PROCESSING' => 'Diproses',
+                                                        'SHIPPED' => 'Dikirim',
+                                                        'DELIVERED' => 'Sampai',
+                                                        'CANCELLED' => 'Dibatalkan',
+                                                        default => $shipStatus,
+                                                    };
+                                                @endphp
+                                                <span
+                                                    class="badge {{ $shipBadgeClass }} bg-opacity-10 {{ str_replace('bg-', 'text-', $shipBadgeClass) }} px-3 py-2 rounded-pill badge-modern">
+                                                    {{ $shipLabel }}
+                                                </span>
                                             </td>
                                             <td class="p-4 text-end">
                                                 @if ($order->payment_status == 'PENDING' && $order->payment_url)
@@ -132,7 +171,8 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="p-5 text-center text-secondary">Belum ada riwayat
+                                            <td colspan="4" class="p-5 text-center text-secondary">Belum ada
+                                                riwayat
                                                 poin.</td>
                                         </tr>
                                     @endforelse
