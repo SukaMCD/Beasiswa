@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/update-note', [App\Http\Controllers\CartController::class, 'updateNote'])->name('cart.updateNote');
     Route::post('/cart/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
     Route::post('/payment/checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
 
@@ -89,4 +90,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reward', [App\Http\Controllers\MemberController::class, 'reward'])->name('reward.index');
     Route::get('/reward/claim', [App\Http\Controllers\MemberController::class, 'claimReward'])->name('reward.claim');
     Route::post('/reward/checkout', [App\Http\Controllers\MemberController::class, 'checkoutReward'])->name('reward.checkout');
+
+    // Profile
+    Route::post('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });

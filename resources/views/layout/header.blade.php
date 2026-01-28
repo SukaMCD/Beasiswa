@@ -111,3 +111,5 @@
     </div>
   </div>
 </nav>
+
+@include('components.profile-modal')

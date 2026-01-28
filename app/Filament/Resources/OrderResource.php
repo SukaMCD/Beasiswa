@@ -72,6 +72,13 @@ class OrderResource extends Resource
                     ->label('Customer')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('phone_number')
+                    ->label('Telepon')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('shipping_address')
+                    ->label('Alamat')
+                    ->limit(30)
+                    ->tooltip(fn (Order $record): string => $record->shipping_address ?? ''),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->label('Total')
                     ->money('IDR')

@@ -202,6 +202,10 @@
                                 <span class="text-secondary small d-block mb-1">Total Harga</span>
                                 <span class="fw-bold fs-4 text-dark animate-price" id="item-subtotal-{{ $item->id_item }}">Rp {{ number_format($item->jumlah * $item->harga_satuan, 0, ',', '.') }}</span>
                             </div>
+                            <!-- Note Textarea -->
+                            <div class="col-12 mt-2">
+                                <textarea class="form-control bg-light border-0 small cart-note" data-id="{{ $item->id_item }}" rows="2" placeholder="Catatan untuk penjual (opsional)...">{{ $item->note }}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -273,6 +277,98 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/layout.js') }}"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // Handle Qty Change
+            document.querySelectorAll('.btn-qty').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const action = this.getAttribute('data-action');
+                    
+                    if (this.disabled) return;
+
+                    fetch('{{ route("cart.update") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({ id_item: id, action: action })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        location.reload(); 
+                    })
+                    .catch(err => console.error(err));
+                });
+            });
+
+            // Handle Remove
+            document.querySelectorAll('.btn-remove').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    
+                    Swal.fire({
+                        title: 'Hapus Menu?',
+                        text: "Menu akan dihapus dari keranjang Anda.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch('{{ route("cart.remove") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': csrfToken
+                                },
+                                body: JSON.stringify({ id_item: id })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                location.reload();
+                            });
+                        }
+                    });
+                });
+            });
+
+            // Handle Note Change
+            document.querySelectorAll('.cart-note').forEach(textarea => {
+                textarea.addEventListener('change', function() {
+                    const id = this.getAttribute('data-id');
+                    const note = this.value;
+
+                    fetch('{{ route("cart.updateNote") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({ id_item: id, note: note })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                         const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                        });
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Catatan disimpan'
+                        });
+                    });
+                });
+            });
+        });
+
         // Formatted WhatsApp message generator
         // Payment Process
         document.getElementById('btn-process-payment').addEventListener('click', function() {

@@ -78,7 +78,9 @@ class PaymentController extends Controller
                 'external_id' => $externalId,
                 'total_amount' => $total,
                 'payment_status' => 'PAID', // Changed from PENDING for testing
-                'payment_url' => null
+                'payment_url' => null,
+                'phone_number' => $user->phone_number,
+                'shipping_address' => $user->address,
             ]);
 
             // Add Points Immediately (100 Point = Rp 1000)

@@ -16,7 +16,9 @@ class Order extends Model
         'external_id',
         'total_amount',
         'payment_status',
-        'payment_url'
+        'payment_url',
+        'phone_number',
+        'shipping_address'
     ];
 
     public function user()
