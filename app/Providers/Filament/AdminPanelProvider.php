@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Kedai Cendana')
             ->id('admin')
             ->path('admin')
+            ->favicon(asset('images/kedai-cendana-rounded.webp'))
             ->login(null)
             ->colors([
                 'primary' => Color::Indigo,

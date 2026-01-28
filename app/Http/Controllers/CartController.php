@@ -24,7 +24,7 @@ class CartController extends Controller
         $ppn = $subtotal * $ppnRate;
         $total = $subtotal + $ppn;
 
-        return view('cart', compact('cartItems', 'subtotal', 'ppn', 'total'));
+        return view('cart', compact('cartItems', 'subtotal', 'ppn', 'total', 'cart'));
     }
 
     public function add(Request $request)
@@ -79,12 +79,12 @@ class CartController extends Controller
     public function updateNote(Request $request)
     {
         $request->validate([
-            'id_item' => 'required|exists:cart_items,id_item',
             'note' => 'nullable|string|max:500',
         ]);
 
-        $cartItem = CartItem::findOrFail($request->id_item);
-        $cartItem->update(['note' => $request->note]);
+        $user = Auth::user();
+        $cart = Cart::where('id_user', $user->id_user)->firstOrFail();
+        $cart->update(['note' => $request->note]);
 
         return response()->json(['message' => 'Catatan berhasil disimpan']);
     }

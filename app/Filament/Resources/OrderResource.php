@@ -26,16 +26,16 @@ class OrderResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('external_id')
                     ->label('ID Pesanan')
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\Select::make('id_user')
                     ->relationship('user', 'nama_user')
                     ->label('Customer')
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\TextInput::make('total_amount')
                     ->label('Total Pembayaran')
                     ->prefix('Rp')
                     ->numeric()
-                    ->readOnly(),
+                    ->disabled(),
                 Forms\Components\Select::make('payment_status')
                     ->label('Status Pembayaran')
                     ->options([
@@ -49,10 +49,10 @@ class OrderResource extends Resource
                 Forms\Components\Repeater::make('items')
                     ->relationship()
                     ->schema([
-                        Forms\Components\TextInput::make('nama_produk')->label('Produk')->readOnly(),
-                        Forms\Components\TextInput::make('jumlah')->numeric()->readOnly(),
-                        Forms\Components\TextInput::make('harga_satuan')->prefix('Rp')->numeric()->readOnly(),
-                        Forms\Components\TextInput::make('subtotal')->prefix('Rp')->numeric()->readOnly(),
+                        Forms\Components\TextInput::make('nama_produk')->label('Produk')->disabled(),
+                        Forms\Components\TextInput::make('jumlah')->numeric()->disabled(),
+                        Forms\Components\TextInput::make('harga_satuan')->prefix('Rp')->numeric()->disabled(),
+                        Forms\Components\TextInput::make('subtotal')->prefix('Rp')->numeric()->disabled(),
                     ])
                     ->columnSpanFull()
                     ->addable(false)
@@ -78,7 +78,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('shipping_address')
                     ->label('Alamat')
                     ->limit(30)
-                    ->tooltip(fn (Order $record): string => $record->shipping_address ?? ''),
+                    ->tooltip(fn(Order $record): string => $record->shipping_address ?? ''),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->label('Total')
                     ->money('IDR')

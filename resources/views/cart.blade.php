@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Keranjang Belanja - Kedai Cendana</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
@@ -135,7 +137,8 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb" class="py-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{ route('homepage') }}" class="text-decoration-none text-secondary small">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('homepage') }}"
+                                class="text-decoration-none text-secondary small">Beranda</a></li>
                         <li class="breadcrumb-item active small" aria-current="page">Keranjang Belanja</li>
                     </ol>
                 </nav>
@@ -145,8 +148,10 @@
                         <p class="text-secondary mb-0">Kelola pesanan Anda sebelum lanjut ke pembayaran.</p>
                     </div>
                     <div class="text-end d-none d-md-block">
-                        <span class="badge bg-primary-soft text-dark px-4 py-2 rounded-pill border border-primary border-opacity-10 fw-bold">
-                            <i class="bi bi-cart3 me-2"></i><span id="cart-count-badge">{{ count($cartItems) }}</span> Menu Terpilih
+                        <span
+                            class="badge bg-primary-soft text-dark px-4 py-2 rounded-pill border border-primary border-opacity-10 fw-bold">
+                            <i class="bi bi-cart3 me-2"></i><span id="cart-count-badge">{{ count($cartItems) }}</span>
+                            Menu Terpilih
                         </span>
                     </div>
                 </div>
@@ -155,60 +160,70 @@
 
         <div class="row g-4" id="cart-content" style="{{ count($cartItems) == 0 ? 'display:none;' : '' }}">
             <div class="col-lg-8" id="cart-items-container">
-                @foreach($cartItems as $item)
-                <div class="card cart-item-card border-0 shadow-sm mb-3 rounded-4" id="cart-item-{{ $item->id_item }}">
-                    <div class="card-body p-3 p-md-4">
-                        <div class="row align-items-center g-3">
-                            <div class="col-4 col-md-2">
-                                <div class="product-img-wrapper ratio ratio-1x1 shadow-sm">
-                                    @php
-                                    $imgPath = $item->product->gambar;
-                                    if ($imgPath) {
-                                    if (Str::startsWith($imgPath, ['http://', 'https://'])) {
-                                    $finalImg = $imgPath;
-                                    } else {
-                                    $finalImg = Storage::url($imgPath);
-                                    }
-                                    } else {
-                                    $finalImg = asset('images/image2.webp');
-                                    }
-                                    @endphp
-                                    <img src="{{ $finalImg }}" class="object-fit-cover" alt="{{ $item->product->nama_produk }}">
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-4">
-                                <span class="badge bg-light text-secondary mb-2 border">Food & Beverage</span>
-                                <h6 class="fw-bold mb-1 fs-5">{{ $item->product->nama_produk }}</h6>
-                                <p class="text-secondary small mb-3">Rp {{ number_format($item->harga_satuan, 0, ',', '.') }} <span class="text-muted">/ Pcs</span></p>
-                                <button class="btn btn-sm btn-link text-danger p-0 text-decoration-none fw-semibold btn-remove" data-id="{{ $item->id_item }}">
-                                    <i class="bi bi-trash-fill me-1"></i>Hapus Menu
-                                </button>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="d-flex flex-column align-items-md-center">
-                                    <label class="text-secondary small mb-2 d-md-none">Jumlah Pesanan:</label>
-                                    <div class="qty-controls shadow-sm">
-                                        <button class="btn btn-qty-cart btn-qty" data-id="{{ $item->id_item }}" data-action="decrease" {{ $item->jumlah <= 1 ? 'disabled' : '' }}>
-                                            <i class="bi bi-dash-lg"></i>
-                                        </button>
-                                        <input type="text" class="form-control border-0 text-center bg-transparent fw-bold fs-5 qty-input-val" value="{{ $item->jumlah }}" readonly style="width: 50px;">
-                                        <button class="btn btn-qty-cart btn-qty" data-id="{{ $item->id_item }}" data-action="increase">
-                                            <i class="bi bi-plus-lg"></i>
-                                        </button>
+                @foreach ($cartItems as $item)
+                    <div class="card cart-item-card border-0 shadow-sm mb-3 rounded-4"
+                        id="cart-item-{{ $item->id_item }}">
+                        <div class="card-body p-3 p-md-4">
+                            <div class="row align-items-center g-3">
+                                <div class="col-4 col-md-2">
+                                    <div class="product-img-wrapper ratio ratio-1x1 shadow-sm">
+                                        @php
+                                            $imgPath = $item->product->gambar;
+                                            if ($imgPath) {
+                                                if (Str::startsWith($imgPath, ['http://', 'https://'])) {
+                                                    $finalImg = $imgPath;
+                                                } else {
+                                                    $finalImg = Storage::url($imgPath);
+                                                }
+                                            } else {
+                                                $finalImg = asset('images/image2.webp');
+                                            }
+                                        @endphp
+                                        <img src="{{ $finalImg }}" class="object-fit-cover"
+                                            alt="{{ $item->product->nama_produk }}">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-md-3 text-end">
-                                <span class="text-secondary small d-block mb-1">Total Harga</span>
-                                <span class="fw-bold fs-4 text-dark animate-price" id="item-subtotal-{{ $item->id_item }}">Rp {{ number_format($item->jumlah * $item->harga_satuan, 0, ',', '.') }}</span>
-                            </div>
-                            <!-- Note Textarea -->
-                            <div class="col-12 mt-2">
-                                <textarea class="form-control bg-light border-0 small cart-note" data-id="{{ $item->id_item }}" rows="2" placeholder="Catatan untuk penjual (opsional)...">{{ $item->note }}</textarea>
+                                <div class="col-8 col-md-4">
+                                    <span class="badge bg-light text-secondary mb-2 border">Food & Beverage</span>
+                                    <h6 class="fw-bold mb-1 fs-5">{{ $item->product->nama_produk }}</h6>
+                                    <p class="text-secondary small mb-3">Rp
+                                        {{ number_format($item->harga_satuan, 0, ',', '.') }} <span
+                                            class="text-muted">/
+                                            Pcs</span></p>
+                                    <button
+                                        class="btn btn-sm btn-link text-danger p-0 text-decoration-none fw-semibold btn-remove"
+                                        data-id="{{ $item->id_item }}">
+                                        <i class="bi bi-trash-fill me-1"></i>Hapus Menu
+                                    </button>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="d-flex flex-column align-items-md-center">
+                                        <label class="text-secondary small mb-2 d-md-none">Jumlah Pesanan:</label>
+                                        <div class="qty-controls shadow-sm">
+                                            <button class="btn btn-qty-cart btn-qty" data-id="{{ $item->id_item }}"
+                                                data-action="decrease" {{ $item->jumlah <= 1 ? 'disabled' : '' }}>
+                                                <i class="bi bi-dash-lg"></i>
+                                            </button>
+                                            <input type="text"
+                                                class="form-control border-0 text-center bg-transparent fw-bold fs-5 qty-input-val"
+                                                value="{{ $item->jumlah }}" readonly style="width: 50px;">
+                                            <button class="btn btn-qty-cart btn-qty" data-id="{{ $item->id_item }}"
+                                                data-action="increase">
+                                                <i class="bi bi-plus-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 text-end">
+                                    <span class="text-secondary small d-block mb-1">Total Harga</span>
+                                    <span class="fw-bold fs-4 text-dark animate-price"
+                                        id="item-subtotal-{{ $item->id_item }}">Rp
+                                        {{ number_format($item->jumlah * $item->harga_satuan, 0, ',', '.') }}</span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
 
@@ -219,27 +234,37 @@
 
                         <div class="summary-item d-flex justify-content-between">
                             <span class="text-secondary">Subtotal Pesanan</span>
-                            <span class="fw-bold fs-5" id="subtotal-amount">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+                            <span class="fw-bold fs-5" id="subtotal-amount">Rp
+                                {{ number_format($subtotal, 0, ',', '.') }}</span>
                         </div>
 
                         <div class="summary-item d-flex justify-content-between">
                             <span class="text-secondary">Pajak (PPN 11%)</span>
-                            <span class="fw-bold text-dark fs-5" id="ppn-amount">Rp {{ number_format($ppn, 0, ',', '.') }}</span>
+                            <span class="fw-bold text-dark fs-5" id="ppn-amount">Rp
+                                {{ number_format($ppn, 0, ',', '.') }}</span>
                         </div>
 
                         <div class="pt-4 mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <span class="h5 fw-bold mb-0">Total Akhir</span>
-                                <span class="h3 fw-bold mb-0 text-dark animate-price" id="total-amount">Rp {{ number_format($total, 0, ',', '.') }}</span>
+                                <span class="h3 fw-bold mb-0 text-dark animate-price" id="total-amount">Rp
+                                    {{ number_format($total, 0, ',', '.') }}</span>
                             </div>
                             <p class="text-muted small mb-0 font-italic">*Sudah termasuk pajak restoran.</p>
                         </div>
 
                         <div class="d-grid gap-3">
-                            <button type="button" id="btn-process-payment" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-secondary">Catatan Pesanan</label>
+                                <textarea id="cart-note" class="form-control bg-light border-0 small" rows="3"
+                                    placeholder="Tambahkan catatan untuk seluruh pesanan Anda...">{{ $cart->note }}</textarea>
+                            </div>
+                            <button type="button" id="btn-process-payment"
+                                class="btn btn-primary btn-lg rounded-pill py-3 fw-bold">
                                 Bayar Sekarang
                             </button>
-                            <a href="{{ route('homepage') }}#menu" class="btn btn-light rounded-pill py-3 text-secondary fw-semibold border">
+                            <a href="{{ route('homepage') }}#menu"
+                                class="btn btn-light rounded-pill py-3 text-secondary fw-semibold border">
                                 <i class="bi bi-plus-circle me-2"></i>Tambah Menu Lain
                             </a>
                         </div>
@@ -256,16 +281,20 @@
         </div>
 
         <!-- Empty State -->
-        <div id="empty-state" class="row justify-content-center" style="{{ count($cartItems) > 0 ? 'display:none;' : '' }}">
+        <div id="empty-state" class="row justify-content-center"
+            style="{{ count($cartItems) > 0 ? 'display:none;' : '' }}">
             <div class="col-md-6 col-lg-5 text-center empty-state-container">
                 <div class="mb-4">
-                    <div class="bg-white shadow-sm rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 140px; height: 140px;">
+                    <div class="bg-white shadow-sm rounded-circle d-inline-flex align-items-center justify-content-center"
+                        style="width: 140px; height: 140px;">
                         <i class="bi bi-cart-x text-muted" style="font-size: 4rem;"></i>
                     </div>
                 </div>
                 <h3 class="fw-bold">Keranjang Anda Kosong</h3>
-                <p class="text-secondary mb-5">Sepertinya Anda belum memilih menu lezat kami. Yuk, jelajahi menu spesial Kedai Cendana sekarang!</p>
-                <a href="{{ route('homepage') }}#menu" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow">
+                <p class="text-secondary mb-5">Sepertinya Anda belum memilih menu lezat kami. Yuk, jelajahi menu
+                    spesial Kedai Cendana sekarang!</p>
+                <a href="{{ route('homepage') }}#menu"
+                    class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow">
                     Mulai Belanja Sekarang <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -285,22 +314,25 @@
                 btn.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
                     const action = this.getAttribute('data-action');
-                    
+
                     if (this.disabled) return;
 
-                    fetch('{{ route("cart.update") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({ id_item: id, action: action })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        location.reload(); 
-                    })
-                    .catch(err => console.error(err));
+                    fetch('{{ route('cart.update') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            body: JSON.stringify({
+                                id_item: id,
+                                action: action
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            location.reload();
+                        })
+                        .catch(err => console.error(err));
                 });
             });
 
@@ -308,7 +340,7 @@
             document.querySelectorAll('.btn-remove').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
-                    
+
                     Swal.fire({
                         title: 'Hapus Menu?',
                         text: "Menu akan dihapus dari keranjang Anda.",
@@ -320,53 +352,57 @@
                         cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            fetch('{{ route("cart.remove") }}', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': csrfToken
-                                },
-                                body: JSON.stringify({ id_item: id })
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                location.reload();
-                            });
+                            fetch('{{ route('cart.remove') }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': csrfToken
+                                    },
+                                    body: JSON.stringify({
+                                        id_item: id
+                                    })
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    location.reload();
+                                });
                         }
                     });
                 });
             });
 
             // Handle Note Change
-            document.querySelectorAll('.cart-note').forEach(textarea => {
-                textarea.addEventListener('change', function() {
-                    const id = this.getAttribute('data-id');
+            const noteTextarea = document.getElementById('cart-note');
+            if (noteTextarea) {
+                noteTextarea.addEventListener('change', function() {
                     const note = this.value;
 
-                    fetch('{{ route("cart.updateNote") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({ id_item: id, note: note })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                         const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true,
+                    fetch('{{ route('cart.updateNote') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            body: JSON.stringify({
+                                note: note
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                            });
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Catatan disimpan'
+                            });
                         });
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Catatan disimpan'
-                        });
-                    });
                 });
-            });
+            }
         });
 
         // Formatted WhatsApp message generator
@@ -379,12 +415,13 @@
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
             btn.disabled = true;
 
-            fetch('{{ route("payment.checkout") }}', {
+            fetch('{{ route('payment.checkout') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
                     }
                 })
                 .then(async response => {
