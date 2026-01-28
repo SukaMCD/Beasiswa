@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class MemberController extends Controller
 {
@@ -21,5 +22,11 @@ class MemberController extends Controller
         $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($data);
 
         return view('member.qr', compact('user', 'qrUrl'));
+    }
+
+    public function reward()
+    {
+        $products = Product::orderByDesc('created_at')->get();
+        return view('reward', compact('products'));
     }
 }

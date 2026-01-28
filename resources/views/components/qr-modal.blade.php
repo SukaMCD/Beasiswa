@@ -19,11 +19,11 @@
                 <p class="text-secondary small mb-1">Tunjukkan ke kasir untuk scan.</p>
                 <div class="badge bg-warning text-dark mb-3" id="qrTimer">04:00</div>
                 <div class="d-flex gap-2 mt-2">
-                    <button class="btn fw-bold py-2 flex-fill" id="rewardQrBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
+                    <a href="{{ route('reward.index') }}" class="btn fw-bold py-2 flex-fill" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s; text-decoration: none; display: flex; align-items: center; justify-content: center;"
                         onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
                         onmouseout="this.style.background='#fff';this.style.color='#ffd67c'">
                         Reward
-                    </button>
+                    </a>
                     <button class="btn fw-bold py-2 flex-fill" id="historyBtn" style="background:#fff; color:#ffd67c; border:2px solid #ffd67c; transition:background 0.2s, color 0.2s;"
                         onmouseover="this.style.background='#ffd67c';this.style.color='#222'"
                         onmouseout="this.style.background='#fff';this.style.color='#ffd67c'">
@@ -39,14 +39,16 @@
     let qrInterval;
 
     const qrModal = document.getElementById('qrModal');
-    const rewardQrBtn = document.getElementById('rewardQrBtn');
+    // const rewardQrBtn = document.getElementById('rewardQrBtn'); // Removed as it's now a link
     const qrTitle = document.getElementById('qrTitle');
     const qrBox = document.getElementById('qrBox');
     const qrOverlay = document.getElementById('qrOverlay');
 
     if (qrModal) {
-        qrModal.addEventListener('show.bs.modal', function() {
-            refreshQr('member');
+        qrModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const mode = button ? button.getAttribute('data-mode') : 'member';
+            refreshQr(mode || 'member');
         });
 
         qrModal.addEventListener('hidden.bs.modal', function() {
@@ -54,11 +56,7 @@
         });
     }
 
-    if (rewardQrBtn) {
-        rewardQrBtn.addEventListener('click', function() {
-            refreshQr('reward');
-        });
-    }
+    // if (rewardQrBtn) { ... } // Removed logic
 
     function refreshQr(mode = 'member') {
         const qrImg = document.getElementById('memberQrImage');

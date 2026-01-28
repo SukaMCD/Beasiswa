@@ -84,4 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
     Route::get('/history/{id}', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
     Route::get('/history/{id}/download', [App\Http\Controllers\HistoryController::class, 'download'])->name('history.download');
+
+    // Reward
+    Route::get('/reward', [App\Http\Controllers\MemberController::class, 'reward'])->name('reward.index');
 });

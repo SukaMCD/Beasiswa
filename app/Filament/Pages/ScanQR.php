@@ -18,7 +18,7 @@ class ScanQR extends Page
 
     protected static ?string $title = 'Scan QR Member';
 
-    protected static ?string $navigationGroup = 'Membership';
+    protected static ?string $navigationGroup = 'Shop';
 
     // Livewire properties
     public $qrData = '';

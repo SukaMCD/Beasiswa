@@ -19,7 +19,7 @@ class ScanReward extends Page
 
     protected static ?string $title = 'Scan QR Reward';
 
-    protected static ?string $navigationGroup = 'Membership';
+    protected static ?string $navigationGroup = 'Shop';
 
     public $qrData = '';
 
