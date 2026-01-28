@@ -31,15 +31,52 @@
                 <h1 class="h2 fw-bold mb-1">Menu Kami</h1>
                 <p class="text-secondary mb-0">Jelajahi berbagai hidangan lezat khas Kedai Cendana.</p>
             </div>
-            <div class="mt-3 mt-md-0">
-                <div class="input-group" style="max-width: 360px;">
-                    <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3"><i
-                            class="bi bi-search text-secondary"></i></span>
-                    <input type="text" class="form-control border-start-0 rounded-end-pill py-2"
-                        placeholder="Cari produk...">
+            <div class="mt-3 mt-md-0 d-flex gap-2 align-items-center">
+                @php
+                    $currentCat = $categories->firstWhere('id_kategori', request('category'));
+                @endphp
+                <div class="dropdown">
+                    <button
+                        class="btn btn-outline-secondary dropdown-toggle rounded-pill px-3 py-2 border shadow-sm bg-white d-flex align-items-center"
+                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-filter me-2"></i>
+                        <span class="small">{{ $currentCat->nama_kategori ?? 'Semua Menu' }}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2 animate slideIn">
+                        <li>
+                            <a class="dropdown-item rounded-3 {{ !request('category') ? 'active bg-primary text-dark' : '' }}"
+                                href="{{ route('products', request()->only('search')) }}">
+                                Semua Menu
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider opacity-10">
+                        </li>
+                        @foreach ($categories as $cat)
+                            <li>
+                                <a class="dropdown-item rounded-3 {{ request('category') == $cat->id_kategori ? 'active bg-primary text-dark' : '' }}"
+                                    href="{{ route('products', array_merge(request()->only('search'), ['category' => $cat->id_kategori])) }}">
+                                    {{ $cat->nama_kategori }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
+
+                <form action="{{ route('products') }}" method="GET" class="input-group" style="max-width: 300px;">
+                    @if (request('category'))
+                        <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+                    <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3 shadow-sm"><i
+                            class="bi bi-search text-secondary"></i></span>
+                    <input type="text" name="search"
+                        class="form-control border-start-0 rounded-end-pill py-2 shadow-sm" placeholder="Cari produk..."
+                        value="{{ request('search') }}">
+                </form>
             </div>
         </div>
+
+
 
         <div class="row g-3 g-lg-4">
             @forelse($products as $product)

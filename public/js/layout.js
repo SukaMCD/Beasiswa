@@ -1,22 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Unified Login Alert Helper
+    window.showLoginAlert = function (
+        title = "Wajib Login!",
+        text = "Silakan login terlebih dahulu untuk mengakses fitur ini.",
+    ) {
+        return Swal.fire({
+            title: title,
+            text: text,
+            icon: "warning",
+            iconColor: "#ffd67c",
+            showCancelButton: true,
+            confirmButtonColor: "#ffd67c",
+            cancelButtonColor: "#f8f9fa",
+            confirmButtonText: "Login Sekarang",
+            cancelButtonText: "Batal",
+            customClass: {
+                popup: "rounded-4 border-0 shadow-lg",
+                title: "fw-bold",
+                confirmButton: "btn btn-primary rounded-pill px-4 fw-bold",
+                cancelButton:
+                    "btn btn-light rounded-pill px-4 fw-bold text-secondary ms-2",
+            },
+            buttonsStyling: false,
+            showClass: {
+                popup: "animate__animated animate__fadeInDown animate__faster",
+            },
+            hideClass: {
+                popup: "animate__animated animate__fadeOutUp animate__faster",
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/auth/login";
+            }
+        });
+    };
+
     // Guest Scan QR Click Handler
     const guestQrBtns = document.querySelectorAll(".btn-scan-qr-guest");
     guestQrBtns.forEach((btn) => {
         btn.addEventListener("click", function (e) {
             e.preventDefault();
-            Swal.fire({
-                title: "Wajib Login!",
-                text: "Silakan login terlebih dahulu untuk mengakses fitur Scan QR.",
-                icon: "warning",
-                confirmButtonColor: "#ffd67c",
-                confirmButtonText: "Login Sekarang",
-                showCancelButton: true,
-                cancelButtonText: "Batal",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/auth/login";
-                }
-            });
+            window.showLoginAlert(
+                "Scan QR",
+                "Tukarkan poin atau cek reward dengan login ke akun Anda.",
+            );
         });
     });
 
@@ -34,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Active link handler
     const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll(".nav-link");
+    const navLinks = document.querySelectorAll(".nav-link, .nav-anchor");
 
     window.addEventListener("scroll", () => {
         let current = "";
@@ -222,19 +249,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 const isAuth =
                     productModal.getAttribute("data-auth") === "true";
                 if (!isAuth) {
-                    Swal.fire({
-                        title: "Wajib Login!",
-                        text: "Silakan login terlebih dahulu untuk menambahkan ke keranjang.",
-                        icon: "warning",
-                        confirmButtonColor: "#ffd67c",
-                        confirmButtonText: "Login Sekarang",
-                        showCancelButton: true,
-                        cancelButtonText: "Batal",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "/auth/login";
-                        }
-                    });
+                    window.showLoginAlert(
+                        "Mau Belanja?",
+                        "Yuk login dulu supaya bisa memasukkan menu lezat ke keranjang!",
+                    );
                     return;
                 }
                 try {
@@ -270,19 +288,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 const isAuth =
                     productModal.getAttribute("data-auth") === "true";
                 if (!isAuth) {
-                    Swal.fire({
-                        title: "Wajib Login!",
-                        text: "Silakan login terlebih dahulu untuk membeli.",
-                        icon: "warning",
-                        confirmButtonColor: "#ffd67c",
-                        confirmButtonText: "Login Sekarang",
-                        showCancelButton: true,
-                        cancelButtonText: "Batal",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "/auth/login";
-                        }
-                    });
+                    window.showLoginAlert(
+                        "Beli Produk",
+                        "Silakan login untuk memproses pesanan Anda langsung.",
+                    );
                     return;
                 }
                 try {

@@ -24,10 +24,7 @@ Route::get('/articles', function () {
 })->name('articles');
 
 // Products page
-Route::get('/products', function () {
-    $products = Product::orderByDesc('created_at')->paginate(12);
-    return view('products', compact('products'));
-})->name('products');
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
 
 // Reviews
 Route::get('/reviews', function () {

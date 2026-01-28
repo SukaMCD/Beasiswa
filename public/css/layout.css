@@ -186,6 +186,20 @@ body {
     color: #000;
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--accent-color) !important;
+    color: #000 !important;
+}
+
+/* Fix filter button text disappearing on hover */
+.dropdown-toggle.btn-outline-secondary:hover {
+    background-color: #fff !important;
+    color: #334155 !important;
+    border-color: var(--accent-color) !important;
+    transform: none !important;
+}
+
 @media (min-width: 991px) {
     .nav-link::before {
         content: "";
@@ -257,23 +271,66 @@ body {
 
 /* Accent buttons override */
 .btn-primary {
-    --bs-btn-color: #1f1f1f;
-    --bs-btn-bg: var(--accent-color);
-    --bs-btn-border-color: var(--accent-color);
-    --bs-btn-hover-color: #1f1f1f;
-    --bs-btn-hover-bg: #ffcd57;
-    --bs-btn-hover-border-color: #ffcd57;
-    --bs-btn-focus-shadow-rgb: 255, 214, 124;
-    --bs-btn-active-bg: #ffc53a;
-    --bs-btn-active-border-color: #ffc53a;
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: #1f1f1f !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #ffcd57 !important;
+    border-color: #ffcd57 !important;
+    color: #1f1f1f !important;
+    box-shadow: none !important;
 }
 
 .btn-outline-primary {
-    --bs-btn-color: var(--accent-color);
-    --bs-btn-border-color: var(--accent-color);
-    --bs-btn-hover-bg: var(--accent-color);
-    --bs-btn-hover-border-color: var(--accent-color);
-    --bs-btn-hover-color: #1f1f1f;
+    color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    background-color: transparent !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: #1f1f1f !important;
+    box-shadow: none !important;
+}
+
+.btn-warning {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: #1f1f1f !important;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+    background-color: #ffcd57 !important;
+    border-color: #ffcd57 !important;
+    color: #1f1f1f !important;
+    box-shadow: none !important;
+}
+
+/* Global Button Refinement to remove blue flash */
+.btn:focus,
+.btn:active:focus,
+.btn-close:focus,
+button:focus,
+[role="button"]:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn {
+    transition: all 0.2s ease-in-out !important;
+}
+
+.btn:active {
+    transform: scale(0.97);
 }
 
 /* Carousel accents */

@@ -228,17 +228,8 @@
                     const isAuth = rewardModal.getAttribute('data-auth') === 'true';
                     if (!isAuth) {
                         e.preventDefault();
-                        Swal.fire({
-                            title: 'Wajib Login!',
-                            text: 'Silakan login terlebih dahulu untuk klaim reward.',
-                            icon: 'warning',
-                            confirmButtonColor: '#ffd67c',
-                            confirmButtonText: 'Login Sekarang',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = '/auth/login';
-                            }
-                        });
+                        window.showLoginAlert("Klaim Reward",
+                            "Yuk login dulu untuk menukarkan poin kamu dengan reward menarik!");
                         return;
                     }
                     const qty = 1;
