@@ -83,6 +83,35 @@ a.biru:hover {
     border-color: #000;
 }
 
+.password-field-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    z-index: 10;
+    font-size: 1.1rem;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.password-toggle-icon:hover {
+    color: #334155;
+}
+
+.password-field-container .form-control {
+    padding-right: 45px;
+}
+
 .btn:focus,
 .btn:active,
 .btn:active:focus,

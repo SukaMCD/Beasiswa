@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 
@@ -54,9 +55,14 @@
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password Baru</label>
-                            <input type="password"
-                                class="form-control form-control-lg fs-6 @error('password') is-invalid @enderror"
-                                id="password" name="password" required>
+                            <div class="password-field-container">
+                                <input type="password"
+                                    class="form-control form-control-lg fs-6 @error('password') is-invalid @enderror"
+                                    id="password_input" name="password" required>
+                                <span class="password-toggle-icon" onclick="togglePassword('password_input', this)">
+                                    <i class="bi bi-eye"></i>
+                                </span>
+                            </div>
                             @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -66,8 +72,14 @@
 
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                            <input type="password" class="form-control form-control-lg fs-6" id="password_confirmation"
-                                name="password_confirmation" required>
+                            <div class="password-field-container">
+                                <input type="password" class="form-control form-control-lg fs-6"
+                                    id="password_confirmation_input" name="password_confirmation" required>
+                                <span class="password-toggle-icon"
+                                    onclick="togglePassword('password_confirmation_input', this)">
+                                    <i class="bi bi-eye"></i>
+                                </span>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-cendana btn-lg w-100">Reset Password</button>
@@ -76,9 +88,25 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+
+    <script>
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            const icon = iconElement.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-</script>
 
 </html>
