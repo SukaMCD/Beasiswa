@@ -83,8 +83,17 @@ class PaymentController extends Controller
                 'shipping_address' => $user->address,
             ]);
 
-            // Add Points Immediately (100 Point = Rp 1000)
-            $user->increment('points', $total);
+            // Add Points (1,000 IDR = 10 Points -> 1% of Total)
+            $pointsToAdd = (int) floor($total / 100);
+            $user->increment('points', $pointsToAdd);
+
+            // Log points IN transaction
+            \App\Models\PointsTransaction::create([
+                'id_user' => $user->id_user,
+                'type' => 'IN',
+                'points' => $pointsToAdd,
+                'description' => 'Pembelian produk: ' . $order->external_id,
+            ]);
 
             // 2. Move Cart Items to Order Items & Decrement Stock
             foreach ($cartItems as $item) {

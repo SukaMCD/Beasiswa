@@ -45,3 +45,80 @@ body {
     letter-spacing: 0.3px;
     font-size: 0.75rem;
 }
+
+/* Mobile Layout Styling */
+.mobile-history-card {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobile-history-card .order-id {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.mobile-history-card .date {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.mobile-history-card .amount {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+}
+
+.mobile-history-card .status-row {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.mobile-history-card .action-row {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.transaction-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem;
+    background: #fff;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid transparent;
+}
+
+.transaction-card.type-in {
+    border-left-color: #22c55e;
+}
+
+.transaction-card.type-out {
+    border-left-color: #ef4444;
+}
+
+.transaction-info .description {
+    font-weight: 600;
+    display: block;
+}
+
+.transaction-info .date {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.transaction-points {
+    font-weight: 700;
+    font-size: 1.1rem;
+}

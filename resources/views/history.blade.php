@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riwayat - Kedai Cendana</title>
+    <title>Kedai Cendana - Riwayat</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
@@ -51,7 +51,8 @@
                 tabindex="0">
                 <div class="card border-0 shadow-sm rounded-4">
                     <div class="card-body p-0">
-                        <div class="table-responsive">
+                        <!-- Desktop View -->
+                        <div class="table-responsive d-none d-md-block">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
                                     <tr>
@@ -66,7 +67,9 @@
                                 <tbody>
                                     @forelse($orders as $order)
                                         <tr>
-                                            <td class="p-4 fw-bold">#{{ $order->id_order }}</td>
+                                            <td class="p-4 fw-bold">
+                                                <span class="text-dark">{{ $order->external_id }}</span>
+                                            </td>
                                             <td class="p-4 text-secondary">{{ $order->created_at->format('d M Y H:i') }}
                                             </td>
                                             <td class="p-4 fw-bold">Rp
@@ -109,24 +112,101 @@
                                                 </span>
                                             </td>
                                             <td class="p-4 text-end">
-                                                @if ($order->payment_status == 'PENDING' && $order->payment_url)
-                                                    <a href="{{ $order->payment_url }}"
-                                                        class="btn btn-sm btn-primary rounded-pill px-3 me-2">Bayar</a>
-                                                @endif
-                                                <a href="{{ route('history.show', $order->id_order) }}"
-                                                    class="btn btn-sm btn-outline-secondary rounded-pill px-3">
-                                                    <i class="bi bi-receipt me-1"></i> Nota
-                                                </a>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                    @if ($order->payment_status == 'PENDING' && $order->payment_url)
+                                                        <a href="{{ $order->payment_url }}"
+                                                            class="btn btn-sm btn-primary rounded-pill px-3">Bayar</a>
+                                                    @endif
+                                                    <button
+                                                        onclick="copyToClipboard('{{ $order->external_id }}', this)"
+                                                        class="btn btn-sm btn-light rounded-pill px-3"
+                                                        title="Salin ID Pesanan">
+                                                        <i class="bi bi-clipboard"></i>
+                                                    </button>
+                                                    <a href="{{ route('history.show', $order->id_order) }}"
+                                                        class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                                                        <i class="bi bi-receipt"></i> Nota
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="p-5 text-center text-secondary">Belum ada riwayat
+                                            <td colspan="6" class="p-5 text-center text-secondary">Belum ada riwayat
                                                 pesanan.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
+                        </div>
+
+                        <!-- Mobile View -->
+                        <div class="d-md-none p-3">
+                            @forelse($orders as $order)
+                                <div class="mobile-history-card">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="order-id text-primary" style="font-size: 0.9rem;">
+                                                {{ $order->external_id }}</div>
+                                            <div class="date">{{ $order->created_at->format('d M Y H:i') }}</div>
+                                        </div>
+                                        @if ($order->payment_status == 'PAID')
+                                            <span
+                                                class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 badge-modern">Lunas</span>
+                                        @elseif($order->payment_status == 'PENDING')
+                                            <span
+                                                class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2 badge-modern">Menunggu</span>
+                                        @else
+                                            <span
+                                                class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2 badge-modern">{{ $order->payment_status }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="amount">Rp {{ number_format($order->total_amount, 0, ',', '.') }}
+                                    </div>
+                                    <div class="status-row">
+                                        @php
+                                            $shipStatus = $order->shipping_status ?? 'PENDING';
+                                            $shipBadgeClass = match ($shipStatus) {
+                                                'PENDING' => 'bg-secondary',
+                                                'PROCESSING' => 'bg-info',
+                                                'SHIPPED' => 'bg-warning',
+                                                'DELIVERED' => 'bg-success',
+                                                'CANCELLED' => 'bg-danger',
+                                                default => 'bg-secondary',
+                                            };
+                                            $shipLabel = match ($shipStatus) {
+                                                'PENDING' => 'Menunggu',
+                                                'PROCESSING' => 'Diproses',
+                                                'SHIPPED' => 'Dikirim',
+                                                'DELIVERED' => 'Sampai',
+                                                'CANCELLED' => 'Dibatalkan',
+                                                default => $shipStatus,
+                                            };
+                                        @endphp
+                                        <small class="text-secondary d-block w-100 mb-1">Status Pengiriman:</small>
+                                        <span
+                                            class="badge {{ $shipBadgeClass }} bg-opacity-10 {{ str_replace('bg-', 'text-', $shipBadgeClass) }} rounded-pill px-3 py-2 badge-modern">
+                                            {{ $shipLabel }}
+                                        </span>
+                                    </div>
+                                    <div class="action-row">
+                                        @if ($order->payment_status == 'PENDING' && $order->payment_url)
+                                            <a href="{{ $order->payment_url }}"
+                                                class="btn btn-primary rounded-pill px-4">Bayar</a>
+                                        @endif
+                                        <button onclick="copyToClipboard('{{ $order->external_id }}', this)"
+                                            class="btn btn-light rounded-pill px-3" title="Salin ID Pesanan">
+                                            <i class="bi bi-clipboard"></i>
+                                        </button>
+                                        <a href="{{ route('history.show', $order->id_order) }}"
+                                            class="btn btn-outline-secondary rounded-pill px-4">
+                                            <i class="bi bi-receipt me-1"></i> Nota
+                                        </a>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="p-5 text-center text-secondary">Belum ada riwayat pesanan.</div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -135,9 +215,10 @@
             <!-- Tab Riwayat Poin -->
             <div class="tab-pane fade" id="pills-points" role="tabpanel" aria-labelledby="pills-points-tab"
                 tabindex="0">
-                <div class="card border-0 shadow-sm rounded-4">
+                <div class="card border-0 shadow-sm rounded-4 bg-transparent border-0 shadow-none">
                     <div class="card-body p-0">
-                        <div class="table-responsive">
+                        <!-- Desktop View -->
+                        <div class="table-responsive d-none d-md-block bg-white rounded-4 shadow-sm">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
                                     <tr>
@@ -179,6 +260,26 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Mobile View -->
+                        <div class="d-md-none">
+                            @forelse($pointTransactions as $trx)
+                                <div class="transaction-card type-{{ strtolower($trx->type) }} shadow-sm">
+                                    <div class="transaction-info">
+                                        <span class="description">{{ $trx->description }}</span>
+                                        <span class="date">{{ $trx->created_at->format('d M Y H:i') }}</span>
+                                    </div>
+                                    <div
+                                        class="transaction-points {{ $trx->type == 'IN' ? 'text-success' : 'text-danger' }}">
+                                        {{ $trx->type == 'IN' ? '+' : '-' }}{{ number_format($trx->points, 0, ',', '.') }}
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="bg-white rounded-4 p-5 text-center text-secondary shadow-sm">
+                                    Belum ada riwayat poin.
+                                </div>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,6 +288,24 @@
 
     @include('layout.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check2"></i>';
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-light');
+
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-light');
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin text: ', err);
+            });
+        }
+    </script>
 </body>
 
 </html>

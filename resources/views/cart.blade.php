@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Keranjang Belanja - Kedai Cendana</title>
+    <title>Kedai Cendana - Keranjang</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
@@ -143,7 +143,7 @@
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-secondary">Catatan Pesanan</label>
                                 <textarea id="cart-note" class="form-control bg-light border-0 small" rows="3"
-                                    placeholder="Tambahkan catatan untuk seluruh pesanan Anda...">{{ $cart->note }}</textarea>
+                                    placeholder="Tambahkan catatan untuk penjual...">{{ $cart->note }}</textarea>
                             </div>
                             <button type="button" id="btn-process-payment"
                                 class="btn btn-primary btn-lg rounded-pill py-3 fw-bold">

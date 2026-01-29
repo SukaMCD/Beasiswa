@@ -41,11 +41,20 @@ class WebhookController extends Controller
                     'paid_at' => now()
                 ]);
 
-                // Add Points: 10 points per Rp 1,000 (1 point per Rp 100)
+                // Add Points: 10 points per Rp 1,000 (1% of total)
                 $user = \App\Models\User::where('id_user', $order->id_user)->first();
                 if ($user) {
                     $pointsToAdd = (int) floor(((float) $order->total_amount) / 100);
                     $user->increment('points', $pointsToAdd);
+
+                    // Log points IN transaction
+                    \App\Models\PointsTransaction::create([
+                        'id_user' => $user->id_user,
+                        'type' => 'IN',
+                        'points' => $pointsToAdd,
+                        'description' => 'Pembelian produk: ' . $order->external_id,
+                    ]);
+
                     Log::info("Added {$pointsToAdd} points to user {$user->id_user}");
                 }
 
