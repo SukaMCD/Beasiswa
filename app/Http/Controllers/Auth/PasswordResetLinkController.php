@@ -27,10 +27,10 @@ class PasswordResetLinkController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if ($user && $user->auth_provider !== 'manual') {
+        if ($user && $user->auth_provider === 'google') {
             return back()->withErrors(['email' => 'Akun ini terdaftar melalui Google. Silakan masuk menggunakan Google.']);
         }
-        
+
         $status = Password::sendResetLink($request->only('email'));
 
         return back()->with('status', __($status));

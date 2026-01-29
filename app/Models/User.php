@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\CustomResetPassword;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,5 +50,16 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getFilamentName(): string
     {
         return (string) ($this->nama_user ?? $this->email ?? 'User');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPassword($token));
     }
 }
