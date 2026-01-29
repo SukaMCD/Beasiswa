@@ -329,11 +329,13 @@ html {
 /* Global Button Refinement to remove blue flash */
 .btn:focus,
 .btn:active:focus,
+.btn:active,
 .btn-close:focus,
 button:focus,
 [role="button"]:focus {
     box-shadow: none !important;
     outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 .btn {

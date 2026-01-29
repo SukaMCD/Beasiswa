@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Claim Reward - Kedai Cendana</title>
+    <title>Klaim Hadiah - Kedai Cendana</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
 </head>
+
 <body>
     @include('layout.header')
 
@@ -16,7 +19,8 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb" class="py-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{ route('reward.index') }}" class="text-decoration-none text-secondary small">Reward</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('reward.index') }}"
+                                class="text-decoration-none text-secondary small">Reward</a></li>
                         <li class="breadcrumb-item active small" aria-current="page">Claim Reward</li>
                     </ol>
                 </nav>
@@ -42,31 +46,38 @@
                             <div class="col-4 col-md-2">
                                 <div class="ratio ratio-1x1 rounded-3 overflow-hidden shadow-sm">
                                     @php
-                                    $imgPath = $product->gambar;
-                                    if ($imgPath) {
-                                        if (\Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://'])) {
-                                            $finalImg = $imgPath;
+                                        $imgPath = $product->gambar;
+                                        if ($imgPath) {
+                                            if (
+                                                \Illuminate\Support\Str::startsWith($imgPath, ['http://', 'https://'])
+                                            ) {
+                                                $finalImg = $imgPath;
+                                            } else {
+                                                $finalImg = asset('storage/' . $imgPath);
+                                            }
                                         } else {
-                                            $finalImg = asset('storage/' . $imgPath);
+                                            $finalImg = asset('images/image2.webp');
                                         }
-                                    } else {
-                                        $finalImg = asset('images/image2.webp');
-                                    }
                                     @endphp
-                                    <img src="{{ $finalImg }}" alt="{{ $product->nama_produk }}" class="object-fit-cover">
+                                    <img src="{{ $finalImg }}" alt="{{ $product->nama_produk }}"
+                                        class="object-fit-cover">
                                 </div>
                             </div>
                             <div class="col-8 col-md-6">
                                 <h6 class="fw-bold mb-1 fs-5">{{ $product->nama_produk }}</h6>
-                                <p class="text-secondary small mb-2">Reward: {{ number_format($pointsPerItem, 0, ',', '.') }} Poin / item</p>
+                                <p class="text-secondary small mb-2">Reward:
+                                    {{ number_format($pointsPerItem, 0, ',', '.') }} Poin / item</p>
                                 <div class="d-inline-flex align-items-center bg-light rounded-pill p-1 border">
                                     <span class="px-3 small text-secondary">Jumlah</span>
-                                    <input type="text" class="form-control border-0 bg-transparent text-center fw-bold" value="{{ $qty }}" readonly style="width: 50px;">
+                                    <input type="text"
+                                        class="form-control border-0 bg-transparent text-center fw-bold"
+                                        value="{{ $qty }}" readonly style="width: 50px;">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 text-md-end">
                                 <span class="text-secondary small d-block mb-1">Total Poin</span>
-                                <span class="fw-bold fs-4 text-dark">{{ number_format($pointsRequired, 0, ',', '.') }} Poin</span>
+                                <span class="fw-bold fs-4 text-dark">{{ number_format($pointsRequired, 0, ',', '.') }}
+                                    Poin</span>
                             </div>
                         </div>
                     </div>
@@ -100,12 +111,13 @@
                             <button type="submit" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold">
                                 Bayar dengan Poin
                             </button>
-                            <a href="{{ route('reward.index') }}" class="btn btn-light rounded-pill py-3 text-secondary fw-semibold border">
+                            <a href="{{ route('reward.index') }}"
+                                class="btn btn-light rounded-pill py-3 text-secondary fw-semibold border">
                                 <i class="bi bi-arrow-left me-2"></i> Kembali ke Reward
                             </a>
                         </form>
                         @error('points')
-                        <div class="alert alert-warning mt-3">{{ $message }}</div>
+                            <div class="alert alert-warning mt-3">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -118,4 +130,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/layout.js') }}"></script>
 </body>
+
 </html>

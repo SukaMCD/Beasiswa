@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -103,7 +103,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-cendana btn-lg w-100 mb-3">Register</button>
+                        <button type="submit" class="btn btn-cendana btn-lg w-100 mb-3">Daftar</button>
                     </form>
 
                     <!-- Form -->

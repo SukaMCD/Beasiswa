@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
 /* .bg-holder {
     position: absolute;
@@ -13,7 +13,7 @@
 } */
 
 body {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     background-color: #fff;
 }
 a img {
@@ -39,7 +39,7 @@ a img {
     color: #31374a;
     border-color: #ddd;
 }
-    
+
 .btn-outline-custom:hover {
     color: #31374a;
     border-color: #eee;
@@ -81,4 +81,15 @@ a.biru:hover {
 .btn-cendana:hover {
     background-color: #e7c271ff;
     border-color: #000;
+}
+
+.btn:focus,
+.btn:active,
+.btn:active:focus,
+.btn-cendana:focus,
+.btn-cendana:active,
+.btn-cendana:active:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
