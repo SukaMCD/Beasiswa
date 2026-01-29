@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Articles;
 
+// Sitemap
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
+
 // Homepage
 Route::get('/', function () {
     $products = Product::orderByDesc('created_at')->take(4)->get();
