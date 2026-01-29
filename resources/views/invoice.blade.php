@@ -201,17 +201,50 @@
                 </div>
             </div>
 
-            <div class="total-section">
-                <div class="row justify-content-end">
-                    <div class="col-md-6 text-end">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="text-secondary">Subtotal</span>
-                            <span class="fw-bold">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
+            <div class="total-section mt-5">
+                <div class="row g-4 align-items-end">
+                    <div class="col-md-7">
+                        <div class="p-4 bg-light rounded-4 border border-opacity-10 h-100 mb-0 text-start">
+                            <h6 class="text-uppercase fw-bold small text-muted mb-3">Informasi Pelanggan & Pengiriman
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <p class="mb-1 fw-bold">{{ $order->user->nama_user }}</p>
+                                    <p class="mb-1 text-secondary small">{{ $order->user->email }}</p>
+                                    <p class="mb-0 text-secondary small">{{ $order->phone_number }}</p>
+                                </div>
+                                <div class="col-sm-6 mt-3 mt-sm-0">
+                                    <div class="ps-sm-3 border-sm-start h-100">
+                                        <p class="mb-0 text-secondary small lh-base">
+                                            {{ $order->shipping_address }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="h5 fw-bold mb-0">Total Bayar</span>
-                            <span class="h4 fw-bold text-orange mb-0">Rp
-                                {{ number_format($order->total_amount, 0, ',', '.') }}</span>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="ps-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-secondary">Subtotal</span>
+                                @php
+                                    $subtotalValue = $order->total_amount / 1.11;
+                                    $ppnValue = $order->total_amount - $subtotalValue;
+                                @endphp
+                                <span class="fw-bold">Rp {{ number_format($subtotalValue, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3 pb-3 border-bottom border-opacity-10">
+                                <span class="text-secondary">Pajak (11%)</span>
+                                <span class="fw-bold">Rp {{ number_format($ppnValue, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 fw-bold mb-0">Total Bayar</span>
+                                <div class="text-end">
+                                    <span class="h3 fw-bold text-orange mb-0 d-block">Rp
+                                        {{ number_format($order->total_amount, 0, ',', '.') }}</span>
+                                    <small class="text-secondary" style="font-size: 0.7rem;">*Sudah termasuk PPN</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

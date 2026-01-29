@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kedai Cendana - Keranjang</title>
+    @include('layout.seo', [
+        'title' => 'Kedai Cendana - Keranjang',
+    ])
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ asset('images/kedai-cendana-rounded.webp') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/cart-custom.css?v=1.0') }}" rel="stylesheet">
@@ -232,10 +233,15 @@
                         text: "Menu akan dihapus dari keranjang Anda.",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
                         confirmButtonText: 'Ya, Hapus!',
-                        cancelButtonText: 'Batal'
+                        cancelButtonText: 'Batal',
+                        customClass: {
+                            popup: 'rounded-4 border-0 p-4',
+                            title: 'fw-bold h4 mb-3',
+                            confirmButton: 'btn btn-danger rounded-pill px-4 py-2 fw-bold me-2',
+                            cancelButton: 'btn btn-light rounded-pill px-4 py-2 fw-bold text-secondary'
+                        },
+                        buttonsStyling: false,
                     }).then((result) => {
                         if (result.isConfirmed) {
                             fetch('{{ route('cart.remove') }}', {
@@ -293,9 +299,79 @@
 
         // Formatted WhatsApp message generator
         // Payment Process
-        document.getElementById('btn-process-payment').addEventListener('click', function() {
+        document.getElementById('btn-process-payment').addEventListener('click', async function() {
             const btn = this;
             const originalContent = btn.innerHTML;
+
+            const userPhone = @json(Auth::user()->phone_number);
+            const userAddress = @json(Auth::user()->address);
+
+            let phoneNumber = userPhone;
+            let shippingAddress = userAddress;
+
+            // If profile is incomplete, ask for info
+            if (!userPhone || !userAddress) {
+                const {
+                    value: formValues
+                } = await Swal.fire({
+                    title: 'Lengkapi Data Pengiriman',
+                    html: '<div class="text-start mb-4">' +
+                        '<label class="form-label small fw-bold text-secondary mb-2">No. Telepon / WhatsApp</label>' +
+                        `<input id="swal-input-phone" class="form-control bg-light border-0 rounded-3 p-3 shadow-none" style="font-size: 0.95rem;" placeholder="Contoh: 08123456789" value="${userPhone || ''}">` +
+                        '</div>' +
+                        '<div class="text-start">' +
+                        '<label class="form-label small fw-bold text-secondary mb-2">Alamat Pengiriman</label>' +
+                        `<textarea id="swal-input-address" class="form-control bg-light border-0 rounded-3 p-3 shadow-none" style="font-size: 0.95rem;" rows="3" placeholder="Masukkan alamat lengkap pengiriman...">${userAddress || ''}</textarea>` +
+                        '</div>',
+                    customClass: {
+                        popup: 'rounded-4 border-0 p-4 p-md-5',
+                        title: 'fw-bold h3 mb-4',
+                        confirmButton: 'btn btn-primary rounded-pill px-4 py-3 fw-bold me-2 flex-grow-1',
+                        cancelButton: 'btn btn-light rounded-pill px-4 py-3 fw-bold text-secondary flex-grow-1'
+                    },
+                    buttonsStyling: false,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Lanjut Pembayaran',
+                    cancelButtonText: 'Batal',
+                    preConfirm: () => {
+                        const phone = document.getElementById('swal-input-phone').value;
+                        const address = document.getElementById('swal-input-address').value;
+                        if (!phone || !address) {
+                            Swal.showValidationMessage('Silakan isi nomor telepon dan alamat!');
+                        }
+                        return {
+                            phone,
+                            address
+                        };
+                    },
+                    didOpen: () => {
+                        // Apply focus styles
+                        const phoneInput = document.getElementById('swal-input-phone');
+                        const addressInput = document.getElementById('swal-input-address');
+                        [phoneInput, addressInput].forEach(el => {
+                            el.addEventListener('focus', () => {
+                                el.style.backgroundColor = '#fff';
+                                el.style.border = '1px solid #ffd67c';
+                                el.style.boxShadow =
+                                    '0 0 0 4px rgba(255, 214, 124, 0.15)';
+                            });
+                            el.addEventListener('blur', () => {
+                                el.style.backgroundColor = '#f8f9fa';
+                                el.style.border = 'none';
+                                el.style.boxShadow = 'none';
+                            });
+                        });
+                    }
+                });
+
+                if (formValues) {
+                    phoneNumber = formValues.phone;
+                    shippingAddress = formValues.address;
+                } else {
+                    return; // User cancelled
+                }
+            }
 
             // Loading State
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
@@ -308,7 +384,11 @@
                         'Accept': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
                             'content')
-                    }
+                    },
+                    body: JSON.stringify({
+                        phone_number: phoneNumber,
+                        shipping_address: shippingAddress
+                    })
                 })
                 .then(async response => {
                     const contentType = response.headers.get("content-type");
@@ -323,7 +403,8 @@
                         console.error("Non-JSON Response:", text);
                         // Extract title from HTML if possible
                         const match = text.match(/<title>(.*?)<\/title>/i);
-                        const title = match ? match[1] : 'Unknown Server Error (' + response.status + ')';
+                        const title = match ? match[1] : 'Unknown Server Error (' + response.status +
+                            ')';
                         throw new Error('Server Error: ' + title);
                     }
                 })
@@ -340,7 +421,11 @@
                         icon: 'error',
                         title: 'Gagal Memproses Pembayaran',
                         text: error.message,
-                        confirmButtonColor: '#2c3e50'
+                        customClass: {
+                            popup: 'rounded-4 border-0 p-4',
+                            confirmButton: 'btn btn-primary rounded-pill px-4 '
+                        },
+                        buttonsStyling: false
                     });
                     // Reset Button
                     btn.innerHTML = originalContent;

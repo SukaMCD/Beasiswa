@@ -21,6 +21,7 @@ class PaymentController extends Controller
 
     public function checkout(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
@@ -70,6 +71,17 @@ class PaymentController extends Controller
                 }
             }
 
+            $phoneNumber = $request->phone_number;
+            $shippingAddress = $request->shipping_address;
+
+            // Sync with user profile if currently empty
+            if (empty($user->phone_number) || empty($user->address)) {
+                $user->update([
+                    'phone_number' => $user->phone_number ?: $phoneNumber,
+                    'address' => $user->address ?: $shippingAddress,
+                ]);
+            }
+
             // 1. Create Order
             // FOR DEMO/TESTING ONLY: Setting status to PAID immediately so points are added.
             // In production, should keep PENDING and wait for Webhook.
@@ -79,8 +91,8 @@ class PaymentController extends Controller
                 'total_amount' => $total,
                 'payment_status' => 'PAID', // Changed from PENDING for testing
                 'payment_url' => null,
-                'phone_number' => $user->phone_number,
-                'shipping_address' => $user->address,
+                'phone_number' => $phoneNumber,
+                'shipping_address' => $shippingAddress,
             ]);
 
             // Add Points (1,000 IDR = 10 Points -> 1% of Total)
