@@ -67,6 +67,26 @@
                                 Sekarang</a>
                         </li>
                     @endguest
+
+                    <!-- Promo Download Aplikasi (Mobile Only) -->
+                    <li id="app-menu-promo" class="nav-item d-lg-none mt-4 pb-4">
+                        <div class="app-download-card p-3 rounded-4 border shadow-sm mx-2">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="app-card-icon me-3">
+                                    <i class="bi bi-phone-vibrate text-dark"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0" style="font-size: 0.95rem;">Aplikasi Kedai Cendana</h6>
+                                    <p class="text-muted mb-0" style="font-size: 0.75rem;">Pesan lebih cepat & murah</p>
+                                </div>
+                            </div>
+                            <a href="{{ asset('app/Kedai-Cendana.apk') }}"
+                                class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm"
+                                style="font-size: 0.85rem;">
+                                <i class="bi bi-download me-2"></i>Unduh Sekarang
+                            </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -24,6 +24,12 @@
 - **Status Member**: Sistem keanggotaan bertingkat untuk pelanggan setia.
 - **Riwayat Pesanan**: Pantau semua transaksi masa lalu dengan detail status pesanan.
 
+### Mobile & Aplikasi
+
+- **Versi Aplikasi (APK)**: Tersedia versi Android berbasis WebView untuk akses lebih cepat dan praktis.
+- **Smart App Banner**: Banner ajakan unduh aplikasi yang muncul secara otomatis di browser mobile.
+- **WebView Optimization**: Deteksi otomatis untuk menyembunyikan elemen web yang tidak perlu saat dibuka melalui aplikasi Android.
+
 ### Keamanan & Autentikasi
 
 - **Multi-Auth**: Login manual yang aman atau masuk secara instan menggunakan **Google OAuth**.
