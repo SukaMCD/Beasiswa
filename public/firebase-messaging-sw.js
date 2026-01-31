@@ -5,17 +5,10 @@ importScripts(
     "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js",
 );
 
-// Initialize the Firebase app in the service worker by passing in the
-// messagingSenderId.
-// Note: This config will be replaced by the user with their own config.
-firebase.initializeApp({
-    apiKey: "AIzaSyAjeWCr8fg_tYjqYA-Z48hnl9XDLZvtrA0",
-    authDomain: "kedai-cendana-3aff4.firebaseapp.com",
-    projectId: "kedai-cendana-3aff4",
-    storageBucket: "kedai-cendana-3aff4.firebasestorage.app",
-    messagingSenderId: "433869644009",
-    appId: "1:433869644009:web:9657599665326779889078",
-});
+importScripts("/firebase-config.js");
+
+// Initialize the Firebase app in the service worker
+firebase.initializeApp(self.firebaseConfig);
 
 const messaging = firebase.messaging();
 

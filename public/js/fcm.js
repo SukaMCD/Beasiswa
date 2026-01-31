@@ -6,15 +6,8 @@ import {
     onMessage,
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging.js";
 
-// This config will be replaced by the user
-const firebaseConfig = {
-    apiKey: "AIzaSyAjeWCr8fg_tYjqYA-Z48hnl9XDLZvtrA0",
-    authDomain: "kedai-cendana-3aff4.firebaseapp.com",
-    projectId: "kedai-cendana-3aff4",
-    storageBucket: "kedai-cendana-3aff4.firebasestorage.app",
-    messagingSenderId: "433869644009",
-    appId: "1:433869644009:web:9657599665326779889078",
-};
+// Use dynamic config from self.firebaseConfig (loaded in footer)
+const firebaseConfig = self.firebaseConfig || {};
 
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
@@ -33,8 +26,7 @@ function requestPermission() {
 
 function saveToken() {
     getToken(messaging, {
-        vapidKey:
-            "BLbUVpydtAGjfRcc8tWkyUY5VZflQPfyDk8GggvtJ3aNCUYQ9O1nRNlZDNyhznqd6b8LsRggUHzLIfxi8MRoXJ4",
+        vapidKey: firebaseConfig.vapidKey,
     })
         .then((currentToken) => {
             if (currentToken) {

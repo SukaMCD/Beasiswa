@@ -95,6 +95,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
     // FCM Subscriptions
+    Route::get('/firebase-config.js', function () {
+        $config = [
+            'apiKey' => env('FIREBASE_API_KEY'),
+            'authDomain' => env('FIREBASE_AUTH_DOMAIN'),
+            'projectId' => env('FIREBASE_PROJECT_ID'),
+            'storageBucket' => env('FIREBASE_STORAGE_BUCKET'),
+            'messagingSenderId' => env('FIREBASE_MESSAGING_SENDER_ID'),
+            'appId' => env('FIREBASE_APP_ID'),
+            'vapidKey' => env('FIREBASE_VAPID_KEY'),
+        ];
+
+        $js = "self.firebaseConfig = " . json_encode($config) . ";";
+        return response($js, 200)->header('Content-Type', 'application/javascript');
+    })->name('firebase.config');
+
     Route::post('/notifications/subscribe', function (Request $request) {
         $request->validate([
             'fcm_token' => 'required|string',

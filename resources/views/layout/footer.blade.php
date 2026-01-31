@@ -127,4 +127,5 @@
     });
 </script>
 
+<script src="{{ route('firebase.config') }}"></script>
 <script type="module" src="{{ asset('js/fcm.js') }}"></script>
