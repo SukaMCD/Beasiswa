@@ -1,9 +1,12 @@
 # Kedai Cendana - Pempek & Bakmi Ayam
 
-[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
-[![Filament](https://img.shields.io/badge/Filament-3.3-FFA611?style=for-the-badge&logo=laravel)](https://filamentphp.com)
-[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php)](https://php.net)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)(https://laravel.com)
+![Filament](https://img.shields.io/badge/filament-%23FDAE4B.svg?style=for-the-badge&logo=filament&logoColor=black&logoSize=auto)(https://filamentphp.com)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)(https://php.net)
+![Composer](https://img.shields.io/badge/composer-%23885630.svg?style=for-the-badge&logo=composer&logoColor=white)(https://getcomposer.org)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)(https://getbootstrap.com)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)(https://www.mysql.com)
+![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)(https://firebase.google.com)
 
 **Kedai Cendana** adalah platform e-commerce kuliner modern yang menyajikan cita rasa autentik Pempek dan Bakmi Ayam dengan sentuhan teknologi masa kini. Aplikasi ini dirancang untuk memberikan pengalaman pemesanan yang mulus, sistem loyalitas pelanggan yang menarik, dan manajemen operasional yang efisien.
 
