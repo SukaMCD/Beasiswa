@@ -93,4 +93,23 @@ Route::middleware('auth')->group(function () {
 
     // Profile
     Route::post('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
+    // FCM Subscriptions
+    Route::post('/notifications/subscribe', function (Request $request) {
+        $request->validate([
+            'fcm_token' => 'required|string',
+            'device_type' => 'nullable|string|in:web,android,ios',
+        ]);
+
+        $user = $request->user();
+        $user->fcmTokens()->updateOrCreate(
+            ['fcm_token' => $request->fcm_token],
+            [
+                'device_type' => $request->device_type ?? 'web',
+                'last_used_at' => now(),
+            ]
+        );
+
+        return response()->json(['success' => true]);
+    })->name('notifications.subscribe');
 });

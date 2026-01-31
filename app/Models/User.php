@@ -62,4 +62,9 @@ class User extends Authenticatable implements FilamentUser, HasName
     {
         $this->notify(new CustomResetPassword($token));
     }
+
+    public function fcmTokens()
+    {
+        return $this->hasMany(FcmToken::class, 'user_id', 'id_user');
+    }
 }

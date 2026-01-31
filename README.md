@@ -35,9 +35,10 @@
 - **Multi-Auth**: Login manual yang aman atau masuk secara instan menggunakan **Google OAuth**.
 - **Reset Password**: Sistem pemulihan akun yang mudah dengan notifikasi email terpersonalisasi.
 
-### Konten & Interaksi
+### Notifikasi & Interaksi
 
-- **Artikel Kuliner**: Blog terintegrasi untuk berbagi resep, tips, dan berita terbaru.
+- **Push Notifications**: Notifikasi real-time untuk admin dan user menggunakan **Firebase Cloud Messaging (FCM)**.
+- **Service Worker**: Dukungan notifikasi di latar belakang agar tetap sampai meskipun website sedang ditutup.
 - **Kontak & Ulasan**: Form kontak interaktif yang terintegrasi dengan **EmailJS**.
 
 ### Manajemen (Admin)
@@ -52,11 +53,12 @@
 | ------------------------ | ----------------------------------------------------------------------------------- |
 | **Framework Backend**    | [Laravel 12](https://laravel.com)                                                   |
 | **Admin Panel**          | [Filament PHP v3.3](https://filamentphp.com)                                        |
+| **Notifikasi Push**      | [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging)  |
 | **Bahasa Pemrograman**   | [PHP 8.2+](https://php.net)                                                         |
 | **Styling CSS**          | [Tailwind CSS 4](https://tailwindcss.com) & [Bootstrap 5](https://getbootstrap.com) |
 | **Bundler**              | [Vite](https://vitejs.dev)                                                          |
 | **Database**             | MySQL                                                                               |
-| **Integrasi Pihak ke-3** | Xendit API, Google Socialite, EmailJS                                               |
+| **Integrasi Pihak ke-3** | Xendit API, Google Socialite, EmailJS, Kreait Firebase                              |
 | **Lainnya**              | DomPDF (PDF Invoices), SweetAlert2                                                  |
 
 ---
