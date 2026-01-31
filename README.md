@@ -6,7 +6,7 @@
 ![Composer](https://img.shields.io/badge/composer-%23885630.svg?style=for-the-badge&logo=composer&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
-![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)(https://firebase.google.com)
+![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)
 
 **Kedai Cendana** adalah platform e-commerce kuliner modern yang menyajikan cita rasa autentik Pempek dan Bakmi Ayam dengan sentuhan teknologi masa kini. Aplikasi ini dirancang untuk memberikan pengalaman pemesanan yang mulus, sistem loyalitas pelanggan yang menarik, dan manajemen operasional yang efisien.
 
