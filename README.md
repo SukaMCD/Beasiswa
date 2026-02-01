@@ -78,8 +78,6 @@ Untuk memahami lebih lanjut mengenai arsitektur dan alur sistem, silakan lihat d
 
 ---
 
----
-
 ## Estetika Desain
 
 Aplikasi ini mengusung desain **Premium & Modern** dengan:

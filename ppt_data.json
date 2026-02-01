@@ -1,0 +1,188 @@
+{
+  "presentation": {
+    "title": "Kedai Cendana - Pempek & Bakmi Ayam",
+    "author": "SukaMCD",
+    "slides": [
+      {
+        "page": 1,
+        "title": "Cover",
+        "content": {
+          "main_title": "Kedai Cendana",
+          "subtitle": "Platform E-Commerce Kuliner Modern: Pempek & Bakmi Ayam",
+          "presented_by": "SukaMCD",
+          "tagline": "Cita Rasa Autentik dengan Sentuhan Teknologi Masa Kini"
+        }
+      },
+      {
+        "page": 2,
+        "title": "Latar Belakang",
+        "content": {
+          "problem": "Banyak usaha kuliner tradisional masih menggunakan manajemen manual, proses pemesanan yang tidak efisien, dan kurangnya sistem loyalitas pelanggan yang terintegrasi.",
+          "objective": "Membangun platform digital yang memudahkan pelanggan memesan kuliner favorit (Pempek & Bakmi) sekaligus memberikan pengalaman belanja yang premium dan terpercaya."
+        }
+      },
+      {
+        "page": 3,
+        "title": "Solusi",
+        "content": {
+          "solution_name": "Kedai Cendana Digital Platform",
+          "points": [
+            "Sistem pemesanan online berbasis web dan mobile yang responsif.",
+            "Integrasi pembayaran otomatis melalui Payment Gateway.",
+            "Manajemen operasional real-time untuk admin.",
+            "Sistem loyalitas member berbasis poin."
+          ]
+        }
+      },
+      {
+        "page": 4,
+        "title": "Gambaran Sistem",
+        "content": {
+          "architecture": "Aplikasi berbasis Laravel 12 dengan Filament PHP sebagai dashboard admin, menggunakan database MySQL, dan terintegrasi dengan berbagai API pihak ketiga.",
+          "key_components": [
+            "Frontend: Tailwind CSS & Bootstrap untuk UI premium.",
+            "Backend: Laravel Framework.",
+            "Admin: Filament Dashboard.",
+            "Integrasi: Xendit, Firebase, Google OAuth."
+          ]
+        }
+      },
+      {
+        "page": 5,
+        "title": "Fitur Utama",
+        "content": {
+          "summary": "Fitur unggulan untuk meningkatkan pengalaman pelanggan dan efisiensi admin.",
+          "points": [
+            "Menu Favorit & Keranjang.",
+            "Pembayaran Dengan Payment Gateway.",
+            "Invoice PDF & Riwayat Transaksi.",
+            "Sistem Member & Poin Reward.",
+            "Notifikasi Real-time (Push Notification).",
+            "Dashboard Admin Modern & Powerful.",
+            "Optimasi Mobile Web & APK."
+          ]
+        }
+      },
+      {
+        "page": 6,
+        "title": "Alur Pembelian & Payment",
+        "content": {
+          "flow": [
+            "Pelanggan memilih menu dan memasukkannya ke keranjang.",
+            "Proses Checkout dengan kalkulasi biaya otomatis.",
+            "Pembayaran melalui Xendit Payment Gateway (Virtual Account, E-Wallet, dll).",
+            "Konfirmasi pembayaran instan dan pembuatan Invoice PDF otomatis."
+          ]
+        }
+      },
+      {
+        "page": 7,
+        "title": "Sistem Poin & QR",
+        "content": {
+          "loyalty_system": "Setiap transaksi yang berhasil akan memberikan poin kepada pelanggan berdasarkan nilai belanja.",
+          "qr_integration": "Poin dapat dikumpulkan melalui scan QR atau dimasukkan manual oleh admin untuk verifikasi status member dan penukaran reward."
+        }
+      },
+      {
+        "page": 8,
+        "title": "Login & Keamanan",
+        "content": {
+          "security_features": [
+            "Multi-Auth System (User & Admin).",
+            "Google OAuth: Login cepat dan aman menggunakan akun Google.",
+            "Reset Password via Email.",
+            "Proteksi data pengguna dan sanitasi input."
+          ]
+        }
+      },
+      {
+        "page": 9,
+        "title": "Flowchart Login",
+        "content": {
+          "description": "Menjelaskan alur autentikasi dari input kredensial, validasi oleh sistem, integrasi Google OAuth, hingga pengarahan ke dashboard yang sesuai (User/Admin).",
+          "diagram_reference": "Login-Flowchart-Diagram.jpg"
+        }
+      },
+      {
+        "page": 10,
+        "title": "Notifikasi",
+        "content": {
+          "notification_types": [
+            "Push Notifications: Menggunakan Firebase Cloud Messaging (FCM).",
+            "Real-time Updates: Notifikasi pesanan baru untuk admin.",
+            "Order Status: Pemberitahuan perubahan status pengiriman untuk pelanggan.",
+            "Service Worker: Notifikasi tetap berjalan meski website ditutup."
+          ]
+        }
+      },
+      {
+        "page": 11,
+        "title": "Admin Panel",
+        "content": {
+          "dashboard_features": [
+            "Dibangun dengan Filament PHP Framework.",
+            "Manajemen Produk & Kategori secara dinamis.",
+            "Monitoring Pesanan masuk secara real-time.",
+            "Manajemen Data Pengguna dan Status Member.",
+            "Widget Statistik untuk analisis penjualan."
+          ]
+        }
+      },
+      {
+        "page": 12,
+        "title": "Deployment & SEO (Search Console)",
+        "content": {
+          "hosting": "Aplikasi telah dihosting secara publik untuk akses real-time di mana saja.",
+          "seo": "Terdaftar di Google Search Console untuk optimasi indeks pencarian, pemantauan performa, dan memastikan visibilitas maksimal di mesin pencari."
+        }
+      },
+      {
+        "page": 13,
+        "title": "Mobile App (APK)",
+        "content": {
+          "mobile_features": [
+            "Aplikasi Android berbasis WebView untuk akses instan.",
+            "Smart App Banner untuk promosi instalasi aplikasi.",
+            "Optimasi Tampilan: Elemen web disesuaikan saat dibuka di lingkungan WebView.",
+            "Akses lebih cepat melalui icon di home screen perangkat."
+          ]
+        }
+      },
+      {
+        "page": 14,
+        "title": "Teknologi",
+        "content": {
+          "stack": [
+            "PHP 8.2+ & Laravel 12",
+            "Filament PHP v3.3",
+            "MySQL Database",
+            "Tailwind CSS 4 & Bootstrap 5",
+            "Xendit, Firebase, Google API",
+            "Vite JS Bundler"
+          ]
+        }
+      },
+      {
+        "page": 15,
+        "title": "Hasil & Dampak",
+        "content": {
+          "outcomes": [
+            "Peningkatan efisiensi waktu pemesanan hingga 50%.",
+            "Manajemen stok dan pesanan yang lebih terorganisir.",
+            "Meningkatkan loyalitas pelanggan melalui sistem poin.",
+            "Transparansi transaksi melalui invoice otomatis dan riwayat pesanan."
+          ]
+        }
+      },
+      {
+        "page": 16,
+        "title": "Penutup",
+        "content": {
+          "message": "Kedai Cendana siap membawa bisnis kuliner ke level berikutnya dengan integrasi teknologi yang handal.",
+          "contact": "Kunjungi kami di website resmi atau hubungi SukaMCD untuk informasi lebih lanjut.",
+          "thank_you": "Terima Kasih!"
+        }
+      }
+    ]
+  }
+}

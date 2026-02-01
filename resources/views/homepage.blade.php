@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('layout.seo', ['title' => 'Kedai Cendana - Beranda'])
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/filament/filament/app.css') }}" rel="stylesheet">
-    
+
     <link href="{{ asset('css/layout.css?v=1.0') }}" rel="stylesheet">
-    
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -129,10 +130,9 @@ $imgPath=$product->gambar;
                     <div class="ps-lg-4">
                         <h2 class="display-5 fw-bold mb-4">Kedai Cendana: <span class="text-primary">Pempek & Bakmi
                                 Ayam</span></h2>
-                        <p class="lead text-secondary mb-4">Kedai Cendana adalah kedai kontemporer yang menghadirkan
-                            cita rasa autentik dengan sentuhan modern. Kami berkomitmen menyajikan hidangan berkualitas
-                            tinggi dari bahan-bahan pilihan.</p>
-
+                        <p class="lead text-secondary mb-4">Kedai Cendana menyajikan Pempek dan Bakmi Ayam dengan resep
+                            asli dan bahan berkualitas. Kami berkomitmen memberikan cita rasa yang autentik dan
+                            kesegaran di setiap hidangan.</p>
                         <div class="row g-4 mb-5">
                             <div class="col-6">
                                 <div class="d-flex align-items-center">
@@ -201,13 +201,11 @@ $imgPath=$product->gambar;
                             </div>
                             <div class="col-md-8">
                                 <h3 class="fw-bold mb-3">Visi & Misi Kami</h3>
-                                <p class="text-secondary">Dengan semangat inovasi, kami menghadirkan menu favorit untuk
-                                    menemani momen spesial Anda. Bagi kami, makanan bukan sekadar santapan—tetapi
-                                    pengalaman yang menghubungkan orang.</p>
-                                <p class="text-secondary">Kedai kami bermula dari sebuah garasi kecil di tahun 2014,
-                                    dengan semangat untuk melestarikan kuliner tradisional dalam balutan gaya hidup masa
-                                    kini. Kini, kami bangga menjadi bagian dari keseharian ribuan pelanggan setia kami.
-                                </p>
+                                <p class="text-secondary">Kami berfokus pada kualitas rasa dan pelayanan untuk
+                                    memberikan pengalaman makan yang memuaskan bagi setiap pelanggan.</p>
+                                <p class="text-secondary">Berawal dari kecintaan terhadap kuliner khas Indonesia, Kedai
+                                    Cendana terus berkomitmen menjaga keaslian resep dan kebersihan bahan untuk kepuasan
+                                    Anda.</p>
                                 <div class="mt-4">
                                     <h6 class="fw-bold mb-3">Kenapa Memilih Kami?</h6>
                                     <div class="d-flex mb-2">

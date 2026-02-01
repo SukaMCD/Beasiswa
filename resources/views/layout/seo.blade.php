@@ -2,11 +2,11 @@
     $title = $title ?? 'Kedai Cendana';
     $description =
         $description ??
-        'Kedai Cendana - Pempek dan bakmi ayam yang lezat dan enak.';
+        'Kedai Cendana: Pempek dan Bakmi Ayam dengan cita rasa yang autentik.';
     $keywords =
         $keywords ??
         'kedai cendana, pempek, bakmi ayam, tangerang, pondok bahar, pempek cendana, bakmi cendana';
-    $image = $image ?? asset('images/kedai-cendana-rounded.webp');
+    $image = $image ?? asset('images/kedai-cendana-box.png');
     $url = url()->current();
 @endphp
 

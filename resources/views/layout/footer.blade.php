@@ -32,8 +32,8 @@
             <div class="footer-links-col">
                 <h4 class="footer-heading">Jam Operasional</h4>
                 <ul class="footer-link-list">
-                    <li><a href="#">Senin - Jumat: 17:00 - 00:00</a></li>
-                    <li><a href="#">Sabtu - Minggu: 17:00 - 01:00</a></li>
+                    <li><a href="#">Senin - Jumat: 10:00 - 21:00</a></li>
+                    <li><a href="#">Sabtu - Minggu: 10:00 - 22:00</a></li>
                     <li><a href="#">Melayani Delivery & Pick Up</a></li>
                 </ul>
             </div>
