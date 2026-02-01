@@ -42,7 +42,7 @@
 
 - **Push Notifications**: Notifikasi real-time untuk admin dan user menggunakan **Firebase Cloud Messaging (FCM)**.
 - **Service Worker**: Dukungan notifikasi di latar belakang agar tetap sampai meskipun website sedang ditutup.
-- **Kontak & Ulasan**: Form kontak interaktif yang terintegrasi dengan **EmailJS**.
+- **Kontak**: Form kontak interaktif yang terintegrasi dengan **EmailJS**.
 
 ### Manajemen (Admin)
 
@@ -63,6 +63,20 @@
 | **Database**             | MySQL                                                                               |
 | **Integrasi Pihak ke-3** | Xendit API, Google Socialite, EmailJS, Kreait Firebase                              |
 | **Lainnya**              | DomPDF (PDF Invoices), SweetAlert2                                                  |
+| **Dokumentasi**          | [Diagram Dokumentasi](docs/)                |
+
+---
+
+## Dokumentasi Teknis
+
+Untuk memahami lebih lanjut mengenai arsitektur dan alur sistem, silakan lihat dokumen berikut:
+
+- [Final Flowchart Diagram](docs/Final-Flowchart-Diagram.jpg) - Alur sistem secara keseluruhan.
+- [Kedai Cendana ERD](docs/Kedai-Cendana-ERD.svg) - Skema database.
+- [Login Flowchart Diagram](docs/Login-Flowchart-Diagram.jpg) - Alur autentikasi pengguna.
+- [Pembelian dan Point Flowchart Diagram](docs/Pembelian-dan-Point-Flowchart-Diagram.jpg) - Alur transaksi dan loyalitas.
+
+---
 
 ---
 
@@ -79,10 +93,12 @@ Aplikasi ini mengusung desain **Premium & Modern** dengan:
 
 ## Lisensi
 
-Proyek ini didistribusikan di bawah Lisensi **MIT**. Silakan lihat berkas `LICENSE` untuk informasi lebih lanjut.
+Proyek ini dilindungi oleh hak cipta. Kode dapat dibaca untuk edukasi tetapi **TIDAK diperbolehkan untuk digunakan dalam produksi atau tujuan komersial lainnya**.
+
+Silakan lihat berkas [LICENSE](LICENSE) untuk detail hukum lengkap (Non-commercial All Rights Reserved).
 
 ---
 
 <p align="center">
-  Dibuat oleh <strong>Kedai Cendana Team</strong>
+  Dibuat oleh <strong>SukaMCD</strong>
 </p>
